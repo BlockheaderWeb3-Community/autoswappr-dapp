@@ -8,9 +8,16 @@ export default {
   ],
   theme: {
     extend: {
+      textColor:{
+        "main-white":"#F9F9F9",
+        "dark-blue":"#433B5A"
+      },
       backgroundImage: {
         "main-bg": "url('/main-background.png')",
       },
+      fontFamily:{
+        "open-sans":['Open Sans', 'sans-serif'],
+      }
     },
   },
   plugins: [],
