@@ -7,6 +7,7 @@ export default function Home() {
         Activate auto-swap from unstable assets to a stable asset
       </h1>
       <Swapper />
+      
     </div>
   );
 }

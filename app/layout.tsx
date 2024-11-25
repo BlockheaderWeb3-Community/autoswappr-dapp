@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Providers>
-        <body className="relative w-full bg-main-bg bg-cover bg-center bg-no-repeat pt-[120px]">
+        <body className="relative w-full bg-cover bg-center bg-no-repeat pt-[120px]">
           <Navbar />
           {children}
         </body>
