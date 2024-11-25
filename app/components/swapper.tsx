@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useAccount } from "@starknet-react/core";
 import { RefreshCcw } from "lucide-react";
 import { Token, tokenPrices } from "@/constants/tokens";

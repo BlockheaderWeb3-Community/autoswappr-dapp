@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./components/navbar";
+import Footer from "./components/footer";
 import { Providers } from "./components/providers";
 
 export const metadata: Metadata = {
@@ -16,9 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Providers>
-        <body className="relative w-full bg-main-bg bg-cover bg-center bg-no-repeat pt-[120px]">
+        <body className="relative w-full bg-[#08001F] bg-cover bg-center bg-no-repeat">
           <Navbar />
           {children}
+          <Footer />
         </body>
       </Providers>
     </html>
