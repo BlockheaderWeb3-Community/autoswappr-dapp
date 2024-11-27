@@ -40,7 +40,7 @@ export function SelectBaseToken() {
             <Image
               src={usdt}
               alt="USDT"
-              className="md:w-[140px] md:h-[140px] w-[50px] h-[50px] mb-3"
+              className="md:w-[100px] md:h-[100px] w-[50px] h-[50px] mb-3"
             />
             <p className="text-base sm:text-xl font-medium text-white mb-1">
               Tether
@@ -62,7 +62,7 @@ export function SelectBaseToken() {
             <Image
               src={usdc}
               alt="USDC"
-              className="md:w-[140px] md:h-[140px] w-[50px] h-[50px] mb-3"
+              className="md:w-[100px] md:h-[100px] w-[50px] h-[50px] mb-3"
             />
             <p className="text-base sm:text-xl font-medium text-white mb-1">
               USD Coin
