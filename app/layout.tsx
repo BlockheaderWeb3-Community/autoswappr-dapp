@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./components/navbar";
 import { StarknetProvider } from "../app/components/starknet-provider";
+import { Providers } from "./components/providers";
+import Footer from "./components/footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,6 +23,8 @@ export default function RootLayout({
           {children}
         </body>
       </StarknetProvider>
+
+      </Providers>
     </html>
   );
 }
