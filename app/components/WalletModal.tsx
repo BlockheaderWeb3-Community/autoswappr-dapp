@@ -1,7 +1,7 @@
 "use client";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react"; // Added useState
 import { useConnect } from "@starknet-react/core";
 import { X } from "lucide-react";
 import Image from "next/image";
@@ -13,15 +13,16 @@ interface WalletModalProps {
 
 const walletIcons = {
   argentX: "/assets/wallets/argent.svg",
-  webwallet: "/assets/wallets/argent.svg", // For Argent Mobile
+  webwallet: "/assets/wallets/argent.svg",
   braavos: "/assets/wallets/braavos.svg",
 };
 
 export function WalletModal({ isOpen, setIsOpen }: WalletModalProps) {
   const { connect, connectors } = useConnect();
+  // Add state to track selected wallet
+  const [selectedConnector, setSelectedConnector] = useState<any>(null);
 
   const getWalletDetails = (connector: any) => {
-    // Handle Argent Mobile special case
     if (connector.id === "webwallet") {
       return {
         name: "Argent",
@@ -30,7 +31,6 @@ export function WalletModal({ isOpen, setIsOpen }: WalletModalProps) {
       };
     }
 
-    // Handle other wallets
     switch (connector.id) {
       case "argentX":
         return {
@@ -53,13 +53,24 @@ export function WalletModal({ isOpen, setIsOpen }: WalletModalProps) {
     }
   };
 
+  // Handle the final connection when Continue is clicked
+  const handleContinue = () => {
+    if (selectedConnector) {
+      connect({ connector: selectedConnector });
+      setIsOpen(false);
+      setSelectedConnector(null); // Reset selection after connecting
+    }
+  };
+
+  // Handle closing the modal
+  const handleClose = () => {
+    setIsOpen(false);
+    setSelectedConnector(null); // Reset selection when closing
+  };
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog
-        as="div"
-        className="relative z-50"
-        onClose={() => setIsOpen(false)}
-      >
+      <Dialog as="div" className="relative z-50" onClose={handleClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -69,7 +80,7 @@ export function WalletModal({ isOpen, setIsOpen }: WalletModalProps) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/30" />
+          <div className="fixed inset-0 bg-black/60" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -83,8 +94,8 @@ export function WalletModal({ isOpen, setIsOpen }: WalletModalProps) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform rounded-3xl bg-[#0A041C] p-8 shadow-xl transition-all">
-                <div className="flex justify-between items-center mb-8">
+              <Dialog.Panel className="w-full text-center max-w-md md:max-w-[800px] transform rounded-3xl bg-[#08001F] border border-[#170F2E] p-8 shadow-xl transition-all">
+                <div className="flex relative justify-center mt-6 text-center items-center mb-6">
                   <Dialog.Title
                     as="h3"
                     className="text-2xl font-medium text-white"
@@ -92,31 +103,31 @@ export function WalletModal({ isOpen, setIsOpen }: WalletModalProps) {
                     Connect wallet
                   </Dialog.Title>
                   <button
-                    onClick={() => setIsOpen(false)}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    onClick={handleClose}
+                    className="text-gray-400 hover:text-white absolute right-0 transition-colors"
                   >
                     <X className="w-6 h-6" />
                   </button>
                 </div>
 
-                <p className="text-gray-400 mb-8">
+                <p className="text-gray-400 my-8">
                   Choose a wallet you want to connect to Auto-swapper
                 </p>
 
-                <div className="space-y-4 mb-8">
+                <div className="space-y-8 flex justify-center items-center flex-col mb-8">
                   {connectors.map((connector) => {
                     const walletDetails = getWalletDetails(connector);
+                    const isSelected = selectedConnector?.id === connector.id;
+
                     return (
                       <button
                         key={connector.id}
-                        onClick={() => {
-                          connect({ connector });
-                          setIsOpen(false);
-                        }}
-                        className="w-full flex items-center justify-between p-4 rounded-full
-                          border border-[#2C3356] hover:border-blue-500 transition-colors"
+                        onClick={() => setSelectedConnector(connector)}
+                        className={`w-full sm:w-[416px] flex items-center justify-between p-4 rounded-full
+                          border ${isSelected ? "border-blue-500" : "border-[#2C3356]"} 
+                          hover:border-blue-500 transition-colors`}
                       >
-                        <div className="flex items-center gap-3">
+                        <div className="flex justify-center mx-auto items-center gap-2">
                           <div className="relative w-8 h-8">
                             <Image
                               src={walletDetails.icon}
@@ -141,8 +152,15 @@ export function WalletModal({ isOpen, setIsOpen }: WalletModalProps) {
                 </div>
 
                 <button
-                  className="w-full py-4 rounded-full bg-[#2C3356] text-white hover:bg-[#3C4366] transition-colors"
-                  onClick={() => setIsOpen(false)}
+                  className={`w-full sm:w-[416px] mb-8 mt-10 py-4 rounded-full 
+                    ${
+                      selectedConnector
+                        ? "bg-blue-600 hover:bg-blue-700"
+                        : "bg-[#100827] hover:bg-[#08001F]"
+                    } 
+                    text-white transition-colors`}
+                  onClick={handleContinue}
+                  disabled={!selectedConnector}
                 >
                   Continue
                 </button>

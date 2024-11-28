@@ -23,13 +23,13 @@ const WalletBar: React.FC = () => {
           <WalletModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
         </>
       ) : (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-[280px] bg-[#100827]   py-3 rounded-full text-sm leading-5">
           <div className="text-base font-medium px-4 py-2 bg-greenish-500 text-white rounded-lg">
             {address.slice(0, 6)}...{address.slice(-4)}
           </div>
           <button
             onClick={() => disconnect()}
-            className="px-4 py-2 bg-greenish-500 hover:bg-greenish-300 text-white font-semibold rounded-lg transition-colors"
+            className=" pl-8 bg-greenish-500 hover:bg-greenish-300 text-white font-semibold transition-colors"
           >
             Disconnect
           </button>
