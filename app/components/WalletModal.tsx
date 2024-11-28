@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react"; // Added useState
-import { useConnect } from "@starknet-react/core";
+import { useConnect, Connector } from "@starknet-react/core";
 import { X } from "lucide-react";
 import Image from "next/image";
 
@@ -19,10 +19,10 @@ const walletIcons = {
 
 export function WalletModal({ isOpen, setIsOpen }: WalletModalProps) {
   const { connect, connectors } = useConnect();
-  // Add state to track selected wallet
-  const [selectedConnector, setSelectedConnector] = useState<any>(null);
+  // Update state type to use Connector
+  const [selectedConnector, setSelectedConnector] = useState<Connector | null>(null);
 
-  const getWalletDetails = (connector: any) => {
+  const getWalletDetails = (connector: Connector) => {
     if (connector.id === "webwallet") {
       return {
         name: "Argent",

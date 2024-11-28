@@ -16,15 +16,12 @@
     "@headlessui/react": "2.2.0",
     "@nextui-org/react": "2.4.8",
     "@starknet-react/chains": "3.0.0",
-    "@starknet-react/core": "3.6.0",
     "framer-motion": "11.11.17",
-    "get-starknet": "3.3.3",
-    "get-starknet-core": "3.3.4",
     "husky": "^9.1.6",
     "lucide-react": "0.460.0",
     "next": "15.0.3",
-    "react": "18.0.0",
-    "react-dom": "18.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "starknet": "6.11.0"
   },
   "devDependencies": {
