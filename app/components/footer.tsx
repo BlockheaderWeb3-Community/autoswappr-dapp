@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col-reverse md:flex-row justify-between items-center w-full min-h-[100px] bg-[#000014] px-4 md:px-8 lg:px-20 py-6 md:py-0 gap-6 md:gap-4">
+    <footer className="relative flex flex-col-reverse md:flex-row justify-between items-center w-full min-h-[100px] bg-[#000014] px-4 md:px-8 lg:px-20 py-6 md:py-0 gap-6 md:gap-4 mt-[100px]">
       {/* Copyright section */}
       <div className="text-center md:text-left">
         <p className="text-sm md:text-base text-gray-600">
@@ -12,7 +12,7 @@ const Footer = () => {
       </div>
 
       {/* Social icons section */}
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-12">
         <Image
           className="w-4 h-4 md:w-5 md:h-5 hover:opacity-80 cursor-pointer"
           src="git.svg"

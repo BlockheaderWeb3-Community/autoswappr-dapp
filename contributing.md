@@ -37,13 +37,13 @@ If you want to ask a question, we assume that you have read the available [Docum
 
 ### Before Asking a Question
 
-1. Search for existing [Issues](/issues) that might already answer your question.
+1. Search for existing [Issues](https://github.com/BlockheaderWeb3-Community/autoswappr-dapp/issues?q=is%3Aopen+is%3Aissue) that might already answer your question.
 2. If an issue addresses your concern but you still need clarification, add your question to that issue.
 3. Search the internet for answers related to your question.
 
 ### If You Still Have Questions
 
-1. Open a new [Issue](/issues/new).
+1. Open a new [Issue](https://github.com/BlockheaderWeb3-Community/autoswappr-dapp/issues/new).
 2. Provide as much context as possible about your problem.
 3. Share project and platform versions (e.g., Node.js, npm) relevant to your question.
 
@@ -70,7 +70,7 @@ To help us address bugs quickly, please follow these steps:
 1. Ensure you are using the latest version.
 2. Confirm that your issue is not caused by incompatible environment components or versions.
 3. Read the documentation to ensure the issue is not a misunderstanding.
-4. Check if the issue has already been reported in the [bug tracker](/issues).
+4. Check if the issue has already been reported in the [bug tracker](https://github.com/BlockheaderWeb3-Community/autoswappr-dapp/issues?q=is%3Aopen+is%3Aissue).
 5. Search the internet (e.g., Stack Overflow) for similar issues.
 
 #### Collect Information About the Bug
@@ -85,7 +85,7 @@ To help us address bugs quickly, please follow these steps:
 
 **Note:** Never report security-related vulnerabilities publicly. Instead, email such reports directly to the developer.
 
-1. Open a new [Issue](/issues/new).
+1. Open a new [Issue](https://github.com/BlockheaderWeb3-Community/autoswappr-dapp/issues/new).
 2. Clearly explain the expected behavior and the actual behavior.
 3. Include detailed reproduction steps and any relevant code snippets.
 4. Provide all collected information (e.g., stack trace, platform details).
