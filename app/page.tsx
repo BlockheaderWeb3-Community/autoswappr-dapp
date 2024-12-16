@@ -14,7 +14,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="">
+    <main className="pb-10">
       {/* Hero Section */}
       <div className="min-h-screen relative flex flex-col items-center justify-center text-center md:pt-[5px] h-screen px-4">
         <div className="w-full h-[138px] bg-main-bg bg-cover absolute top-0"></div>
@@ -213,7 +213,7 @@ export default function Home() {
 
             {/* Token Swap Rows */}
             {[
-              { from: btc, to: strk },
+              { from: btc, to: usdt },
               { from: strk, to: sol },
               { from: btc, to: usdc },
               { from: eth, to: usdt },
