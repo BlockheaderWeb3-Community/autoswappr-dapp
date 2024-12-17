@@ -6,7 +6,13 @@ import usdc from "../../public/coin-logos-svg/usdc-logo.svg"
 import usdt from "../../public/coin-logos-svg/usdt-logo.svg"
 import graph from "../../public/coin-logos-svg/graph-logo.svg"
 import Image from "next/image";
+import { Metadata } from "next";
 
+export const metadata: Metadata ={
+  title:"History Log",
+  description:"Access your history log anytime — we're available 24/7"
+  }
+ 
 const history =[
     {
         from:{

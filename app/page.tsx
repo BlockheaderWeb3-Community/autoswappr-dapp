@@ -12,6 +12,8 @@ import usdt from "../public/coin-logos/usdt-logo.png";
 import m_Img from "../public/M-logo.svg";
 import Image from "next/image";
 
+
+
 export default function Home() {
   return (
     <main className="pb-10">

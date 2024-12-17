@@ -1,3 +1,11 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata ={
+  title:"Learn About Autoswappr",
+  description:"Discover how Autoswappr works. Learn how to swap your tokens without intermediaries. Get started with our comprehensive guide."
+  }
+
+
 export default function Faqs(){
     return <div className="grid gap-5">
     <div className="grid gap-2 font-normal leading-6 text-sm">
