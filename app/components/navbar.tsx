@@ -16,8 +16,8 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { title: "Home", href: "#" },
-    { title: "Activity", href: "#" },
+    { title: "Home", href: "/" },
+    { title: "Activity", href: "/activity-log" },
     { title: "Dex", href: "/dex" },
   ];
 
@@ -26,7 +26,7 @@ const Navbar = () => {
       <div className="h-full max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-x-[80px]">
           {/* Logo */}
-          <div className="flex items-center cursor-pointer">
+          <div className="flex items-center cursor-pointer" onClick={() => window.location.href = "/"}>
             <Image
               className="w-[100px] h-[44px] md:w-[124px] md:h-[54px]"
               src={Logo}
