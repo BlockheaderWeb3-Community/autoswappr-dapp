@@ -69,11 +69,28 @@ const Swapper = () => {
     }, 2000);
   };
 
+  const STABLE_TOKENS: Token[] = ['USDT', 'USDC'];
+
   const handleTokenSwap = () => {
+    const isStableTarget = STABLE_TOKENS.includes(toToken);
+    const isStableSource = STABLE_TOKENS.includes(fromToken);
+    
+    if (isStableTarget && !isStableSource) {
+      setError("Can only swap stable tokens into stable tokens");
+      return;
+    }
+  
     const temp = fromToken;
     setFromToken(toToken);
     setToToken(temp);
+    setError(""); 
   };
+
+  // const handleTokenSwap = () => {
+  //   const temp = fromToken;
+  //   setFromToken(toToken);
+  //   setToToken(temp);
+  // };
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
