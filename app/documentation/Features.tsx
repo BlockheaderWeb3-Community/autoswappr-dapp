@@ -2,6 +2,7 @@ import Image from "next/image";
 import getHero from "../../public/featureTop.png"
 import getMid from "../../public/featureEnd.png"
 
+  
 export default function Features(){
     return <div className="w-full relative bg-[#08001F]">   
     <Image src={getHero} alt="" className="w-full py-5" />

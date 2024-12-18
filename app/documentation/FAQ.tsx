@@ -1,3 +1,6 @@
+
+
+
 export default function Faqs(){
     return <div className="grid gap-5">
     <div className="grid gap-2 font-normal leading-6 text-sm">

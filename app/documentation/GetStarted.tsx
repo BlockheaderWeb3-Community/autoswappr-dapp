@@ -3,6 +3,7 @@ import getHero from "../../public/getting-started-hero.png";
 import getMid from "../../public/getting-started-mid.png";
 import getBottom from "../../public/getting-started-bottom.png";
 
+ 
 export default function GetStarted() {
   return (
     <div className="w-full relative bg-[#08001F]">
