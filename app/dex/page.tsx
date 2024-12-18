@@ -1,6 +1,11 @@
 import React from "react";
 import Swapper from "../components/swapper";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "DEX",
+  description: "Please select a token to swap.",
+};
 
 export default function page() {
   return (

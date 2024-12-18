@@ -3,38 +3,43 @@ import "./globals.css";
 import Navbar from "./components/navbar";
 import { StarknetProvider } from "./components/starknet-provider";
 import Footer from "./components/footer";
+import { siteConfig } from "@/config/site";
 
 
 export const metadata: Metadata = {
-  title: "Autoswappr",
-  description:
-    "Autoswappr is an innovative blockchain platform designed to simplify token management. Whether you're a trader, a frequent blockchain user, or a novice in crypto, Autoswappr ensures that every token you receive is automatically converted into a stable token of your choice, protecting your funds from volatility.",
+  metadataBase: new URL(siteConfig.url.base),
+  title: { default: siteConfig.name, template: `%s | ${siteConfig.name}` },
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  authors: [{ name: siteConfig.author, url: siteConfig.url.author }],
+  creator: siteConfig.author,
   openGraph: {
-    title: "Autoswappr",
-    description:
-      "Autoswappr is an innovative blockchain platform designed to simplify token management. Whether you're a trader, a frequent blockchain user, or a novice in crypto, Autoswappr ensures that every token you receive is automatically converted into a stable token of your choice, protecting your funds from volatility.",
     type: "website",
     locale: "en_US",
-    siteName: "Autoswappr",
-    // url: "https://autoswappr.com", 
-    // // Replace with your actual URL
-    // images: [
-    //   {
-    //     url: "https://autoswappr.com/og-image.png", 
-    //     width: 1200,
-    //     height: 630,
-    //     alt: "Autoswappr Platform",
-    //   },
-    // ],
+    url: siteConfig.url.base,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
   },
   twitter: {
-    title: "Autoswappr",
-    description:
-      "Autoswappr simplifies token management by automatically converting tokens to stablecoins, protecting your funds from volatility.",
-    images: ["https://x.com/auto_swappr/photo"], 
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
+    creator: "@auto_swappr",
+  },
+  icons: {
+    icon: "/favicon.ico",
   },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{

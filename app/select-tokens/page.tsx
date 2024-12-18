@@ -1,5 +1,11 @@
 import React from "react";
 import Selecttokens from "../components/select-tokens";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Token Selection",
+  description: "Please select a token to swap.",
+};
 
 const page = () => {
   return (
