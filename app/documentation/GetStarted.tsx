@@ -2,12 +2,7 @@ import Image from "next/image";
 import getHero from "../../public/getting-started-hero.png";
 import getMid from "../../public/getting-started-mid.png";
 import getBottom from "../../public/getting-started-bottom.png";
-import { Metadata } from "next";
 
-export const metadata: Metadata ={
-  title:"Learn About Autoswappr",
-  description:"Discover how Autoswappr works. Learn how to swap your tokens without intermediaries. Get started with our comprehensive guide."
-  }
  
 export default function GetStarted() {
   return (

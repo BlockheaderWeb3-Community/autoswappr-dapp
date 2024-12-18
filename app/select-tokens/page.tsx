@@ -1,11 +1,6 @@
 import React from "react";
 import Selecttokens from "../components/select-tokens";
-import { Metadata } from "next";
 
-export const metadata: Metadata ={
-  title:"Token Selection",
-  description:"Select the token you want to auto-swap"
-  }
 const page = () => {
   return (
     <div className="bg-main-bg bg-center md:bg-left w-full  bg-cover bg-no-repeat sm:h-[100vh] h-[150vh]">

@@ -1,11 +1,6 @@
 import React from "react";
 import Swapper from "../components/swapper";
-import { Metadata } from "next";
 
-export const metadata: Metadata ={
-title:"Autoswappr Dex",
-description:"Swap your choiced token without intermediaries."
-}
 
 export default function page() {
   return (

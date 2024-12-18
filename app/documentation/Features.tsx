@@ -1,13 +1,7 @@
 import Image from "next/image";
 import getHero from "../../public/featureTop.png"
 import getMid from "../../public/featureEnd.png"
-import { Metadata } from "next";
 
-export const metadata: Metadata ={
-  title:"Learn About Autoswappr",
-  description:"Discover how Autoswappr works. Learn how to swap your tokens without intermediaries. Get started with our comprehensive guide."
-  }
-  
   
 export default function Features(){
     return <div className="w-full relative bg-[#08001F]">   

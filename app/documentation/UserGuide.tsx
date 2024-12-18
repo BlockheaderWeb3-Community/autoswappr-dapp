@@ -1,9 +1,4 @@
-import { Metadata } from "next";
 
-export const metadata: Metadata ={
-  title:"Learn About Autoswappr",
-  description:"Discover how Autoswappr works. Learn how to swap your tokens without intermediaries. Get started with our comprehensive guide."
-  }
 
 
 export default function UserGuide(){
