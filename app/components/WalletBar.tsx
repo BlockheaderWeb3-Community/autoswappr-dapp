@@ -16,7 +16,7 @@ const WalletBar: React.FC = () => {
         <>
           <button
             onClick={() => setIsModalOpen(true)}
-            className=" py-3 w-[200px] bg-[#2AB2FF] rounded-full text-sm leading-5 px-4 bg-greenish-500 hover:bg-greenish-300 text-white font-semibold transition-colors"
+            className=" py-[16px] px-[24px] text-[14px] w-[204px] rounded-[8px] border-[1px] border-[#323537] leading-5 bg-[#02060D1F] hover:bg-[#02060D1F] text-white font-semibold transition-colors"
           >
             Connect Wallet
           </button>

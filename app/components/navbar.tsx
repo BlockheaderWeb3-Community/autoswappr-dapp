@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import WalletBar from "./WalletBar";
 import Image from "next/image";
-import Logo from "@/public/autoswappr.png";
+import Logo from "@/public/autoSwapprUpdated.png";
 import { X } from "lucide-react";
 import menu from "@/public/menu-11.svg";
 // import Link from "next/link";
@@ -17,14 +17,15 @@ const Navbar = () => {
 
   const navLinks = [
     { title: "Home", href: "/" },
+    { title: "AutoSwap", href: "/autoswap" },
     { title: "Activity", href: "/activity-log" },
     { title: "Dex", href: "/dex" },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full h-[88px] bg-[#000014CC] px-4 sm:px-5 md:px-[80px] z-20">
+    <nav className="fixed top-0 left-0 w-full h-[88px] bg-[#02060D1F] backdrop-blur-[24px] px-4 sm:px-5 md:px-[80px] z-20">
       <div className="h-full max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex items-center gap-x-[80px]">
+        <div className="flex items-center gap-x-[80px] w-full">
           {/* Logo */}
           <div className="flex items-center cursor-pointer" onClick={() => window.location.href = "/"}>
             <Image
@@ -35,16 +36,18 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <ul className="hidden md:flex items-center gap-6 md:left-[300px]">
-            {navLinks.map((link) => (
-              <li key={link.title}>
+          <ul className="hidden md:flex w-full justify-center items-center gap-4">
+            {navLinks.map((link,index) => (
+              <li key={link.title} className="flex items-center gap-4 ">
                 <a
                   href={link.href}
-                  className="text-base text-[#e7ecf0] hover:text-white transition-colors"
+                  className="text-[14px] cursor-pointer text-[#7E8489] hover:text-white transition-colors"
                 >
                   {link.title}
                 </a>
+                {index !== navLinks.length - 1 && <div className=" w-[3px] bg-[#1E2021] h-[12px] rounded-[8px]"></div>}
               </li>
+              
             ))}
           </ul>
         </div>
