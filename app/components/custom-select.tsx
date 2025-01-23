@@ -13,21 +13,21 @@ export const CustomSelect: React.FC<{
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative h-[10.45px] w-[40%] md-w[20%] md:h-[40px] md:w-[150px]">
+    <>
       <div
-        className="bg-transparent text-[#F7F7F7] border-[1px] border-[#08001F] font-semibold flex h-full w-full cursor-pointer items-center justify-between gap-2 rounded-sm px-2 py-[6px] text-[10px] md:gap-2 md:rounded-full md:text-[16px]"
+        className="bg-transparent text-[#F7F7F7] border-[1px] border-[#1E2021] px-[6px] py-[4px] sm:px-[8px] rounded-[900px] font-[600] text-[14px] sm:text-[16px] w-[90px] sm:w-[115px] cursor-pointer flex space-x-1 justify-between items-center"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className="flex items-center gap-x-1 text-sm">
+        <span className="flex items-center gap-x-1 text-xs sm:text-sm">
           <img
             src={tokenImages[selectedToken]}
-            className="w-7 h-7"
+            className="w-5 h-5 sm:w-6 sm:h-6"
             alt={selectedToken}
           />
           {selectedToken}
         </span>
         <span>
-          {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+          {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
         </span>
       </div>
 
@@ -50,6 +50,6 @@ export const CustomSelect: React.FC<{
           </Modal>
         </>
       )}
-    </div>
+    </>
   );
 };

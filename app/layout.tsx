@@ -48,7 +48,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <StarknetProvider>
-        <body className="relative w-full bg-[#08001F] bg-cover bg-center bg-no-repeat">
+        {/* NEW BG COLOR: #02060D */}
+        {/* OLD BG COLOR: #08001F */}
+        <body className="relative w-full bg-[#02060D] bg-cover bg-center bg-no-repeat">
           <Navbar />
           <main className="mt-24">        {/* i added margin top here */}
             {children}

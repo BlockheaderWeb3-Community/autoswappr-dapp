@@ -14,9 +14,10 @@ export default {
         lg: "1440px",
       },
       backgroundImage: {
+        "new-bg": "url('/new-background.png')",
         "main-bg": "url('/background1.svg')",
       },
     },
   },
-  plugins: [require('tailwind-scrollbar-hide')],
+  plugins: [require("tailwind-scrollbar-hide")],
 } satisfies Config;
