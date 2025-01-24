@@ -99,6 +99,7 @@ const Swapper = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="flex w-full h-full md:h-[600px] lg:h-[600px] bg-transparent relative">
       <div className="-z-[1] absolute inset-0 hidden md:flex w-full h-full bg-contain xl:bg-cover bg-center bg-no-repeat bg-new-bg"></div>
       <div className="px-8 w-full sm:w-[480px] flex flex-col items-center justify-start pt-8 mx-auto">
@@ -106,6 +107,14 @@ const Swapper = () => {
           <div className="w-full sm:w-[480px] flex flex-row items-center justify-between rounded-[8px] px-[16px] md:px-[24px] py-[16px] border-[1px] border-[#1E2021] bg-[#02060D]">
             <div className="w-[60%] flex flex-col items-start">
               <span className="pb-2 text-[14px] font-[400] text-left text-[#4C5053]">
+=======
+    <div className="flex w-full cursor-pointer flex-col items-center text-[#F7F7F7] rounded-[48px] p-[18px] md:w-[800px] m:h-[600px] md:p-[2rem] bg-[#08001F]">
+      <form className="m-0 w-full md:w-[480px]">
+        <div className="relative flex w-full flex-col items-center">
+          <div className="mb-4 flex w-full flex-col">
+            <div className="rounded-[24px] px-[10px] py-[10px] md:px-[24px] md:py-[20px] border border-[#170F2E] bg-[#08001F] ">
+              <h3 className="mb-2 text-[9.97px] md:text-[16px] text-left text-[#F7F7F7] text-base">
+>>>>>>> 63448a6afb6f573fbd5a6f03c62332d8708733a3
                 From
               </span>
               <input
@@ -131,18 +140,31 @@ const Swapper = () => {
             </div>
           </div>
 
+<<<<<<< HEAD
           <div className="absolute top-[25%] md:top-[18%] h-[60px] w-[60px] bg-[#02060D] rounded-full p-[8px] flex justify-center items-center border-[1px] border-[#1E2021] mx-auto group">
+=======
+          <div className="absolute top-[44%] group">
+>>>>>>> 63448a6afb6f573fbd5a6f03c62332d8708733a3
             <button
               type="button"
               onClick={handleTokenSwap}
               onMouseEnter={() => setShowTooltip(true)}
               onMouseLeave={() => setShowTooltip(false)}
+<<<<<<< HEAD
               className={`bg-[#1E2021] p-[8px] h-[40px] w-[40px] rounded-full
                 ${
                   STABLE_TOKENS.includes(fromToken) ||
                   STABLE_TOKENS.includes(toToken)
                     ? "cursor-pointer"
                     : "cursor-not-allowed opacity-50"
+=======
+              className={`h-[46px] w-[46px] rounded-full p-2 flex justify-center items-center border-[1px] border-[#1E1E1E] 
+                ${
+                  STABLE_TOKENS.includes(fromToken) ||
+                  STABLE_TOKENS.includes(toToken)
+                    ? "bg-[#170F2E] cursor-pointer"
+                    : "bg-[#2C2C2C] cursor-not-allowed opacity-50"
+>>>>>>> 63448a6afb6f573fbd5a6f03c62332d8708733a3
                 }`}
               disabled={
                 !(
@@ -156,6 +178,7 @@ const Swapper = () => {
                 color={
                   STABLE_TOKENS.includes(fromToken) ||
                   STABLE_TOKENS.includes(toToken)
+<<<<<<< HEAD
                     ? "#4C5053"
                     : "#4C5053"
                 }
@@ -164,6 +187,17 @@ const Swapper = () => {
             <div
               className={`absolute z-10 bottom-[-60px] left-1/2 transform -translate-x-1/2 bg-[#02060D] text-[#4C5053] text-xs rounded-lg p-2 w-[200px] text-center shadow-lg 
                 ${showTooltip ? "block" : "hidden"}`}
+=======
+                    ? "white"
+                    : "gray"
+                }
+              />
+            </button>
+
+            <div
+              className={`absolute z-10 bottom-[50px] left-1/2 transform -translate-x-1/2 bg-[#170F2E] text-white text-xs rounded-lg p-2 w-[200px] text-center shadow-lg 
+              ${showTooltip ? "block" : "hidden"}`}
+>>>>>>> 63448a6afb6f573fbd5a6f03c62332d8708733a3
             >
               To swap tokens ensure at least one token is a stablecoin (USDT,
               USDC)

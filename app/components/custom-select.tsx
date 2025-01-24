@@ -4,6 +4,7 @@ import { Modal } from "./modal";
 import { SwapFrom, SwapTo } from "./swap-modals";
 import { Token, tokenImages } from "@/constants/tokens";
 import { useState } from "react";
+import { createPortal } from "react-dom";
 
 export const CustomSelect: React.FC<{
   selectedToken: Token;
@@ -31,6 +32,7 @@ export const CustomSelect: React.FC<{
         </span>
       </div>
 
+<<<<<<< HEAD
       {isOpen && (
         <>
           <Modal isOpen={isOpen} handleClose={() => setIsOpen(!isOpen)}>
@@ -51,5 +53,29 @@ export const CustomSelect: React.FC<{
         </>
       )}
     </>
+=======
+      {isOpen &&
+        createPortal(
+          <>
+            <Modal isOpen={isOpen} handleClose={() => setIsOpen(!isOpen)}>
+              {from ? (
+                <SwapFrom
+                  handleClose={() => setIsOpen(!isOpen)}
+                  onTokenSelect={onTokenSelect}
+                  from
+                />
+              ) : (
+                <SwapTo
+                  handleClose={() => setIsOpen(!isOpen)}
+                  onTokenSelect={onTokenSelect}
+                  from={false}
+                />
+              )}
+            </Modal>
+          </>,
+          document.body
+        )}
+    </div>
+>>>>>>> 63448a6afb6f573fbd5a6f03c62332d8708733a3
   );
 };

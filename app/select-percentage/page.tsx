@@ -1,4 +1,3 @@
-import SelectPercentage from "./../components/select-percentage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,7 +5,7 @@ export const metadata: Metadata = {
   description: "Select the percent",
 };
 
-  
 export default function _SelectPercentage() {
-  return <SelectPercentage />;
+  // return <SelectPercentage />;
+  return <div></div>;
 }

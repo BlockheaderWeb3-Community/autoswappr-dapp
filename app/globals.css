@@ -1,24 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -50,7 +34,7 @@ input:-webkit-autofill {
 
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #433B5A #170F2E;
+  scrollbar-color: #433b5a #170f2e;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -59,17 +43,17 @@ input:-webkit-autofill {
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #170F2E;
+  background: #170f2e;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #433B5A;
+  background-color: #433b5a;
   border-radius: 4px;
-  border: 2px solid #170F2E;
+  border: 2px solid #170f2e;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: #5A4F7D;
+  background-color: #5a4f7d;
 }
 
 @media (max-width: 640px) {

@@ -5,7 +5,6 @@ import { StarknetProvider } from "./components/starknet-provider";
 import Footer from "./components/footer";
 import { siteConfig } from "@/config/site";
 
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url.base),
   title: { default: siteConfig.name, template: `%s | ${siteConfig.name}` },
@@ -48,16 +47,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <StarknetProvider>
+<<<<<<< HEAD
         {/* NEW BG COLOR: #02060D */}
         {/* OLD BG COLOR: #08001F */}
         <body className="relative w-full bg-[#02060D] bg-cover bg-center bg-no-repeat">
+=======
+        <body className="relative w-full bg-[#08001F]">
+>>>>>>> 63448a6afb6f573fbd5a6f03c62332d8708733a3
           <Navbar />
-          <main className="mt-24">        {/* i added margin top here */}
-            {children}
-          </main>
+          <main>{children}</main>
           <Footer />
         </body>
-
       </StarknetProvider>
     </html>
   );

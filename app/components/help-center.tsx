@@ -162,7 +162,7 @@ function HelpCenter() {
                         />
                       </svg>
 
-                      <p className="text-sm text-[#433B5A] truncate font-sans w-full">
+                      <p className="text-sm text-[#433B5A] truncate w-full">
                         {selectedFiles.length > 0
                           ? selectedFiles.map((file) => file.name).join(", ")
                           : "Add file or drop files here"}

@@ -1,11 +1,20 @@
-import { cairo } from "starknet";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
+<<<<<<< HEAD
   useAccount,
   useContract,
   useSendTransaction,
   useReadContract,
+=======
+  useContract,
+  useReadContract,
+  useSendTransaction,
+  useTransactionReceipt,
+>>>>>>> 63448a6afb6f573fbd5a6f03c62332d8708733a3
 } from "@starknet-react/core";
+import { useMemo } from "react";
 
+<<<<<<< HEAD
 const ApproveTokens = (
   contractAddress: `0x${string}`,
   spender: `0x${string}`,
@@ -101,3 +110,63 @@ const GetApprovedAmount = (
 };
 
 export { GetApprovedAmount, ApproveTokens };
+=======
+export function useContractFetch(
+  abi: any,
+  functionName: string,
+  address: `0x${string}`,
+  args: any[] = []
+) {
+  const { data, isLoading, refetch, isFetching, error } = useReadContract({
+    abi: abi,
+    functionName: functionName,
+    address: address,
+    args: args,
+  });
+
+  return { data, isLoading, refetch, isFetching, error };
+}
+
+export function useContractWriteUtility(
+  functionName: string,
+  args: any[],
+  abi: any,
+  contract_address: `0x${string}`
+) {
+  const { contract } = useContract({ abi, address: contract_address });
+
+  const calls = useMemo(() => {
+    if (
+      !contract ||
+      !args ||
+      args.some((arg) => arg === undefined || arg === null)
+    ) {
+      return undefined;
+    }
+
+    return [contract.populate(functionName, args)];
+  }, [contract, functionName, args]);
+
+  const {
+    sendAsync: writeAsync,
+    data: writeData,
+    isPending: writeIsPending,
+    error,
+  } = useSendTransaction({ calls });
+
+  const { isLoading: waitIsLoading, data: waitData } = useTransactionReceipt({
+    hash: writeData?.transaction_hash,
+    watch: true,
+  });
+
+  return {
+    writeAsync,
+    writeData,
+    writeIsPending,
+    waitIsLoading,
+    waitData,
+    calls,
+    error,
+  };
+}
+>>>>>>> 63448a6afb6f573fbd5a6f03c62332d8708733a3

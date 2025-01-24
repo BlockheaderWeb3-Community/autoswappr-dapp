@@ -146,74 +146,86 @@ const activityLog = [
 const ActivityLog = () => {
   return (
     <>
-      <section className="relative bg-cover bg-main-bg md:bg-inherit bg-center bg-no-repeat mt-8 py-[160px] mx-auto h-full overflow-hidden">
-        <h1 className="w-full text-center capitalize mb-8 text-md sm:text-lg md:text-2xl font-[600] text-main-white">
+      <section className="relative sm:h-[120vh] h-[150vh] bg-cover bg-main-bg md:bg-inherit bg-center bg-no-repeat mt-8 py-[160px] text-[#F9F9F9] mx-auto overflow-hidden">
+        <h1 className="text-[20px] md:text-4xl text-center font-semibold text-[#F9F9F9] mb-[40px]">
           Autoswappr Activity log
         </h1>
         {/* desktop */}
-        <table className="relative hidden px-4 sm:flex sm:flex-col w-[96%] md:w-[88%] lg:w-[64%] max-w-[800px] h-full mx-auto items-center justify-start">
-          <thead className="w-full border-[#170F2E] border-b">
-            <tr className="flex items-center justify-between space-x-4 capitalize font-normal text-xs md:text-sm w-full pb-3">
-              <th className="flex items-center justify-start flex-none w-[35%]">from</th>
-              <th className="flex items-start justify-start flex-none w-[15%]">to</th>
-              <th className="flex items-center justify-center flex-none w-[15%]">percentage</th>
-              <th className="flex items-center justify-end flex-none w-[27.5%]">Date/Time</th>
-            </tr>
-          </thead>
-          <tbody className="w-full overflow-y-scroll overflow-x-hidden scrollbar-hide max-h-[540px] md:max-h-[520px] xl:max-h-[560px]">
-            {activityLog.map((data, index) => {
-              return (
-                <tr
-                  className="flex items-center justify-between space-x-4 capitalize font-medium w-full py-3"
-                  key={index}
-                >
-                  <td className="flex items-center justify-start flex-none w-[35%] space-x-4">
-                    <h1 className="text-[#433B5A]">{index + 1}.</h1>
-                    <div className="flex gap-8 items-center">
-                      <div className="flex flex-none w-auto relative">
-                        <Image
-                          src={data.from.fromImage}
-                          alt="coin from"
-                          className="w-6 h-6 flex-none"
-                        />
-                        <Image
-                          src={data.from.toImage}
-                          alt="coin to"
-                          className="absolute left-5 flex-none"
-                        />
+        <div className="h-[900px] overflow-scroll">
+          <table className="relative hidden px-4 sm:flex sm:flex-col w-[96%] md:w-[88%] lg:w-[64%] max-w-[800px] h-full mx-auto items-center justify-start">
+            <thead className="w-full border-[#170F2E] border-b">
+              <tr className="flex items-center justify-between space-x-4 capitalize font-normal text-xs md:text-sm w-full pb-3">
+                <th className="flex items-center justify-start flex-none w-[35%]">
+                  from
+                </th>
+                <th className="flex items-start justify-start flex-none w-[15%]">
+                  to
+                </th>
+                <th className="flex items-center justify-center flex-none w-[15%]">
+                  percentage
+                </th>
+                <th className="flex items-center justify-end flex-none w-[27.5%]">
+                  Date/Time
+                </th>
+              </tr>
+            </thead>
+            <tbody className="w-full overflow-y-scroll overflow-x-hidden scrollbar-hide max-h-[540px] md:max-h-[520px] xl:max-h-[560px]">
+              {activityLog.map((data, index) => {
+                return (
+                  <tr
+                    className="flex items-center justify-between space-x-4 capitalize font-medium w-full py-3"
+                    key={index}
+                  >
+                    <td className="flex items-center justify-start flex-none w-[35%] space-x-4">
+                      <h1 className="text-[#433B5A]">{index + 1}.</h1>
+                      <div className="flex gap-8 items-center">
+                        <div className="flex flex-none w-auto relative">
+                          <Image
+                            src={data.from.fromImage}
+                            alt="coin from"
+                            className="w-6 h-6 flex-none"
+                          />
+                          <Image
+                            src={data.from.toImage}
+                            alt="coin to"
+                            className="absolute left-5 flex-none"
+                          />
+                        </div>
+                        <div className="capitalize text-main-white">
+                          <h2 className="text-sm md:text-base">
+                            {data.from.coinFrom}
+                          </h2>
+                          <h3 className="text-[#433B5A] text-xs md:text-sm">
+                            {data.from.coinTo}
+                          </h3>
+                        </div>
                       </div>
-                      <div className="capitalize text-main-white">
-                        <h2 className="text-sm md:text-base">
-                          {data.from.coinFrom}
-                        </h2>
-                        <h3 className="text-[#433B5A] text-xs md:text-sm">
-                          {data.from.coinTo}
-                        </h3>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="flex items-start justify-start flex-none flex-col w-[15%] uppercase text-main-white">
-                    <h2 className="text-sm md:text-base">
-                      {data.to.coinFromAmount} {data.to.coinFrom}
-                    </h2>
-                    <h3 className="text-[#433B5A] text-xs md:text-sm">
-                      {data.to.coinToAmount} {data.to.coinTo}
-                    </h3>
-                  </td>
-                  <td className="flex items-center justify-center flex-none w-[15%]">
-                    <span className="text-xs md:text-sm w-auto h-auto bg-[#100827] rounded-full px-6 py-3">
-                      {data.percentage}%
-                    </span>
-                  </td>
-                  <td className="flex items-end justify-end flex-none flex-col w-[27.5%] uppercase text-main-white pr-2">
-                    <h2 className="text-base">{data.date.day}</h2>
-                    <h3 className="text-[#433B5A] text-sm">{data.date.time}</h3>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                    </td>
+                    <td className="flex items-start justify-start flex-none flex-col w-[15%] uppercase text-main-white">
+                      <h2 className="text-sm md:text-base">
+                        {data.to.coinFromAmount} {data.to.coinFrom}
+                      </h2>
+                      <h3 className="text-[#433B5A] text-xs md:text-sm">
+                        {data.to.coinToAmount} {data.to.coinTo}
+                      </h3>
+                    </td>
+                    <td className="flex items-center justify-center flex-none w-[15%]">
+                      <span className="text-xs md:text-sm w-auto h-auto bg-[#100827] rounded-full px-6 py-3">
+                        {data.percentage}%
+                      </span>
+                    </td>
+                    <td className="flex items-end justify-end flex-none flex-col w-[27.5%] uppercase text-main-white pr-2">
+                      <h2 className="text-base">{data.date.day}</h2>
+                      <h3 className="text-[#433B5A] text-sm">
+                        {data.date.time}
+                      </h3>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
         {/* mobile */}
         <table className="sm:hidden leading-[18px] w-full mx-auto">
           <tbody className="capitalize text-main-white w-full flex flex-col flex-none justify-between h-full max-h-[550px] overflow-scroll scrollbar-hide px-2">
@@ -224,7 +236,9 @@ const ActivityLog = () => {
               <th className="flex-none flex items-center justify-start w-[40%]">
                 amount
               </th>
-              <th className="flex-none flex items-center justify-end w-auto">date/time</th>
+              <th className="flex-none flex items-center justify-end w-auto">
+                date/time
+              </th>
             </tr>
             {activityLog.map((data, index) => {
               return (
