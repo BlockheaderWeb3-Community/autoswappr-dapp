@@ -65,22 +65,41 @@ export default function Documentation() {
   return (
     <>
       <div className="hidden md:block w-full h-[100px] bg-main-bg bg-cover" />
-      <section className="bg-main-bg bg-center bg-cover md:bg-none leading-[19.07px] md:py-0 py-32 md:mt-10">
-        <h1 className="text-center font-semibold capitalize text-2xl pb-5">
-          documentation
+      {/* <section className="max-w-[740px] w-[95%] sm:w-4/5 mx-auto my-16 grid gap-10"> */}
+      <section className="bg-main-bg bg-center bg-cover md:bg-none leading-[19.07px] md:py-0 py-32 md:mt-10"> 
+      <div className="max-w-[776px] mx-auto text-center mb-12 px-4" > 
+        {/* style={{ marginLeft: '18.100rem' }} */}
+        <h1 className="text-2xl font-semibold capitalize mb-2 text-[#F3F5FF] text-left">
+          Documentation
         </h1>
+        <div className="text-[#A199B8] text-sm md:text-base leading-relaxed text-left">
+          <p>For transparency and the purpose of understanding what Autoswappr does and how it works,</p>
+          <p>we have documented every necessary information for you.</p>
+        </div>
+      </div>
+      {/* <h1 className="text-center text-[#F3F5FF] font-semibold capitalize text-2xl pb-5">
+        documentation
+      </h1>
+      <div className="max-w-[740px] mx-auto text-center mb-16 px-4">
+      <p className="text-[#A199B8] text-sm md:text-base">
+        For transparency and the purpose of understanding what Autoswapp does and how it works,
+        <br />
+        we have documented every necessary information for you.
+      </p>
+      </div> */}
         <main className="">
-          <div className="flex md:hidden px-4 mx-auto max-w-[740px] w-[95%] sm:w-4/5 my-16 gap-10">
+          <div className="flex md:hidden px-4 mx-auto max-w-[740px] w-[95%] sm:w-4/5 my-16 gap-10 items-center">
             <Image
               src={arrow}
               alt="arrow"
               className={`transition-all duration-300 m:hidden w-[30px] rotate-90`}
               onClick={decrease}
             />
+            
             <div className="w-3/4 font-medium text-xl text-center">
               <h1
                 onClick={viewHandler}
-                className={`${sections[number].id === view ? "text-[#1d77aa]" : ""} cursor-pointer`}
+                className={`${sections[number].id === view ? "text-[#A199B8]" : "text-[#A199B8]"} cursor-pointer`}
               >
                 {sections[number].title}
               </h1>
@@ -92,18 +111,23 @@ export default function Documentation() {
               onClick={increase}
             />
           </div>
-          <nav className="gap-5 mx-auto w-[70%] overflow-hidden md:w-fit hidden md:flex">
-            {sections.map((section) => (
+          {/* this is the nav  */}
+          <nav className="gap-5 mx-auto w-[70%] overflow-hidden md:w-fit hidden md:flex" style={{ marginRight: '4.100rem' }}>
+            {sections.map((section) => ( 
               <button
                 key={section.id}
                 onClick={() => setView(section.id)}
-                className={`text-[14px] md:text-lg font-[400] py-2 px-4 rounded-[48px] transition text-[#A199B8] ${view === section.id ? "bg-[#1779A0]" : "bg-[#120A29] hover:bg-[#120A29]"}`}
+                className={`text-[14px] md:text-lg font-[400] py-2 px-4 rounded-[8px] transition ${view === section.id ? "bg-[#323537] text-white" : "bg-[#120A29] text-[#A199B8] hover:bg-[#120A29]"}`}
+                // className={`text-[14px] md:text-lg font-[400] py-2 px-4 rounded-[48px] transition text-[#A199B8] ${view === section.id ? "bg-[#1779A0]" : "bg-[#120A29] hover:bg-[#120A29]"}`}
               >
                 {section.title}
               </button>
             ))}
           </nav>
-          <section className="max-w-[740px] w-[95%] sm:w-4/5 mx-auto my-16 grid gap-10">
+
+          
+          {/* I AM WORKING ON THIS */}
+          <section className="max-w-[740px] w-[95%] sm:w-4/5 mx-auto my-16 grid gap-10"> 
             {/* intro */}
             <div
               className="flex justify-between items-center border-b-[#433b5a] border-b-[2px] pb-5 cursor-pointer"
@@ -116,18 +140,20 @@ export default function Documentation() {
               }}
             >
               <div className="flex justify-between items-center gap-3">
-                <h3 className="capitalize leading-[27.24px] font-[400] text-[14px] sm:font-semibold sm:text-xl">
+                <h3 className="capitalize leading-[27.24px] font-[400] text-[#F3F5FF] text-[14px] sm:font-semibold sm:text-xl">
                   introduction
                 </h3>
                 <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#1d77aa] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
+                <h5 className="uppercase text-[#A199B8] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
                   brief overview of AUTOSWAPPER
                 </h5>
+
               </div>
               <Image
                 src={arrow}
                 alt="arrow"
-                className={`${view === "introduction" ? "rotate-0" : "-rotate-90"} transition-all duration-300`}
+                className={`${view === "introduction" ? "rotate-180" : "rotate-0"} transition-all duration-300`}
+                // className={`${view === "introduction" ? "rotate-0" : "-rotate-90"} transition-all duration-300`}
               />
             </div>
             {view === "introduction" && <Introduction />}
@@ -144,11 +170,11 @@ export default function Documentation() {
               }}
             >
               <div className="flex justify-between items-center gap-3">
-                <h3 className="capitalize leading-[27.24px] font-[400] text-[14px] sm:font-semibold sm:text-xl">
+                <h3 className="capitalize leading-[27.24px] font-[400] text-[14px] text-[#F3F5FF] sm:font-semibold sm:text-xl">
                   getting started
                 </h3>
                 <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#1d77aa] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
+                <h5 className="uppercase text-[#A199B8] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
                   step-by-step guide
                 </h5>
               </div>
@@ -172,11 +198,11 @@ export default function Documentation() {
               }}
             >
               <div className="flex justify-between items-center gap-3">
-                <h3 className="capitalize leading-[27.24px] font-[400] text-[14px] sm:font-semibold sm:text-xl">
+                <h3 className="capitalize leading-[27.24px] font-[400] text-[#F3F5FF] text-[14px] sm:font-semibold sm:text-xl">
                   Features
                 </h3>
                 <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#1d77aa] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
+                <h5 className="uppercase text-[#A199B8] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
                   what we offer
                 </h5>
               </div>
@@ -200,11 +226,11 @@ export default function Documentation() {
               }}
             >
               <div className="flex justify-between items-center gap-3">
-                <h3 className="capitalize leading-[27.24px] font-[400] text-[14px] sm:font-semibold sm:text-xl">
+                <h3 className="capitalize leading-[27.24px] font-[400] text-[#F3F5FF] text-[14px] sm:font-semibold sm:text-xl">
                   User Guide
                 </h3>
                 <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#1d77aa] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
+                <h5 className="uppercase text-[#A199B8] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
                   How it works
                 </h5>
               </div>
@@ -228,11 +254,11 @@ export default function Documentation() {
               }}
             >
               <div className="flex justify-between items-center gap-3">
-                <h3 className="capitalize leading-[27.24px] font-[400] text-[14px] sm:font-semibold sm:text-xl">
+                <h3 className="capitalize leading-[27.24px] font-[400] text-[#F3F5FF] text-[14px] sm:font-semibold sm:text-xl">
                   FAQs
                 </h3>
                 <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#1d77aa] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
+                <h5 className="uppercase text-[#A199B8] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
                   questions we are usually asked
                 </h5>
               </div>
@@ -256,12 +282,12 @@ export default function Documentation() {
               }}
             >
               <div className="flex justify-between items-center gap-3">
-                <h3 className="capitalize leading-[27.24px] font-[400] text-[14px] sm:font-semibold sm:text-xl">
+                <h3 className="capitalize leading-[27.24px] font-[400] text-[#F3F5FF] text-[14px] sm:font-semibold sm:text-xl">
                   Security
                 </h3>
                 <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#1d77aa] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
-                  How secure IS AUTOSWAPPR
+                <h5 className="uppercase text-[#A199B8] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
+                  How secure is AUTOSWAPPR
                 </h5>
               </div>
               <Image
@@ -284,11 +310,11 @@ export default function Documentation() {
               }}
             >
               <div className="flex justify-between items-center gap-3">
-                <h3 className="capitalize leading-[27.24px] font-[400] text-[14px] sm:font-semibold sm:text-xl">
+                <h3 className="capitalize leading-[27.24px] font-[400] text-[#F3F5FF] text-[14px] sm:font-semibold sm:text-xl">
                   Contact & Support
                 </h3>
                 <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#1d77aa] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
+                <h5 className="uppercase text-[#A199B8] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
                   reach out to us
                 </h5>
               </div>
@@ -306,3 +332,4 @@ export default function Documentation() {
     </>
   );
 }
+
