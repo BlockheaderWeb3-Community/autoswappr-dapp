@@ -32,28 +32,6 @@ export const CustomSelect: React.FC<{
         </span>
       </div>
 
-<<<<<<< HEAD
-      {isOpen && (
-        <>
-          <Modal isOpen={isOpen} handleClose={() => setIsOpen(!isOpen)}>
-            {from ? (
-              <SwapFrom
-                handleClose={() => setIsOpen(!isOpen)}
-                onTokenSelect={onTokenSelect}
-                from
-              />
-            ) : (
-              <SwapTo
-                handleClose={() => setIsOpen(!isOpen)}
-                onTokenSelect={onTokenSelect}
-                from={false}
-              />
-            )}
-          </Modal>
-        </>
-      )}
-    </>
-=======
       {isOpen &&
         createPortal(
           <>
@@ -75,7 +53,6 @@ export const CustomSelect: React.FC<{
           </>,
           document.body
         )}
-    </div>
->>>>>>> 63448a6afb6f573fbd5a6f03c62332d8708733a3
+    </>
   );
 };
