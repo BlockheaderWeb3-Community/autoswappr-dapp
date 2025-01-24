@@ -11,7 +11,8 @@ function SelectOption() {
     <select
       value={percentage || ""}
       onChange={handlePercentageChange}
-      className="p-[16px] bg-[#100827] rounded-3xl text-sm outline-none"
+      className="p-[16px] bg-[#100827] rounded-3xl text-sm outline-none border-r-8 border-[#100827]"
+      name="subject"
     >
       <option value="25%"></option>
       <option value="50%"></option>

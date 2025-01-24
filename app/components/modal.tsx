@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import ReactPortal from "./react-portal";
 
 interface ModalProps {
   children: React.ReactNode;
@@ -29,27 +28,11 @@ export function Modal({ children, isOpen, handleClose }: ModalProps) {
   }
 
   return (
-    <ReactPortal containerId="react-portal-modal-container">
-    <div className="w-full">
-      <div
-        className={`fixed w-full top-0 left-0 h-screen z-40 bg-neutral-800 opacity-50`}
-        onClick={handleClose}
-      />
-  
-      <div
-        onClick={handleClose}
-        className={`fixed w-full inset-0 flex items-center justify-center z-50
-          pt-20 md:p-0 overflow-x-hidden transition-all duration-300 ease-in-out`}
-      >
-        <div
-          onClick={(e) => e.stopPropagation()}
-          className="border  border-[#170F2E] rounded-3xl bg-[#08001F] sm:max-w-sm md:max-w-lg w-full"
-        >
-          {children}
-        </div>
-      </div>
+    <div
+      className="absolute inset-0 flex justify-center bg-black bg-opacity-60 backdrop-blur-sm z-[200]"
+      onClick={handleClose}
+    >
+      {children}
     </div>
-  </ReactPortal>
-  
   );
 }

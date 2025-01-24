@@ -1,101 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState } from "react";
 import { PenLine, X } from "lucide-react";
-
-const EnterAmountBlock = ({
-  setAmount,
-  setPercent,
-  amount,
-  disabled,
-}: {
-  setAmount: (amount: string) => void;
-  setPercent: (amount: number) => void;
-  amount: string;
-  disabled: boolean;
-}) => {
-  const numberRegex = /^[0-9]*[.,]?[0-9]*$/;
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (numberRegex.test(value)) {
-      setAmount(value);
-      setPercent(0);
-      return;
-    }
-  };
-  return (
-    <div className="w-full rounded-full flex flex-row items-center justify-between space-x-2 bg-[#100827]">
-      <input
-        type="text"
-        disabled={disabled}
-        value={disabled ? "" : amount}
-        onChange={handleAmountChange}
-        className={`placeholder:text-[#433B5A] text-[#F9F9F9] bg-transparent outline-none focus:outline-none w-full p-4 ${disabled ? "cursor-not-allowed" : "cursor-text"}`}
-        placeholder="Input how much you want to auto-swap"
-      />
-      <div className="w-fit h-full flex-none pr-4">
-        <PenLine />
-      </div>
-    </div>
-  );
-};
-
-const SelectPercentageBlock = ({
-  setPercent,
-  setAmount,
-  percent,
-  disabled,
-}: {
-  setPercent: (percent: number) => void;
-  setAmount: (amount: string) => void;
-  percent: number;
-  disabled: boolean;
-}) => {
-  const handlePercentChange = (value: number) => {
-    if (value === percent) {
-      setPercent(0);
-      return;
-    }
-    setPercent(value);
-    setAmount("");
-  };
-  return (
-    <fieldset className="w-full flex flex-col space-y-1">
-      <legend className="font-[400] text-[14px] text-[#F9F9F9]">
-        Select the percentage you want to auto-swap
-      </legend>
-      <div className="w-full flex gap-3 pt-4">
-        {[
-          { label: "25%", value: 25, id: "twenty-five" },
-          { label: "50%", value: 50, id: "fifty" },
-          { label: "75%", value: 75, id: "seventy-five" },
-          { label: "100%", value: 100, id: "hundred" },
-        ].map(({ label, value, id }) => (
-          <div
-            key={id}
-            className={`w-full flex items-center justify-center mx-auto`}
-          >
-            <input
-              type="radio"
-              id={id}
-              name="percent-group"
-              value={value}
-              className={`hidden peer/percent`}
-              onClick={() => handlePercentChange(value)}
-            />
-            <label
-              htmlFor={id}
-              className={`bg-[#100827] text-[#F9F9F9] text-[14px] font-[600] text-center w-full hover:cursor-pointer py-4 rounded-full select-none border border-transparent 
-                ${disabled ? "cursor-not-allowed" : "cursor-pointer"} 
-                ${value == percent ? "peer-checked/percent:border-blue-500" : "peer-checked/percent:border-transparent"}`}
-            >
-              {label}
-            </label>
-          </div>
-        ))}
-      </div>
-    </fieldset>
-  );
-};
+import { CheckIcon } from "@/svgs/CheckIcon";
+import { Coin } from "../utils/types";
 
 const BaseTokenBlock = ({
   setBaseToken,
@@ -112,7 +20,7 @@ const BaseTokenBlock = ({
     setBaseToken(value);
   };
   return (
-    <div className="w-full flex flex-col space-y-4">
+    <div className="w-full flex flex-col space-y-4 ">
       <div className="w-full flex flex-row items-center justify-start space-x-2">
         <img
           src="/time-half-pass.svg"
@@ -127,21 +35,24 @@ const BaseTokenBlock = ({
       <div className="w-full flex gap-8 sm:gap-16">
         {[
           {
-            logo: "/usdt-logo.svg",
-            label: "Usdt",
-            value: "usdt",
+            logo: "/usdt.svg",
+            label: "USDT",
+            value: "USDT",
             id: "usdt",
           },
           {
-            logo: "/usdc-logo.svg",
-            label: "Usdc",
-            value: "usdc",
+            logo: "/usdc.svg",
+            label: "USDC",
+            value: "USDC",
             id: "usdc",
           },
         ].map(({ logo, label, value, id }) => (
           <div
             key={id}
             className={`w-full flex items-center justify-center mx-auto`}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           >
             <input
               type="radio"
@@ -149,7 +60,9 @@ const BaseTokenBlock = ({
               name="base-token-group"
               value={value}
               className={`hidden`}
-              onClick={() => handleBaseTokenChange(value)}
+              onClick={() => {
+                handleBaseTokenChange(value);
+              }}
             />
             <label
               htmlFor={id}
@@ -168,15 +81,7 @@ const BaseTokenBlock = ({
                   {label.toUpperCase()}
                 </span>
               </div>
-              {baseToken == value ? (
-                <img
-                  src="/blue-checkmark-circle.svg"
-                  alt="check"
-                  className="w-[16px] h-[16px] sm:w-[20px] sm:h-[20px] absolute right-0"
-                />
-              ) : (
-                ""
-              )}
+              {baseToken == value ? <CheckIcon /> : ""}
             </label>
           </div>
         ))}
@@ -184,67 +89,88 @@ const BaseTokenBlock = ({
     </div>
   );
 };
-const SelectPercentage = () => {
+
+const SelectPercentage = ({
+  handleClose,
+  handleSelectCoin,
+  coin,
+}: {
+  handleClose: () => void;
+  handleSelectCoin: (coin: any, amount: number, base: string) => void;
+  coin: Coin;
+}) => {
   const [baseToken, setBaseToken] = useState("");
   const [amount, setAmount] = useState("");
-  const [percent, setPercent] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const numberRegex = /^[0-9]*[.,]?[0-9]*$/;
 
   const handleSubmit = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setBaseToken("");
-      setAmount("");
-      setPercent(0);
-    }, 3000);
+    handleSelectCoin(coin, parseFloat(amount), baseToken);
+    handleClose();
   };
 
   return (
-    <div className="py-16 h-auto flex flex-col items-center justify-center mx-auto w-full px-4">
-      <div className="w-full max-w-[800px] px-4 sm:px-8 py-12 border-[2px] border-[#170F2E] flex flex-col items-center justify-center space-y-4 rounded-xl">
+    <div
+      className="flex flex-col items-center text-[#F9F9F9] justify-center px-4 absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-[200]"
+      onClick={handleClose}
+    >
+      <div
+        className="w-full max-w-[800px] px-4 sm:px-8 py-12 border-[2px] border-[#170F2E] bg-[#08001F] flex flex-col items-center justify-center space-y-4 rounded-xl"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         <div className="flex flex-col items-center justify-center relative w-full sm:max-w-[90%]">
           <div className="text-center w-fit flex-none font-[600] text-[20px] sm:text-[24px] px-4">
             Select token(s) to auto-swap from
           </div>
-          <div className="absolute right-0 w-4 h-full flex-none flex items-center justify-center mx-auto">
+          <button
+            className="absolute right-0 w-4 h-full flex-none flex items-center justify-center mx-auto"
+            onClick={handleClose}
+          >
             <X className="cursor-pointer" />
-          </div>
+          </button>
         </div>
         <div className="w-full py-6 px-4 max-w-[620px] text-[14px] sm:text-[16px] leading-[22px] text-[#A199B8] text-center">
           You can select the percentage you want auto-swapped to your preferred
           base token or input the percentage yourself.
         </div>
         <div className="w-full sm:max-w-[90%] flex flex-col items-start justify-start space-y-6">
-          <EnterAmountBlock
-            setAmount={setAmount}
-            setPercent={setPercent}
-            amount={amount}
-            disabled={percent != 0}
-          />
-
-          <SelectPercentageBlock
-            setPercent={setPercent}
-            setAmount={setAmount}
-            percent={percent}
-            disabled={amount != ""}
-          />
+          <div className="w-full relative h-fit">
+            <input
+              type="text"
+              value={amount}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                e.stopPropagation();
+                const value = e.target.value;
+                if (numberRegex.test(value)) {
+                  setAmount(value);
+                  return;
+                }
+              }}
+              className={`placeholder:text-[#433B5A] bg-[#100827] text-[#F9F9F9] rounded-full outline-none focus:outline-none w-full p-4 ${!amount ? "cursor-not-allowed" : "cursor-text"}`}
+              placeholder="Input how much you want to auto-swap"
+            />
+            <div className="w-fit h-full flex-none pr-4 absolute top-4 right-2">
+              <PenLine />
+            </div>
+          </div>
 
           <BaseTokenBlock setBaseToken={setBaseToken} baseToken={baseToken} />
 
-          <div className="w-full flex flex-none items-center justify-center my-4 mx-auto bg-[#170F2E] h-[1px]"></div>
+          <div className="w-full my-4 mx-auto bg-[#170F2E] h-[1px]"></div>
 
           <div className="w-full mx-auto flex items-center justify-center">
             <button
-              onClick={handleSubmit}
-              disabled={baseToken == "" && (percent == 0 || amount == "")}
-              className={`bg-[#100827] rounded-full text-[16px] font-[600] text-[#F9F9F9] text-center py-4 w-full max-w-[416px]
-              ${
-                isLoading ? "cursor-not-allowed opacity-50" : "cursor-pointer"
-              }`}
+              onClick={(e) => {
+                e.stopPropagation();
+                console.log("submitting");
+                handleSubmit();
+              }}
+              disabled={!baseToken.length && !amount.length}
+              className="bg-[#100827] rounded-full text-[16px] font-[600] text-[#F9F9F9] text-center py-4 w-full max-w-[416px]"
               type="button"
             >
-              {isLoading ? "Processing..." : "Done"}
+              Done
             </button>
           </div>
         </div>

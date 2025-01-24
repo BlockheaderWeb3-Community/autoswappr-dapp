@@ -1,7 +1,5 @@
 "use client";
 
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
 import { X } from "lucide-react";
 import { useDisconnect } from "@starknet-react/core";
 
@@ -11,86 +9,60 @@ interface DisconnectWalletModalProps {
 }
 
 export default function DisconnectModal({
-  isOpen,
   setIsOpen,
 }: DisconnectWalletModalProps) {
   const { disconnect } = useDisconnect();
+
   const handleClose = () => {
     setIsOpen(false);
   };
 
   const handleDisconnect = () => {
     disconnect();
+    setIsOpen(false);
   };
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={handleClose}>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
+    <div
+      className="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm flex items-center justify-center"
+      onClick={handleClose}
+    >
+      <div className="w-full md:w-[800px] bg-[#08001F] text-center border border-[#170F2E] rounded-3xl py-12 px-6 relative">
+        <button
+          onClick={() => setIsOpen(false)}
+          className="text-gray-400 hover:text-white transition-colors absolute top-8 right-8"
         >
-          <div className="fixed inset-0 bg-black/60" />
-        </Transition.Child>
+          <X className="w-6 h-6" />
+        </button>
+        {/* Modal Header */}
+        <h3 className="text-[18px] lg:text-2xl font-medium text-[#F9F9F9]">
+          Disconnect wallet
+        </h3>
 
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <Dialog.Panel className="w-full text-center max-w-md md:max-w-[800px] transform rounded-3xl bg-[#08001F] border border-[#170F2E] p-8 shadow-xl transition-all">
-                <div className="flex relative justify-center mt-5 text-center items-center mb-3 lg:mb-5">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-[18px] lg:text-2xl font-medium text-white"
-                  >
-                    Disconnect wallet
-                  </Dialog.Title>
-                  <button
-                    onClick={handleClose}
-                    className="text-gray-400 hover:text-white absolute right-5 transition-colors"
-                  >
-                    <X className="w-6 h-6" />
-                  </button>
-                </div>
-
-                <div className="py-[30px] px-[16px] lg:py-[81px] lg:px-[55px] my-4 lg:my-6">
-                  <p className="text-gray-400 text-sm lg:text-base">
-                    You are disconnecting your wallet from Autoswappr. Are you
-                    sure you want to continue with this process?
-                  </p>
-                </div>
-
-                <div className="items-center grid grid-cols-[1fr_1fr] gap-x-4">
-                  <button
-                    className={`py-3 text-sm lg:text-base lg:py-4 rounded-full hover:bg-blue-700 bg-[#100827]  text-white transition-colors`}
-                    onClick={handleClose}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className="py-3 text-sm lg:text-base lg:py-4 rounded-full  bg-blue-600 hover:bg-blue-700 text-white transition-colors"
-                    onClick={handleDisconnect}
-                  >
-                    Yes, Disconnect
-                  </button>
-                </div>
-              </Dialog.Panel>
-            </Transition.Child>
-          </div>
+        {/* Modal Content */}
+        <div className="py-[30px] px-[16px] lg:py-[81px] lg:px-[55px] my-6">
+          <p className="text-[#A199B8] text-sm lg:text-base leading-[22px]">
+            You are disconnecting your wallet from Autoswappr. Are you sure you
+            want to continue with this process?
+          </p>
         </div>
-      </Dialog>
-    </Transition>
+
+        {/* Modal Actions */}
+        <div className="items-center grid grid-cols-[1fr_1fr] gap-x-4">
+          <button
+            className="py-3 text-sm lg:text-base lg:py-4 rounded-full hover:bg-blue-700 bg-[#100827] text-white transition-colors"
+            onClick={handleClose}
+          >
+            Cancel
+          </button>
+          <button
+            className="py-3 text-sm lg:text-base lg:py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+            onClick={handleDisconnect}
+          >
+            Yes, Disconnect
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

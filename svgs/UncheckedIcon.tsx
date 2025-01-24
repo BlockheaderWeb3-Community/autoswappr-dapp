@@ -14,8 +14,8 @@ export const UncheckedIcon = () => {
         <path
           d="M8 12.5L10.5 15L16 9"
           stroke="#433B5A"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     );

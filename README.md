@@ -11,6 +11,8 @@ Before you begin, ensure you have the following installed on your system:
 - Package Manager: You can use one of the following package managers:
     - `pnpm`: Install via npm with `npm install -g pnpm`.
 
+> **Warning**: This project uses `pnpm` as the package manager. Please do not use `npm` or `yarn` as they may cause dependency issues. If you don't have pnpm installed, you can install it via `npm install -g pnpm`.
+
 ## Installation
 
 - Clone the repository to your local machine:

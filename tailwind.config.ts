@@ -7,6 +7,9 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      sans: ["Open Sans", "sans-serif"],
+    },
     extend: {
       screens: {
         sm: "576px",
@@ -14,9 +17,10 @@ export default {
         lg: "1440px",
       },
       backgroundImage: {
-        "main-bg": "url('/background1.svg')",
+        "main-bg": "url('/background.svg')",
+        "main-bg-mobile": "url('/mobile-background.svg')",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 } satisfies Config;

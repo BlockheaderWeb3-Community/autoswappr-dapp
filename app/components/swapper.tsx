@@ -14,6 +14,7 @@ const Swapper = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [rate, setRate] = useState(0);
+  const [showTooltip, setShowTooltip] = useState(false);
   const { address } = useAccount();
 
   useEffect(() => {
@@ -69,11 +70,26 @@ const Swapper = () => {
     }, 2000);
   };
 
+  const STABLE_TOKENS: Token[] = ["USDT", "USDC"];
+
   const handleTokenSwap = () => {
-    const temp = fromToken;
-    setFromToken(toToken);
-    setToToken(temp);
+    // ensures at least one of the tokens is a stable coin
+    const isValidSwap =
+      STABLE_TOKENS.includes(fromToken) || STABLE_TOKENS.includes(toToken);
+
+    if (isValidSwap) {
+      const temp = fromToken;
+      setFromToken(toToken);
+      setToToken(temp);
+    } else {
+      setError("At least one token must be a stable coin (USDT, USDC, DAI)");
+    }
   };
+  // const handleTokenSwap = () => {
+  //   const temp = fromToken;
+  //   setFromToken(toToken);
+  //   setToToken(temp);
+  // };
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -83,7 +99,7 @@ const Swapper = () => {
   };
 
   return (
-    <div className="flex w-full cursor-pointer flex-col items-center text-[#F7F7F7] rounded-[48px] p-[18px] md:w-[800px] m:h-[600px] md:p-[2rem] bg-[#08001F] border-[1px] border-[#170F2E]">
+    <div className="flex w-full cursor-pointer flex-col items-center text-[#F7F7F7] rounded-[48px] p-[18px] md:w-[800px] m:h-[600px] md:p-[2rem] bg-[#08001F]">
       <form className="m-0 w-full md:w-[480px]">
         <div className="relative flex w-full flex-col items-center">
           <div className="mb-4 flex w-full flex-col">
@@ -113,13 +129,45 @@ const Swapper = () => {
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={handleTokenSwap}
-            className="absolute top-[44%] h-[46px] w-[46px] rounded-full p-2  flex justify-center items-center border-[1px] border-[#1E1E1E] bg-[#170F2E]"
-          >
-            <RefreshCcw size={24} />
-          </button>
+          <div className="absolute top-[44%] group">
+            <button
+              type="button"
+              onClick={handleTokenSwap}
+              onMouseEnter={() => setShowTooltip(true)}
+              onMouseLeave={() => setShowTooltip(false)}
+              className={`h-[46px] w-[46px] rounded-full p-2 flex justify-center items-center border-[1px] border-[#1E1E1E] 
+                ${
+                  STABLE_TOKENS.includes(fromToken) ||
+                  STABLE_TOKENS.includes(toToken)
+                    ? "bg-[#170F2E] cursor-pointer"
+                    : "bg-[#2C2C2C] cursor-not-allowed opacity-50"
+                }`}
+              disabled={
+                !(
+                  STABLE_TOKENS.includes(fromToken) ||
+                  STABLE_TOKENS.includes(toToken)
+                )
+              }
+            >
+              <RefreshCcw
+                size={24}
+                color={
+                  STABLE_TOKENS.includes(fromToken) ||
+                  STABLE_TOKENS.includes(toToken)
+                    ? "white"
+                    : "gray"
+                }
+              />
+            </button>
+
+            <div
+              className={`absolute z-10 bottom-[50px] left-1/2 transform -translate-x-1/2 bg-[#170F2E] text-white text-xs rounded-lg p-2 w-[200px] text-center shadow-lg 
+              ${showTooltip ? "block" : "hidden"}`}
+            >
+              To swap tokens ensure at least one token is a stablecoin (USDT,
+              USDC)
+            </div>
+          </div>
 
           <div className="flex w-full flex-col">
             <div className="rounded-[24px] px-[10px] py-[10px] md:px-[24px] md:py-[20px] border border-[#170F2E] bg-[#100827]">

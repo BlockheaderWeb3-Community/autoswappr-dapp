@@ -1,7 +1,15 @@
 import Image from "next/image";
 import hero from "../../public/autosapHero.png";
 import starIcon from "../../public/Star.icon.svg";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Documentation",
+  description: "Learn more about Autoswappr.",
+};
+
+ 
+  
 export default function Introduction() {
   return (
     <div className="w-full relative ">
