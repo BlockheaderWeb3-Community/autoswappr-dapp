@@ -1,6 +1,4 @@
 "use client";
-
-import { X } from "lucide-react";
 import { useDisconnect } from "@starknet-react/core";
 import GenericModal from "./generic-modal";
 
