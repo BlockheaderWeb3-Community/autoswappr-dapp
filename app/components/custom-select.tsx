@@ -16,7 +16,7 @@ export const CustomSelect: React.FC<{
   return (
     <>
       <div
-        className="bg-transparent text-[#F7F7F7] border-[1px] border-[#1E2021] px-[6px] py-[4px] sm:px-[8px] rounded-[900px] font-[600] text-[14px] sm:text-[16px] w-[90px] sm:w-[115px] cursor-pointer flex space-x-1 justify-between items-center"
+        className="bg-transparent text-[#F7F7F7] border-[1px] border-[#1E2021] px-[6px] py-[8px] sm:px-[8px] rounded-[900px] font-[600] text-[14px] sm:text-[16px] w-[90px] sm:w-[115px] cursor-pointer flex space-x-1 justify-between items-center"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="flex items-center gap-x-1 text-xs sm:text-sm">

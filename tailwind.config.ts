@@ -19,7 +19,6 @@ export default {
       backgroundImage: {
         "main-bg": "url('/background.svg')",
         "main-bg-mobile": "url('/mobile-background.svg')",
-        "new-bg": "url('/new-background.png')",
       },
     },
   },

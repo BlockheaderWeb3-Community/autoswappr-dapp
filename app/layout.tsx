@@ -47,8 +47,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <StarknetProvider>
-        {/* NEW BG COLOR: #02060D */}
-        {/* OLD BG COLOR: #08001F */}
         <body className="relative w-full bg-[#02060D]">
           <Navbar />
           <main>{children}</main>

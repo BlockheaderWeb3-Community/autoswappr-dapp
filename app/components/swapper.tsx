@@ -4,7 +4,6 @@ import { useAccount } from "@starknet-react/core";
 import { RefreshCcw } from "lucide-react";
 import { Token, tokenPrices } from "@/constants/tokens";
 import { CustomSelect } from "./custom-select";
-import { GasIcon, HistoryIcon } from "@/assets/dex";
 
 const Swapper = () => {
   const [fromToken, setFromToken] = useState<Token>("STRK");
@@ -99,8 +98,7 @@ const Swapper = () => {
   };
 
   return (
-    <div className="flex w-full h-full md:h-[600px] lg:h-[600px] bg-transparent relative">
-      <div className="-z-[1] absolute inset-0 hidden md:flex w-full h-full bg-contain xl:bg-cover bg-center bg-no-repeat bg-new-bg"></div>
+    <div className="flex w-full h-full md:h-[600px] lg:h-[600px] relative">
       <div className="px-8 w-full sm:w-[480px] flex flex-col items-center justify-start pt-8 mx-auto">
         <div className="flex w-full sm:w-[480px] flex-col items-center space-y-3">
           <div className="w-full sm:w-[480px] flex flex-row items-center justify-between rounded-[8px] px-[16px] md:px-[24px] py-[16px] border-[1px] border-[#1E2021] bg-[#02060D]">
@@ -203,13 +201,13 @@ const Swapper = () => {
 
         <div className="w-full sm:w-[480px] flex justify-between items-center py-10 text-[14px] font-[400] leading-5 text-gray-500">
           <div className="flex items-center gap-x-1">
-            <HistoryIcon className="w-5 h-5 text-gray-500" />{" "}
+            <img src="/history.svg" alt="history" className="w-5 h-5" />{" "}
             <span className="text-base"> History</span>
           </div>
           <div className="flex items-center gap-x-2">
             <span>Gas fee:</span>{" "}
-            <div className="flex items-center gap-x-1">
-              <GasIcon /> <span>$0.00</span>
+            <div className="flex items-center gap-x-0">
+              <img src="/approximate.svg" alt="gas fee" className="w-4 h-4" /> <span>$0.00</span>
             </div>
           </div>
         </div>
