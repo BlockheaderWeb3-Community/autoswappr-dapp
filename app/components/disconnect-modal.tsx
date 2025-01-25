@@ -2,6 +2,7 @@
 
 import { X } from "lucide-react";
 import { useDisconnect } from "@starknet-react/core";
+import GenericModal from "./generic-modal";
 
 interface DisconnectWalletModalProps {
   isOpen: boolean;
@@ -28,18 +29,9 @@ export default function DisconnectModal({
       onClick={handleClose}
     >
       <div className="w-full md:w-[800px] bg-[#000103] text-center border border-[#170F2E] rounded-3xl py-12 px-6 relative">
-        <div className="flex justify-between items-center">
-          <p></p>
-          <h3 className="text-[24px] lg:text-2xl font-semibold text-[#F3F5FF]">
-            Disconnect wallet
-          </h3>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="text-gray-400 hover:text-white transition-colors"
-          >
-            <X className="w-6 h-6 text-white" />
-          </button>
-        </div>
+      <GenericModal handleClose={() => setIsOpen(false)} > 
+          Disconnect Wallet
+        </GenericModal>
 
         {/* Modal Content */}
         <div className="py-[30px] px-[16px] lg:py-[81px] lg:px-[55px] my-6">

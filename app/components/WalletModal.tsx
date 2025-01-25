@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useConnect, Connector } from "@starknet-react/core";
 import { X } from "lucide-react";
 import Image from "next/image";
+import GenericModal from "./generic-modal";
 
 const walletDetails = {
   argentX: {
@@ -48,18 +49,9 @@ export function WalletModal({ isOpen, setIsOpen }: WalletModalProps) {
       onClick={() => setIsOpen(false)}
     >
       <div className="w-full md:w-[610px] bg-[#000103] rounded-3xl py-12 px-6 relative">
-        <div className="flex justify-between items-center">
-          <p></p>
-          <h3 className="text-2xl leading-[32px] text-center font-semibold text-[#f9f9f9]">
-            Connect Wallet
-          </h3>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="text-gray-400 hover:text-white transition-colors top-8 right-8"
-          >
-            <X className="w-6 h-6 text-[#F3F5FF]" />
-          </button>
-        </div>
+        <GenericModal handleClose={() => setIsOpen(false)}  > 
+          Connect Wallet
+        </GenericModal>
 
         <p className="text-[#D7D7D7] mt-6 mb-10 text-base text-center">
           Choose a wallet you want to connect to Auto-swapper
