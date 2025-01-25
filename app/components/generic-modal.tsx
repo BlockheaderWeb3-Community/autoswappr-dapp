@@ -22,6 +22,7 @@ function GenericModal({
         <h3 className="text-2xl leading-[32px] text-center font-semibold text-[#f9f9f9]">
           {children}
         </h3>
+        
         {!removeCloseButton && (
           <button
             className="text-gray-400 hover:text-white transition-colors top-8 right-8"
