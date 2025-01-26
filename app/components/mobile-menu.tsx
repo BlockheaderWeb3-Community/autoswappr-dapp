@@ -29,7 +29,9 @@ function MobileMenu({
           </li>
         ))}
         <li className="px-4 py-2">
-          <WalletBar />
+          <div onClick={(e) => e.stopPropagation()}>
+            <WalletBar />
+          </div>
         </li>
       </ul>
     </div>
