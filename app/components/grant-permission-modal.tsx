@@ -1,4 +1,3 @@
-import { X } from "lucide-react";
 import React from "react";
 import GenericModal from "./generic-modal";
 
