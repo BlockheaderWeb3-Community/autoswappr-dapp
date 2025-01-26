@@ -26,9 +26,9 @@ export function SelectBaseToken({ onSelect }: SelectBaseTokenProps) {
   return (
     <div className="flex relative justify-center items-center h-screen px-4 bg-main-bg bg-cover bg-center bg-no-repeat">
       <div className="relative flex flex-col items-center w-full max-w-[50rem] p-6 md:p-12 rounded-3xl border border-[#170F2E] text-center bg-opacity-90">
-        <GenericModal handleClose={() => {}} removeCloseButton >
-          Select a base token to auto-swap to
-        </GenericModal>
+        <h1 className="text-base sm:text-2xl font-semibold text-[#F9F9F9] mb-4">
+        Select a base token to auto-swap to
+        </h1>
         <p className="text-sm sm:text-base text-[#A199B8] mt-3 mb-7 max-w-[570px]">
           You can change the base token in the settings and toggle on/off
           auto-swapper for any token you&apos;ve selected.
