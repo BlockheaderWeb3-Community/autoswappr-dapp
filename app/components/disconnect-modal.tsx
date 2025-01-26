@@ -26,7 +26,7 @@ export default function DisconnectModal({
       className="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm flex items-center justify-center"
       onClick={handleClose}
     >
-      <div className="w-full md:w-[800px] bg-[#000103] text-center border border-[#170F2E] rounded-3xl py-12 px-6 relative">
+      <div className="w-full md:w-[610px] bg-[#000103] text-center border border-[#170F2E] rounded-3xl py-12 px-6 relative">
       <GenericModal handleClose={() => setIsOpen(false)} > 
           Disconnect Wallet
         </GenericModal>

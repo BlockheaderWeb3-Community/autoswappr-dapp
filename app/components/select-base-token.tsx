@@ -5,7 +5,6 @@ import usdt from "../../public/usdt.svg";
 import usdc from "../../public/usdc.svg";
 import checked from "../../public/checked.svg";
 import unchecked from "../../public/unchecked.svg";
-import GenericModal from "./generic-modal";
 
 interface SelectBaseTokenProps {
   onSelect?: (token: "USDT" | "USDC") => void;
