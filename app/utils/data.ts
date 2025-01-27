@@ -4,7 +4,7 @@ import { Coin } from "./types";
 export const supportedTokens: Coin[] = [
   {
     key: "starknet",
-    imgLink: "/StarknetIcon.svg",
+    imgLink: "/coin-logos/strk-logo.svg",
     coinName: "Starknet",
     coinSymbol: "STRK",
     contractAddress: strk_token_contract_address,
@@ -12,7 +12,7 @@ export const supportedTokens: Coin[] = [
   },
   {
     key: "ethereum",
-    imgLink: "/EthereumLogo.svg",
+    imgLink: "/coin-logos/eth-logo.svg",
     coinName: "Ethereum",
     coinSymbol: "ETH",
     contractAddress:
@@ -21,7 +21,7 @@ export const supportedTokens: Coin[] = [
   },
   {
     key: "donkey",
-    imgLink: "/StarknetIcon.svg",
+    imgLink: "/coin-logos/strk-logo.svg",
     coinName: "Donkey",
     coinSymbol: "DONKEY",
     contractAddress: "0x0",
@@ -29,7 +29,7 @@ export const supportedTokens: Coin[] = [
   },
   {
     key: "slinky",
-    imgLink: "/StarknetIcon.svg",
+    imgLink: "/coin-logos/strk-logo.svg",
     coinName: "Slinky",
     coinSymbol: "SLINK",
     contractAddress:
@@ -38,7 +38,7 @@ export const supportedTokens: Coin[] = [
   },
   {
     key: "starknet-brother",
-    imgLink: "/StarknetIcon.svg",
+    imgLink: "/coin-logos/strk-logo.svg",
     coinName: "Starknet Brother",
     coinSymbol: "BROTHER",
     contractAddress: "0x0",

@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import usdt from "../../public/usdt.svg";
-import usdc from "../../public/usdc.svg";
+import usdt from "../../public/coin-logos/usdt-logo.svg";
+import usdc from "../../public/coin-logos/usdc-logo.svg";
 import checked from "../../public/checked.svg";
 import unchecked from "../../public/unchecked.svg";
 

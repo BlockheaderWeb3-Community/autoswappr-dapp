@@ -17,11 +17,11 @@ export const tokenPrices: { [key in keyof typeof tokenAddresses]: number } = {
 };
 
 export const tokenImages: { [key in keyof typeof tokenAddresses]: string } = {
-  ETH: "/coin-logos/eth-logo.png",
-  BTC: "/coin-logos/btc-logo.png",
-  USDC: "/coin-logos/usdc-logo.png",
-  USDT: "/coin-logos/usdt-logo.png",
-  STRK: "/coin-logos/strk-logo.png",
+  ETH: "/coin-logos/eth-logo.svg",
+  BTC: "/coin-logos/btc-logo.svg",
+  USDC: "/coin-logos/usdc-logo.svg",
+  USDT: "/coin-logos/usdt-logo.svg",
+  STRK: "/coin-logos/strk-logo.svg",
 };
 
 export type Token = keyof typeof tokenAddresses;

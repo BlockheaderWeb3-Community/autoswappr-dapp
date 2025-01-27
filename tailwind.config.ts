@@ -17,7 +17,7 @@ export default {
         lg: "1440px",
       },
       backgroundImage: {
-        "main-bg": "url('/background.svg')",
+        "main-bg": "url('/background.png')",
         "main-bg-mobile": "url('/mobile-background.svg')",
       },
     },

@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <StarknetProvider>
-        <body className="relative w-full bg-[#02060D]">
+        <body className="relative w-full bg-black">
           <Navbar />
           <main>{children}</main>
           <Footer />

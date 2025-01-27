@@ -1,10 +1,10 @@
-import btc from "../public/coin-logos-svg/btc-logo.svg";
-import eth from "../public/coin-logos-svg/eth-logo.svg";
-import sol from "../public/coin-logos-svg/sol-logo.svg";
-import strk from "../public/coin-logos-svg/strk-logo.svg";
-import usdc from "../public/coin-logos-svg/usdc-logo.svg";
-import usdt from "../public/coin-logos-svg/usdt-logo.svg";
-import graph from "../public/coin-logos-svg/graph-logo.svg";
+import btc from "../public/coin-logos/btc-logo.svg";
+import eth from "../public/coin-logos/eth-logo.svg";
+import sol from "../public/coin-logos/sol-logo.svg";
+import strk from "../public/coin-logos/strk-logo.svg";
+import usdc from "../public/coin-logos/usdc-logo.svg";
+import usdt from "../public/coin-logos/usdt-logo.svg";
+import graph from "../public/coin-logos/graph-logo.svg";
 
 export const history = [
   {
