@@ -10,7 +10,7 @@ function GrantPermissionModal({
 }) {
   return (
     <div
-      className="flex flex-col items-center text-[#F9F9F9] justify-center px-4 absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-[200]"
+      className="flex flex-col items-center text-[#F9F9F9] justify-center px-4 absolute inset-0 bg- bg-opacity-60 backdrop-blur-sm z-[200]"
       onClick={handleClose}
     >
       <div
