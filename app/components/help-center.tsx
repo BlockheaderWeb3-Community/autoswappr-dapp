@@ -90,7 +90,7 @@ function HelpCenter() {
                 <input
                   type="text"
                   placeholder="Your email address"
-                  className="p-[16px] rounded-lg bg-[#100827]"
+                  className="p-[16px] rounded-lg bg-[#0D1016]"
                   name="email"
                 />
               </div>
@@ -111,7 +111,7 @@ function HelpCenter() {
                   cols={10}
                   rows={7}
                   placeholder="Write your message here…"
-                  className="px-[16px] py-[12px] bg-[#100827] rounded-lg"
+                  className="px-[16px] py-[12px] bg-[#0D1016] rounded-lg"
                   name="details"
                 />
                 <p className="text-[14px]">
@@ -132,7 +132,7 @@ function HelpCenter() {
                   <label
                     htmlFor="attachments"
                     className={`flex flex-row items-center justify-center w-full h-[54px] rounded-lg ${
-                      isDragOver ? "bg-blue-300" : "bg-[#100827]"
+                      isDragOver ? "bg-blue-300" : "bg-[#0D1016]"
                     } cursor-pointer px-4`}
                   >
                     <div className="flex flex-row items-center justify-center gap-3 overflow-hidden">
