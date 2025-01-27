@@ -15,7 +15,7 @@ function GenericModal({
 }) {
   return (
     <div
-      className={`inset-0 bg-black bg-opacity-80 backdrop-blur-sm z-[200] ${className}`}
+      className={`inset-0 bg-opacity-80 backdrop-blur-sm z-[200] ${className}`}
       onClick={handleClose}
     >
       <LockBodyScroll lock={true} />
