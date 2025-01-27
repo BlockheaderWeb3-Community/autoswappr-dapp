@@ -1,5 +1,6 @@
 import { X } from "lucide-react";
 import React from "react";
+import LockBodyScroll from "./lock-body-scroll";
 
 function GenericModal({
   children,
@@ -17,12 +18,13 @@ function GenericModal({
       className={`inset-0 bg-black bg-opacity-80 backdrop-blur-sm z-[200] ${className}`}
       onClick={handleClose}
     >
+      <LockBodyScroll lock={true} />
       <div className="w-full h-fit relative flex justify-between items-center">
         <p></p>
         <h3 className="text-2xl leading-[32px] text-center font-semibold text-[#f9f9f9]">
           {children}
         </h3>
-        
+
         {!removeCloseButton && (
           <button
             className="text-gray-400 hover:text-white transition-colors top-8 right-8"
@@ -32,7 +34,6 @@ function GenericModal({
           </button>
         )}
       </div>
-        
     </div>
   );
 }
