@@ -7,73 +7,78 @@ import menu from "@/public/menu-11.svg";
 import MobileMenu from "./mobile-menu";
 import { createPortal } from "react-dom";
 import LockBodyScroll from "./lock-body-scroll";
-import { useAccount } from "@starknet-react/core";
-// import Link from "next/link";
-// import { TetherLogo } from "@/assets/general";
+import { WalletModal } from "./WalletModal";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { address } = useAccount();
+  const [connectModalIsOpen, setConnectModalIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const navLinks = [
-    { title: "AutoSwappr", href: "/" },
+    { title: "Home", href: "/" },
+    { title: "AutoSwap", href: "/select-tokens" },
     { title: "Activity", href: "/activity-log" },
     { title: "Dex", href: "/dex" },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-[#000014] bg-opacity-80 backdrop-blur-sm px-6 md:px-[80px] z-20 py-5 md:py-[14px] flex items-center justify-between">
-      <LockBodyScroll lock={isMenuOpen} />
+    <nav className="fixed top-0 left-0 w-full bg-transparent backdrop-blur-sm px-6 md:px-[80px] z-20 py-5 md:py-[26px] flex items-center justify-between">
+      <LockBodyScroll lock={isMenuOpen || connectModalIsOpen} />
+
+      {connectModalIsOpen &&
+        createPortal(
+          <WalletModal setIsOpen={setConnectModalIsOpen} />,
+          document.body
+        )}
       {isMenuOpen &&
         createPortal(
           <MobileMenu
             navLinks={navLinks}
             closeMenu={() => setIsMenuOpen(false)}
+            toggleConnectModal={() => setConnectModalIsOpen((prev) => !prev)}
           />,
           document.body
         )}
-      <div className="flex items-center gap-x-[137px]">
-        {/* Logo */}
-        <button
-          className="flex items-center cursor-pointer"
-          onClick={() => (window.location.href = "/")}
-        >
-          <img
-            src="/auto-swappr-logo.png"
-            className="w-[150px] hidden md:inline-block"
-            alt=""
-          />
-          <img
-            src="/auto-swappr-logo-icon.svg"
-            className="md:hidden inline-block w-[24px]"
-            alt=""
-          />
-        </button>
 
-        {/* Desktop Navigation */}
-        {address && (
-          <ul className="hidden md:flex items-center gap-6 md:left-[300px]">
-            {navLinks.map((link) => (
-              <li key={link.title}>
-                <a
-                  href={link.href}
-                  className=" text-[#e7ecf0] text-sm md:text-lg  hover:text-white transition-colors"
-                >
-                  {link.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      {/* Logo */}
+      <button
+        className="flex items-center cursor-pointer"
+        onClick={() => (window.location.href = "/")}
+      >
+        <img
+          src="/auto-swappr-logo.svg"
+          className="w-[85px] hidden md:inline-block"
+          alt=""
+        />
+        <img
+          src="/auto-swappr-logo-icon.svg"
+          className="md:hidden inline-block w-[24px]"
+          alt=""
+        />
+      </button>
+
+      {/* Desktop Navigation */}
+      {/* {address && ( */}
+      <ul className="hidden md:flex items-center gap-6">
+        {navLinks.map((link) => (
+          <li key={link.title}>
+            <a
+              href={link.href}
+              className=" hover:opacity-80 text-sm md:text-base  text-[#F3F5FF] transition-all ease-in-out font-medium"
+            >
+              {link.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+      {/* )} */}
 
       {/* Connect Wallet Button */}
       <div className="hidden md:flex items-center">
-        <WalletBar />
+        <WalletBar toggleModal={() => setConnectModalIsOpen((prev) => !prev)} />
       </div>
 
       {/* Mobile Menu Button */}

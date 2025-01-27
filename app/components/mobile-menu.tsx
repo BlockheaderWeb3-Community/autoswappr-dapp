@@ -4,9 +4,11 @@ import WalletBar from "./WalletBar";
 function MobileMenu({
   navLinks,
   closeMenu,
+  toggleConnectModal,
 }: {
   navLinks: { title: string; href: string }[];
   closeMenu: () => void;
+  toggleConnectModal: () => void;
 }) {
   return (
     <div
@@ -30,8 +32,9 @@ function MobileMenu({
         ))}
         <li className="px-4 py-2">
           <div onClick={(e) => e.stopPropagation()}>
-            <WalletBar />
+            <WalletBar toggleModal={toggleConnectModal} />
           </div>
+
         </li>
       </ul>
     </div>
