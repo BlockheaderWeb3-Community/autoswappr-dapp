@@ -31,7 +31,10 @@ function MobileMenu({
           </li>
         ))}
         <li className="px-4 py-2">
-          <WalletBar toggleModal={toggleConnectModal} />
+          <div onClick={(e) => e.stopPropagation()}>
+            <WalletBar toggleModal={toggleConnectModal} />
+          </div>
+
         </li>
       </ul>
     </div>
