@@ -9,26 +9,25 @@ const walletDetails = {
   argentX: {
     name: "Argent",
     subtext: "WEBSITE",
-    icon: "/assets/wallets/argent.svg",
+    icon: "/argent.svg",
   },
   webwallet: {
     name: "Argent",
     subtext: "MOBILE",
-    icon: "/assets/wallets/argent.svg",
+    icon: "/argent.svg",
   },
   braavos: {
     name: "Braavos",
     subtext: "WEBSITE",
-    icon: "/assets/wallets/braavos.svg",
+    icon: "/braavos.svg",
   },
 };
 
 interface WalletModalProps {
-  isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
 
-export function WalletModal({ isOpen, setIsOpen }: WalletModalProps) {
+export function WalletModal({ setIsOpen }: WalletModalProps) {
   const { connect, connectors } = useConnect();
   const [selectedConnector, setSelectedConnector] = useState<Connector | null>(
     null
@@ -39,8 +38,6 @@ export function WalletModal({ isOpen, setIsOpen }: WalletModalProps) {
       connect({ connector: selectedConnector });
     }
   };
-
-  if (!isOpen) return null;
 
   return (
     <div

@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import arrow from "../../public/arrow.svg";
-import eth from "../../public/coin-logos/eth-logo.png";
-import usdc from "../../public/coin-logos/usdc-logo.png";
+import eth from "../../public/coin-logos/eth-logo.svg";
+import usdc from "../../public/coin-logos/usdc-logo.svg";
 import { createPortal } from "react-dom";
 import GenericModal from "../components/generic-modal";
 import SelectTokens from "../components/select-tokens";
