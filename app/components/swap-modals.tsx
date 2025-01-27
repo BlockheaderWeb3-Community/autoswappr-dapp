@@ -22,7 +22,9 @@ const ModalHeader = ({
     <div className="flex gap-[.5rem] items-center">
       <p className="text-[#4C5053] text-[13px] font-[400]">Select a token</p>
       <RightBorder />
-      <p className="text-[16px] font-[400] text-[#F3F5FF]">Swap {from ? "From" : "To"}</p>
+      <p className="text-[16px] font-[400] text-[#F3F5FF]">
+        Swap {from ? "From" : "To"}
+      </p>
     </div>
     <X onClick={handleClose} className="cursor-pointer" />
   </div>
@@ -135,7 +137,7 @@ const TokenCard = ({
   label: string;
   onTokenSelect?: (token: Token) => void;
   handleClose: () => void;
-  recent: boolean
+  recent: boolean;
 }) => {
   const handleSelect = (token: string) => {
     onTokenSelect!(token as Token);
@@ -145,7 +147,7 @@ const TokenCard = ({
   return (
     <button
       onClick={() => handleSelect(token)}
-      className={`flex gap-2 cursor-pointer py-1 border ${recent ? 'border-[#1E2021]' : 'border-transparent'} hover:border-[#1E2021] transition-all ease-out duration-300 px-3 rounded-[8px]  w-full text-base items-center outline-none`}
+      className={`flex gap-2 cursor-pointer py-1 border ${recent ? "border-[#1E2021]" : "border-transparent"} hover:border-[#1E2021] transition-all ease-out duration-300 px-3 rounded-[8px]  w-full text-base items-center outline-none`}
     >
       <img src={tokenImages[token]} alt="" className="w-8 h-8" />
       <div className="text-start">
@@ -171,10 +173,13 @@ export function SwapTo({ handleClose, onTokenSelect }: ModalProps) {
   return (
     <div
       className={`flex flex-col gap-6 rounded-[8px] bg-[#000103] border-[1px] border-[#1E2021] px-[20px] py-[24px] text-[#F9F9F9] h-fit
-      w-[24rem] sm:w-[480px] items-start no-scrollbar overflow-y-auto mt-24`}
+      w-[24rem] sm:w-[480px] items-start no-scrollbar overflow-y-auto mt-8 sm:mt-24 mx-2`}
+      onClick={(e) => e.stopPropagation()}
     >
       <ModalHeader handleClose={handleClose} from={false} />
-      <p className="w-full text-[14px] font-[400] py-2 text-[#BABFC3]">You can select multiple tokens to auto-swap from</p>
+      <p className="w-full text-[14px] font-[400] py-2 text-[#BABFC3]">
+        You can select multiple tokens to auto-swap from
+      </p>
       <SearchToken searchTokens={searchTokens} />
       <RecentToken onTokenSelect={onTokenSelect} handleClose={handleClose} />
       <Tokens
@@ -202,10 +207,13 @@ export function SwapFrom({ handleClose, onTokenSelect }: ModalProps) {
   return (
     <div
       className={`flex flex-col gap-6 rounded-[8px] bg-[#000103] border-[1px] border-[#1E2021] px-[20px] py-[24px] text-[#F9F9F9] h-fit
-      w-[24rem] sm:w-[480px] items-start no-scrollbar overflow-y-auto mt-24`}
+      w-[24rem] sm:w-[480px] items-start no-scrollbar overflow-y-auto mt-8 sm:mt-24 mx-2`}
+      onClick={(e) => e.stopPropagation()}
     >
       <ModalHeader handleClose={handleClose} from />
-      <p className="w-full text-[14px] font-[400] py-2 text-[#BABFC3]">You can select multiple tokens to auto-swap from</p>
+      <p className="w-full text-[14px] font-[400] py-2 text-[#BABFC3]">
+        You can select multiple tokens to auto-swap from
+      </p>
       <SearchToken searchTokens={searchTokens} />
       <RecentToken onTokenSelect={onTokenSelect} handleClose={handleClose} />
       <Tokens

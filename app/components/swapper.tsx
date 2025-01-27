@@ -191,10 +191,10 @@ const Swapper = () => {
       </div>
 
       <div className="w-full flex justify-between items-center py-10 text-[14px] font-[400] leading-5 text-gray-500">
-        <div className="flex items-center gap-x-1">
+        <a href="/dex-history" className="flex items-center gap-x-1 cursor-pointer">
           <img src="/history.svg" alt="history" className="w-5 h-5" />{" "}
           <span className="text-base"> History</span>
-        </div>
+        </a>
         <div className="flex items-center gap-x-2">
           <span>Gas fee:</span>{" "}
           <div className="flex items-center gap-x-0">
