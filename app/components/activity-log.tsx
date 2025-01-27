@@ -76,7 +76,6 @@ const ActivityLog = () => {
         <p className="text-sm md:text-base leading-[22px]">
           These are a list of all your AutoSwap activities.
         </p>
-        {/* desktop */}
         <div className="overflow-scroll my-10 lg:my-20">
           <div className="border border-[#2C3035] rounded-2xl overflow-hidden">
             <div className="grid grid-cols-[50px_50px_1fr_1fr] sm:grid-cols-4 gap-x-4 text-sm py-4 px-5 border-b border-b-[#2C3035]">

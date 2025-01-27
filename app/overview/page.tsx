@@ -126,7 +126,6 @@ export default function Overview() {
             Add Tokens
           </button>
         </div>
-        {/* desktop */}
         <div className="overflow-scroll my-10 lg:my-20">
           <div className="border border-[#2C3035] rounded-2xl overflow-hidden">
             <div className="grid grid-cols-[35px_35px_40px_1fr_1fr] sm:grid-cols-5 gap-x-4 text-xs md:text-sm py-4 px-5 border-b border-b-[#2C3035]">
@@ -175,12 +174,6 @@ export default function Overview() {
                   </div>
                   <div className="flex sm:flex-row flex-col sm:items-center text-left gap-x-3 text-[#F3F5FF] text-[10px] sm:text-xs md:text-base">
                     <span>{token.amount}</span>
-                    {/* <span className="text-sm">
-                      <ArrowRight size={10} />
-                    </span>
-                    <span>
-                      {activity.to.amount} {activity.to.symbol}
-                    </span> */}
                   </div>
                   <div className="flex flex-col text-[#F3F5FF] text-[10px] md:text-base">
                     <span>10.09.2024</span>
@@ -199,9 +192,11 @@ export default function Overview() {
                         });
                         setIsEditing(true);
                       }}
-                      className="hidden md:flex"
                     >
-                      Edit
+                      <span className="hidden md:flex">Edit</span>
+                      <span className="md:hidden flex">
+                        <Pencil size={12} />
+                      </span>
                     </button>
                     <button
                       onClick={() => {
@@ -213,37 +208,11 @@ export default function Overview() {
                         });
                         handleUnsubscribe();
                       }}
-                      className="hidden md:flex"
                     >
-                      Delete
-                    </button>
-                    <button
-                      onClick={() => {
-                        setTokenSelected({
-                          coinName: token.from.name,
-                          contractAddress: supportedTokens.filter(
-                            (cur) => cur.coinName === token.from.name
-                          )[0].contractAddress,
-                        });
-                        setIsEditing(true);
-                      }}
-                      className="md:hidden flex"
-                    >
-                      <Pencil size={12} />
-                    </button>
-                    <button
-                      onClick={() => {
-                        setTokenSelected({
-                          coinName: token.from.name,
-                          contractAddress: supportedTokens.filter(
-                            (cur) => cur.coinName === token.from.name
-                          )[0].contractAddress,
-                        });
-                        handleUnsubscribe();
-                      }}
-                      className="md:hidden flex"
-                    >
-                      <Trash size={12} />
+                      <span className="hidden md:flex">Delete</span>
+                      <span className="md:hidden flex">
+                        <Trash size={12} />
+                      </span>
                     </button>
                   </div>
                 </div>
