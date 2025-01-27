@@ -4,7 +4,6 @@ import { useAccount } from "@starknet-react/core";
 import { RefreshCcw } from "lucide-react";
 import { Token, tokenPrices } from "@/constants/tokens";
 import { CustomSelect } from "./custom-select";
-import { ApproximateIcon, GasFeeIcon } from "@/assets/dex";
 
 const Swapper = () => {
   const [fromToken, setFromToken] = useState<Token>("STRK");
@@ -99,133 +98,126 @@ const Swapper = () => {
   };
 
   return (
-    <div className="flex w-full cursor-pointer flex-col items-center text-[#F7F7F7] rounded-[48px] p-[18px] md:w-[800px] m:h-[600px] md:p-[2rem] bg-[#08001F]">
-      <form className="m-0 w-full md:w-[480px]">
-        <div className="relative flex w-full flex-col items-center">
-          <div className="mb-4 flex w-full flex-col">
-            <div className="rounded-[24px] px-[10px] py-[10px] md:px-[24px] md:py-[20px] border border-[#170F2E] bg-[#08001F] ">
-              <h3 className="mb-2 text-[9.97px] md:text-[16px] text-left text-[#F7F7F7] text-base">
-                From
-              </h3>
-              <div className="flex justify-between">
-                <div className="flex flex-col items-start">
-                  <input
-                    type="text"
-                    value={amount}
-                    placeholder="0"
-                    onChange={handleAmountChange}
-                    className="w-[45%] bg-transparent text-[18.59px] font-[700] outline-none md:w-[75%] md:text-[32px]"
-                  />
-                  <p className="ml-[2px] max-w-[45%] overflow-hidden text-ellipsis whitespace-nowrap text-[9.97px] font-[600] md:text-[16px]">
-                    = ${(parseFloat(amount || "0") * rate).toFixed(3)}
-                  </p>
-                </div>
-                <CustomSelect
-                  selectedToken={fromToken}
-                  onTokenSelect={setFromToken}
-                  from
-                />
-              </div>
-            </div>
+    <div className="flex flex-col items-center justify-start space-y-2 mx-auto p-8 w-full h-full sm:w-[544px]">
+      <div className="flex flex-col items-center justify-start space-y-2 relative h-full w-full">
+        <div className="w-full flex flex-row items-center justify-between rounded-[8px] px-[16px] md:px-[24px] py-[16px] border-[1px] border-[#1E2021] bg-[#02060D]">
+          <div className="w-[60%] flex flex-col items-start">
+            <span className="pb-2 text-[14px] font-[400] text-left text-[#4C5053]">
+              From
+            </span>
+            <input
+              type="text"
+              value={amount}
+              placeholder="0"
+              onChange={handleAmountChange}
+              className="w-auto bg-transparent text-[24px] sm:text-[36px] text-white placeholder:text-white font-[600] outline-none border-none"
+            />
           </div>
 
-          <div className="absolute top-[44%] group">
-            <button
-              type="button"
-              onClick={handleTokenSwap}
-              onMouseEnter={() => setShowTooltip(true)}
-              onMouseLeave={() => setShowTooltip(false)}
-              className={`h-[46px] w-[46px] rounded-full p-2 flex justify-center items-center border-[1px] border-[#1E1E1E] 
+          <div className="bg-[#02060D] rounded-full">
+            <CustomSelect
+              selectedToken={fromToken}
+              onTokenSelect={setFromToken}
+              from
+            />
+          </div>
+        </div>
+
+        <div className="absolute top-[calc(50%-36px)] h-[60px] w-[60px] bg-[#02060D] rounded-full p-[8px] flex justify-center items-center border-[1px] border-[#1E2021] mx-auto group">
+          <button
+            type="button"
+            onClick={handleTokenSwap}
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
+            className={`bg-[#1E2021] p-[8px] h-[40px] w-[40px] rounded-full
                 ${
                   STABLE_TOKENS.includes(fromToken) ||
                   STABLE_TOKENS.includes(toToken)
-                    ? "bg-[#170F2E] cursor-pointer"
-                    : "bg-[#2C2C2C] cursor-not-allowed opacity-50"
+                    ? "cursor-pointer"
+                    : "cursor-not-allowed opacity-50"
                 }`}
-              disabled={
-                !(
-                  STABLE_TOKENS.includes(fromToken) ||
-                  STABLE_TOKENS.includes(toToken)
-                )
+            disabled={
+              !(
+                STABLE_TOKENS.includes(fromToken) ||
+                STABLE_TOKENS.includes(toToken)
+              )
+            }
+          >
+            <RefreshCcw
+              size={24}
+              color={
+                STABLE_TOKENS.includes(fromToken) ||
+                STABLE_TOKENS.includes(toToken)
+                  ? "#4C5053"
+                  : "#4C5053"
               }
-            >
-              <RefreshCcw
-                size={24}
-                color={
-                  STABLE_TOKENS.includes(fromToken) ||
-                  STABLE_TOKENS.includes(toToken)
-                    ? "white"
-                    : "gray"
-                }
-              />
-            </button>
-
-            <div
-              className={`absolute z-10 bottom-[50px] left-1/2 transform -translate-x-1/2 bg-[#170F2E] text-white text-xs rounded-lg p-2 w-[200px] text-center shadow-lg 
-              ${showTooltip ? "block" : "hidden"}`}
-            >
-              To swap tokens ensure at least one token is a stablecoin (USDT,
-              USDC)
-            </div>
-          </div>
-
-          <div className="flex w-full flex-col">
-            <div className="rounded-[24px] px-[10px] py-[10px] md:px-[24px] md:py-[20px] border border-[#170F2E] bg-[#100827]">
-              <h3 className="mb-2 text-[9.97px] md:text-[16px] text-left text-[#F7F7F7] text-base">
-                To
-              </h3>
-              <div className="flex justify-between">
-                <div className="flex flex-col items-start">
-                  <input
-                    type="text"
-                    value={parseFloat(equivalent).toFixed(3)}
-                    placeholder="0"
-                    readOnly
-                    className="w-[45%] bg-transparent text-[18.59px] font-[700] outline-none md:w-[75%] md:text-[32px]"
-                  />
-                  <p className="ml-[2px] max-w-[45%] overflow-hidden text-ellipsis whitespace-nowrap text-[9.97px] font-[600] text-[#7A7A7A] md:text-[16px]">
-                    = ${Number(equivalent).toFixed(3)}
-                  </p>
-                </div>
-                <CustomSelect
-                  selectedToken={toToken}
-                  onTokenSelect={setToToken}
-                  from={false}
-                />
-              </div>
-            </div>
+            />
+          </button>
+          <div
+            className={`absolute z-10 bottom-[-60px] left-1/2 transform -translate-x-1/2 bg-[#02060D] text-[#4C5053] text-xs rounded-lg p-2 w-[200px] text-center shadow-lg 
+                ${showTooltip ? "block" : "hidden"}`}
+          >
+            To swap tokens ensure at least one token is a stablecoin (USDT,
+            USDC)
           </div>
         </div>
 
-        <div className="flex justify-between items-cente py-10 text-sm leading-5 text-[#A4A4A4]">
-          <div className="flex items-center gap-x-1">
-            <ApproximateIcon /> <span className="text-base"> History</span>
+        <div className="w-full flex flex-row items-center justify-between rounded-[8px] px-[16px] md:px-[24px] py-[16px] border-[1px] border-[#1E2021] bg-[#0D1016]">
+          <div className="w-[60%] flex flex-col items-start">
+            <span className="pb-2 text-[14px] font-[400] text-left text-[#4C5053]">
+              To
+            </span>
+            <input
+              type="text"
+              value={
+                parseFloat(equivalent) == 0
+                  ? 0
+                  : parseFloat(equivalent).toFixed(3)
+              }
+              placeholder="0"
+              readOnly
+              className="w-auto bg-transparent text-[24px] sm:text-[36px] text-white/90 placeholder:text-white/90 font-[600] outline-none border-none"
+            />
           </div>
-          <div className="flex items-center gap-x-2">
-            <span>Gas fee:</span>{" "}
-            <div className="flex items-center gap-x-1">
-              <GasFeeIcon /> <span>$0.00</span>
-            </div>
+
+          <div className="bg-[#0D1016] rounded-full">
+            <CustomSelect
+              selectedToken={toToken}
+              onTokenSelect={setToToken}
+              from={false}
+            />
           </div>
         </div>
+      </div>
 
-        {error && (
-          <p className="mb-2 text-[9.97px] text-red-500 md:text-[16px]">
-            {error}
-          </p>
-        )}
+      <div className="w-full flex justify-between items-center py-10 text-[14px] font-[400] leading-5 text-gray-500">
+        <a href="/dex-history" className="flex items-center gap-x-1 cursor-pointer">
+          <img src="/history.svg" alt="history" className="w-5 h-5" />{" "}
+          <span className="text-base"> History</span>
+        </a>
+        <div className="flex items-center gap-x-2">
+          <span>Gas fee:</span>{" "}
+          <div className="flex items-center gap-x-0">
+            <img src="/approximate.svg" alt="gas fee" className="w-4 h-4" />{" "}
+            <span>$0.00</span>
+          </div>
+        </div>
+      </div>
 
-        <button
-          onClick={handleSwap}
-          disabled={isLoading || !address}
-          type="submit"
-          className={`w-full rounded-full py-[20px] font-[600] md:text-[16px] bg-[#100827] text-[#F4F4F4] ${
-            isLoading ? "cursor-not-allowed opacity-50" : "cursor-pointer"
-          }`}
-        >
-          {isLoading ? "Processing..." : address ? "Swap" : "Connect Wallet"}
-        </button>
-      </form>
+      {error && (
+        <p className="mb-2 text-[10px] text-red-500 md:text-[12px]">{error}</p>
+      )}
+
+      <button
+        onClick={handleSwap}
+        disabled={isLoading || !address}
+        type="submit"
+        className={`w-full rounded-[8px] py-[16px] font-[600] md:text-[16px] bg-[#1D8CF4] text-[#FFF] ${
+          isLoading ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+        }`}
+      >
+        {isLoading ? "Processing..." : address ? "Swap" : "Connect Wallet"}
+      </button>
     </div>
   );
 };

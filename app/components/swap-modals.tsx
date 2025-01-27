@@ -20,9 +20,11 @@ const ModalHeader = ({
 }) => (
   <div className="flex items-center justify-between w-full">
     <div className="flex gap-[.5rem] items-center">
-      <p className="text-[#433B5A] text-xs">Select a token</p>
+      <p className="text-[#4C5053] text-[13px] font-[400]">Select a token</p>
       <RightBorder />
-      <p className="text-base text-[#F9F9F9]">Swap {from ? "From" : "To"}</p>
+      <p className="text-[16px] font-[400] text-[#F3F5FF]">
+        Swap {from ? "From" : "To"}
+      </p>
     </div>
     <X onClick={handleClose} className="cursor-pointer" />
   </div>
@@ -34,18 +36,18 @@ const SearchToken = ({
   searchTokens: (e: Token) => void;
 }) => (
   <div
-    className={`flex w-full h-12 bg-[#100827] py-3 px-4 justify-between items-center
-    rounded-[900px] focus-within:outline-1`}
+    className={`flex w-full py-[12px] px-[16px] bg-[#0D1016] justify-between items-center
+    rounded-[8px] focus-within:outline-1 mb-3`}
   >
     <label htmlFor="search-from" className="sr-only"></label>
     <input
       type="search"
       id="search-from"
-      placeholder="Search tokens..."
+      placeholder="Search token"
       onChange={(e) => searchTokens(e.target.value as Token)}
-      className="grow-[2] border-none focus:outline-none bg-[#100827] text-base"
+      className="grow-[2] border-none focus:outline-none bg-transparent placeholder:text-[#7E8489] text-[#f9f9f9] text-[14px] font-[400]"
     />
-    <Search />
+    <Search className="text-[#7E8489] w-[15px] h-[15px]" />
   </div>
 );
 
@@ -57,35 +59,39 @@ const RecentToken = ({
   handleClose: () => void;
 }) => {
   return (
-    <div className="w-full pb-7 border-b border-b-[#170F2E]">
+    <div className="w-full pb-6 border-b border-b-[#1E2021]">
       <div className="flex gap-1 items-center justify-start text-sm mb-4">
         <TimePassed />
         <span>Recent searches</span>
       </div>
-      <div className="mt-4 w-full grid grid-cols-2 items-center gap-y-5 justify-between">
+      <div className="mt-4 w-full grid grid-cols-2 items-center gap-4 justify-between">
         <TokenCard
           token={"STRK"}
           label="Starknet"
           onTokenSelect={onTokenSelect}
           handleClose={handleClose}
+          recent={true}
         />
         <TokenCard
           token={"ETH"}
           label="Ethereum"
           onTokenSelect={onTokenSelect}
           handleClose={handleClose}
+          recent={true}
         />
         <TokenCard
           token={"BTC"}
           label="Bitcoin"
           onTokenSelect={onTokenSelect}
           handleClose={handleClose}
+          recent={true}
         />
         <TokenCard
           token={"USDT"}
           label="Tether"
           onTokenSelect={onTokenSelect}
           handleClose={handleClose}
+          recent={true}
         />
       </div>
     </div>
@@ -104,7 +110,7 @@ const Tokens = ({
   return (
     <div className="w-full">
       <p className="mb-4">Tokens</p>
-      <div className="flex flex-col items-center justify-start gap-5 w-full">
+      <div className="flex flex-col items-center justify-start gap-5 w-full overflow-auto scrollbar-hide h-[240px]">
         {tokens.map((token) => (
           <TokenCard
             key={token}
@@ -112,6 +118,7 @@ const Tokens = ({
             token={token}
             onTokenSelect={onTokenSelect}
             handleClose={handleClose}
+            recent={false}
           />
         ))}
       </div>
@@ -124,11 +131,13 @@ const TokenCard = ({
   label,
   onTokenSelect,
   handleClose,
+  recent,
 }: {
   token: Token;
   label: string;
   onTokenSelect?: (token: Token) => void;
   handleClose: () => void;
+  recent: boolean;
 }) => {
   const handleSelect = (token: string) => {
     onTokenSelect!(token as Token);
@@ -138,7 +147,7 @@ const TokenCard = ({
   return (
     <button
       onClick={() => handleSelect(token)}
-      className="flex gap-2 cursor-pointer py-1 hover:border hover:border-[#170F2E] transition-all ease-out duration-300 px-3 rounded-full  w-full text-base items-center outline-none"
+      className={`flex gap-2 cursor-pointer py-1 border ${recent ? "border-[#1E2021]" : "border-transparent"} hover:border-[#1E2021] transition-all ease-out duration-300 px-3 rounded-[8px]  w-full text-base items-center outline-none`}
     >
       <img src={tokenImages[token]} alt="" className="w-8 h-8" />
       <div className="text-start">
@@ -163,10 +172,14 @@ export function SwapTo({ handleClose, onTokenSelect }: ModalProps) {
 
   return (
     <div
-      className={`p-6 lg:p-12 flex flex-col gap-6 lg:gap-7 h-max-[40rem]
-      w-[24rem] lg:w-[32rem] items-start no-scrollbar overflow-y-auto mt-24`}
+      className={`flex flex-col gap-6 rounded-[8px] bg-[#000103] border-[1px] border-[#1E2021] px-[20px] py-[24px] text-[#F9F9F9] h-fit
+      w-[24rem] sm:w-[480px] items-start no-scrollbar overflow-y-auto mt-8 sm:mt-24 mx-2`}
+      onClick={(e) => e.stopPropagation()}
     >
       <ModalHeader handleClose={handleClose} from={false} />
+      <p className="w-full text-[14px] font-[400] py-2 text-[#BABFC3]">
+        You can select multiple tokens to auto-swap from
+      </p>
       <SearchToken searchTokens={searchTokens} />
       <RecentToken onTokenSelect={onTokenSelect} handleClose={handleClose} />
       <Tokens
@@ -193,10 +206,14 @@ export function SwapFrom({ handleClose, onTokenSelect }: ModalProps) {
 
   return (
     <div
-      className={`py-6 lg:px-6 lg:py-12 flex flex-col gap-6 rounded-3xl lg:gap-7 bg-[#08001F] text-[#F9F9F9] h-fit
-      w-[24rem] lg:w-[480px] items-start no-scrollbar overflow-y-auto mt-24`}
+      className={`flex flex-col gap-6 rounded-[8px] bg-[#000103] border-[1px] border-[#1E2021] px-[20px] py-[24px] text-[#F9F9F9] h-fit
+      w-[24rem] sm:w-[480px] items-start no-scrollbar overflow-y-auto mt-8 sm:mt-24 mx-2`}
+      onClick={(e) => e.stopPropagation()}
     >
       <ModalHeader handleClose={handleClose} from />
+      <p className="w-full text-[14px] font-[400] py-2 text-[#BABFC3]">
+        You can select multiple tokens to auto-swap from
+      </p>
       <SearchToken searchTokens={searchTokens} />
       <RecentToken onTokenSelect={onTokenSelect} handleClose={handleClose} />
       <Tokens
