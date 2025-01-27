@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function page() {
   return (
-    <div className="w-full relative flex flex-col items-center text-center pt-[180px] h-[100vh]">
+    <div className="w-full relative flex flex-col items-center text-center pt-[100px] sm:pt-[120px] md:pt-[150px] h-auto pb-[120px] sm:pb-0">
       <h1 className="text-center text-[16px] md:text-[22px] font-semibold text-white mb-2">
         Autoswappr DEX
       </h1>
@@ -18,8 +18,10 @@ export default function page() {
         Please select a token to swap from to and how much you want to swap.
       </p>
       <div className="pt-8" />
-      <Swapper />
-      <GiveFeedback />
+      <div className="w-full h-full relative flex flex-col space-y-8">
+        <Swapper />
+        <GiveFeedback />
+      </div>
     </div>
   );
 }

@@ -98,137 +98,126 @@ const Swapper = () => {
   };
 
   return (
-    <div className="flex w-full h-full md:h-[600px] lg:h-[600px] relative">
-      <div className="px-8 w-full sm:w-[480px] flex flex-col items-center justify-start pt-8 mx-auto">
-        <div className="flex w-full sm:w-[480px] flex-col items-center space-y-3">
-          <div className="w-full sm:w-[480px] flex flex-row items-center justify-between rounded-[8px] px-[16px] md:px-[24px] py-[16px] border-[1px] border-[#1E2021] bg-[#02060D]">
-            <div className="w-[60%] flex flex-col items-start">
-              <span className="pb-2 text-[14px] font-[400] text-left text-[#4C5053]">
-                From
-              </span>
-              <input
-                type="text"
-                value={amount}
-                placeholder="0"
-                onChange={handleAmountChange}
-                className="w-auto bg-transparent text-[24px] sm:text-[36px] text-white placeholder:text-white font-[600] outline-none border-none"
-              />
-            </div>
-
-            {/* <div className="flex justify-between">
-                <p className="ml-[2px] max-w-[45%] overflow-hidden text-ellipsis whitespace-nowrap text-[9.97px] font-[600] md:text-[16px]">
-                  = ${(parseFloat(amount || "0") * rate).toFixed(3)}
-                </p>
-              </div> */}
-            <div className="bg-[#02060D] rounded-full">
-              <CustomSelect
-                selectedToken={fromToken}
-                onTokenSelect={setFromToken}
-                from
-              />
-            </div>
+    <div className="flex flex-col items-center justify-start space-y-2 mx-auto p-8 w-full h-full sm:w-[544px]">
+      <div className="flex flex-col items-center justify-start space-y-2 relative h-full w-full">
+        <div className="w-full flex flex-row items-center justify-between rounded-[8px] px-[16px] md:px-[24px] py-[16px] border-[1px] border-[#1E2021] bg-[#02060D]">
+          <div className="w-[60%] flex flex-col items-start">
+            <span className="pb-2 text-[14px] font-[400] text-left text-[#4C5053]">
+              From
+            </span>
+            <input
+              type="text"
+              value={amount}
+              placeholder="0"
+              onChange={handleAmountChange}
+              className="w-auto bg-transparent text-[24px] sm:text-[36px] text-white placeholder:text-white font-[600] outline-none border-none"
+            />
           </div>
 
-          <div className="absolute top-[25%] md:top-[18%] h-[60px] w-[60px] bg-[#02060D] rounded-full p-[8px] flex justify-center items-center border-[1px] border-[#1E2021] mx-auto group">
-            <button
-              type="button"
-              onClick={handleTokenSwap}
-              onMouseEnter={() => setShowTooltip(true)}
-              onMouseLeave={() => setShowTooltip(false)}
-              className={`bg-[#1E2021] p-[8px] h-[40px] w-[40px] rounded-full
+          <div className="bg-[#02060D] rounded-full">
+            <CustomSelect
+              selectedToken={fromToken}
+              onTokenSelect={setFromToken}
+              from
+            />
+          </div>
+        </div>
+
+        <div className="absolute top-[calc(50%-36px)] h-[60px] w-[60px] bg-[#02060D] rounded-full p-[8px] flex justify-center items-center border-[1px] border-[#1E2021] mx-auto group">
+          <button
+            type="button"
+            onClick={handleTokenSwap}
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
+            className={`bg-[#1E2021] p-[8px] h-[40px] w-[40px] rounded-full
                 ${
                   STABLE_TOKENS.includes(fromToken) ||
                   STABLE_TOKENS.includes(toToken)
                     ? "cursor-pointer"
                     : "cursor-not-allowed opacity-50"
                 }`}
-              disabled={
-                !(
-                  STABLE_TOKENS.includes(fromToken) ||
-                  STABLE_TOKENS.includes(toToken)
-                )
+            disabled={
+              !(
+                STABLE_TOKENS.includes(fromToken) ||
+                STABLE_TOKENS.includes(toToken)
+              )
+            }
+          >
+            <RefreshCcw
+              size={24}
+              color={
+                STABLE_TOKENS.includes(fromToken) ||
+                STABLE_TOKENS.includes(toToken)
+                  ? "#4C5053"
+                  : "#4C5053"
               }
-            >
-              <RefreshCcw
-                size={24}
-                color={
-                  STABLE_TOKENS.includes(fromToken) ||
-                  STABLE_TOKENS.includes(toToken)
-                    ? "#4C5053"
-                    : "#4C5053"
-                }
-              />
-            </button>
-            <div
-              className={`absolute z-10 bottom-[-60px] left-1/2 transform -translate-x-1/2 bg-[#02060D] text-[#4C5053] text-xs rounded-lg p-2 w-[200px] text-center shadow-lg 
+            />
+          </button>
+          <div
+            className={`absolute z-10 bottom-[-60px] left-1/2 transform -translate-x-1/2 bg-[#02060D] text-[#4C5053] text-xs rounded-lg p-2 w-[200px] text-center shadow-lg 
                 ${showTooltip ? "block" : "hidden"}`}
-            >
-              To swap tokens ensure at least one token is a stablecoin (USDT,
-              USDC)
-            </div>
-          </div>
-
-          <div className="w-full sm:w-[480px] flex flex-row items-center justify-between rounded-[8px] px-[16px] md:px-[24px] py-[16px] border-[1px] border-[#1E2021] bg-[#0D1016]">
-            <div className="w-[60%] flex flex-col items-start">
-              <span className="pb-2 text-[14px] font-[400] text-left text-[#4C5053]">
-                To
-              </span>
-              <input
-                type="text"
-                value={
-                  parseFloat(equivalent) == 0
-                    ? 0
-                    : parseFloat(equivalent).toFixed(3)
-                }
-                placeholder="0"
-                readOnly
-                className="w-auto bg-transparent text-[24px] sm:text-[36px] text-white/90 placeholder:text-white/90 font-[600] outline-none border-none"
-              />
-            </div>
-
-            {/*<p className="ml-[2px] max-w-[45%] overflow-hidden text-ellipsis whitespace-nowrap text-[9.97px] font-[600] text-[#7A7A7A] md:text-[16px]">
-                    = ${Number(equivalent).toFixed(3)}
-                  </p>*/}
-            <div className="bg-[#0D1016] rounded-full">
-              <CustomSelect
-                selectedToken={toToken}
-                onTokenSelect={setToToken}
-                from={false}
-              />
-            </div>
+          >
+            To swap tokens ensure at least one token is a stablecoin (USDT,
+            USDC)
           </div>
         </div>
 
-        <div className="w-full sm:w-[480px] flex justify-between items-center py-10 text-[14px] font-[400] leading-5 text-gray-500">
-          <div className="flex items-center gap-x-1">
-            <img src="/history.svg" alt="history" className="w-5 h-5" />{" "}
-            <span className="text-base"> History</span>
+        <div className="w-full flex flex-row items-center justify-between rounded-[8px] px-[16px] md:px-[24px] py-[16px] border-[1px] border-[#1E2021] bg-[#0D1016]">
+          <div className="w-[60%] flex flex-col items-start">
+            <span className="pb-2 text-[14px] font-[400] text-left text-[#4C5053]">
+              To
+            </span>
+            <input
+              type="text"
+              value={
+                parseFloat(equivalent) == 0
+                  ? 0
+                  : parseFloat(equivalent).toFixed(3)
+              }
+              placeholder="0"
+              readOnly
+              className="w-auto bg-transparent text-[24px] sm:text-[36px] text-white/90 placeholder:text-white/90 font-[600] outline-none border-none"
+            />
           </div>
-          <div className="flex items-center gap-x-2">
-            <span>Gas fee:</span>{" "}
-            <div className="flex items-center gap-x-0">
-              <img src="/approximate.svg" alt="gas fee" className="w-4 h-4" /> <span>$0.00</span>
-            </div>
+
+          <div className="bg-[#0D1016] rounded-full">
+            <CustomSelect
+              selectedToken={toToken}
+              onTokenSelect={setToToken}
+              from={false}
+            />
           </div>
         </div>
-
-        {error && (
-          <p className="mb-2 text-[10px] text-red-500 md:text-[12px]">
-            {error}
-          </p>
-        )}
-
-        <button
-          onClick={handleSwap}
-          disabled={isLoading || !address}
-          type="submit"
-          className={`w-full sm:w-[480px] rounded-[8px] py-[16px] font-[600] md:text-[16px] bg-[#1D8CF4] text-[#FFF] ${
-            isLoading ? "cursor-not-allowed opacity-50" : "cursor-pointer"
-          }`}
-        >
-          {isLoading ? "Processing..." : address ? "Swap" : "Connect Wallet"}
-        </button>
       </div>
+
+      <div className="w-full flex justify-between items-center py-10 text-[14px] font-[400] leading-5 text-gray-500">
+        <div className="flex items-center gap-x-1">
+          <img src="/history.svg" alt="history" className="w-5 h-5" />{" "}
+          <span className="text-base"> History</span>
+        </div>
+        <div className="flex items-center gap-x-2">
+          <span>Gas fee:</span>{" "}
+          <div className="flex items-center gap-x-0">
+            <img src="/approximate.svg" alt="gas fee" className="w-4 h-4" />{" "}
+            <span>$0.00</span>
+          </div>
+        </div>
+      </div>
+
+      {error && (
+        <p className="mb-2 text-[10px] text-red-500 md:text-[12px]">{error}</p>
+      )}
+
+      <button
+        onClick={handleSwap}
+        disabled={isLoading || !address}
+        type="submit"
+        className={`w-full rounded-[8px] py-[16px] font-[600] md:text-[16px] bg-[#1D8CF4] text-[#FFF] ${
+          isLoading ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+        }`}
+      >
+        {isLoading ? "Processing..." : address ? "Swap" : "Connect Wallet"}
+      </button>
     </div>
   );
 };
