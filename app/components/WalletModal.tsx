@@ -44,7 +44,7 @@ export function WalletModal({ setIsOpen }: WalletModalProps) {
       className="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm flex items-center justify-center"
       onClick={() => setIsOpen(false)}
     >
-      <div className="w-full md:w-[610px] bg-[#000103] rounded-3xl py-12 px-6 relative">
+      <div className="w-full md:w-[610px] bg-[#000103] border border-[#1E2021] rounded-3xl py-12 px-6 relative">
         <GenericModal handleClose={() => setIsOpen(false)}  > 
           Connect Wallet
         </GenericModal>
