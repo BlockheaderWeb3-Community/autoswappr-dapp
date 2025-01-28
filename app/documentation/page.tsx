@@ -10,6 +10,7 @@ import Faqs from "./FAQ";
 import UserGuide from "./UserGuide";
 import Contact from "./Contact";
 import Security from "./Security";
+import TechnicalSpecification from "./TechnicalSpecification";
 
 const sections = [
   {
@@ -27,6 +28,10 @@ const sections = [
   {
     id: "user-guide",
     title: "User Guide",
+  },
+  {
+    id: "technical-specification",
+    title: "Technical Specifications",
   },
   {
     id: "faqs",
@@ -108,26 +113,27 @@ export default function Documentation() {
 
           
 
-          <nav className="flex gap-5 mx-auto w-full md:w-fit hidden md:flex pl-2 md:pl-[calc((100%-776px)/2-2rem)]">
+          <nav className="flex gap-3 mx-auto w-full md:w-fit hidden md:flex pl-2 md:pl-[calc((100%-776px)/2-2.25rem)]">
             {sections.map((section) => (
               <button
                 key={section.id}
                 onClick={() => setView(section.id)}
-                className={`text-[14px] md:text-lg font-[400] py-2 px-4 rounded-[8px] transition ${
+                className={`text-[13px] md:text-[15px] font-[400] py-1.5 px-3.5 rounded-[7px] transition ${
                   view === section.id
                     ? "bg-[#323537] text-white border-none"
-                    : "bg-[#120A29] text-[#A199B8] border border-[rgba(255,255,255,0.2)] hover:bg-[#323537]"
+                    : "bg-[#010307] text-[#A199B8] border border-[rgba(255,255,255,0.2)] hover:bg-[#323537]"
                 }`}
               >
                 {section.title}
               </button>
             ))}
-          </nav>
+          </nav> 
+
 
           <section className="max-w-[740px] w-[95%] sm:w-4/5 mx-auto my-16 grid gap-10">
             {/* Introduction */}
             <div
-              className="flex justify-between items-center border-b-[#433b5a] border-b-[2px] pb-5 cursor-pointer"
+              className="flex justify-between items-center border-b-[#1E2021] border-b-[1px] pb-5 cursor-pointer"
               onClick={() => {
                 if (view === "introduction") {
                   setView("");
@@ -157,7 +163,7 @@ export default function Documentation() {
 
             {/* Getting Started */}
             <div
-              className="flex justify-between items-center border-b-[#433b5a] border-b-[2px] pb-5 cursor-pointer"
+              className="flex justify-between items-center border-b-[#1E2021] border-b-[1px] pb-5 cursor-pointer"
               onClick={() => {
                 if (view === "getting-started") {
                   setView("");
@@ -187,7 +193,7 @@ export default function Documentation() {
 
             {/* Features */}
             <div
-              className="flex justify-between items-center border-b-[#433b5a] border-b-[2px] pb-5 cursor-pointer"
+              className="flex justify-between items-center border-b-[#1E2021] border-b-[1px] pb-5 cursor-pointer"
               onClick={() => {
                 if (view === "features") {
                   setView("");
@@ -217,7 +223,7 @@ export default function Documentation() {
 
             {/* User Guide */}
             <div
-              className="flex justify-between items-center border-b-[#433b5a] border-b-[2px] pb-5 cursor-pointer"
+              className="flex justify-between items-center border-b-[#1E2021] border-b-[1px] pb-5 cursor-pointer"
               onClick={() => {
                 if (view === "user-guide") {
                   setView("");
@@ -243,11 +249,42 @@ export default function Documentation() {
                 } transition-all duration-300`}
               />
             </div>
-            {view === "user-guide" && <UserGuide />}
+            {view === "user-guide" && <UserGuide />} 
+
+            {/* Technical specification */} 
+            <div
+              className="flex justify-between items-center border-b-[#1E2021] border-b-[1px] pb-5 cursor-pointer"
+              onClick={() => {
+                if (view === "technical-specification") {
+                  setView("");
+                  return;
+                }
+                setView("technical-specification");
+              }}
+            >
+              <div className="flex justify-between items-center gap-3">
+                <h3 className="capitalize leading-[27.24px] font-[600] text-[#F3F5FF] text-[20px] sm:font-semibold sm:text-xl">
+                  Technical Specification
+                </h3>
+                <span className="border-r w-[3px] h-3 border-r-[#100827]" />
+                <h5 className="uppercase text-[#A199B8] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
+                  techicalities 
+                </h5>
+              </div>
+              <Image
+                src={arrow}
+                alt="arrow"
+                className={`${
+                  view === "technical-specification" ? "rotate-0" : "-rotate-90"
+                } transition-all duration-300`}
+              />
+            </div>
+            {view === "technical-specification" && <TechnicalSpecification />}
+
 
             {/* FAQs */}
             <div
-              className="flex justify-between items-center border-b-[#433b5a] border-b-[2px] pb-5 cursor-pointer"
+              className="flex justify-between items-center border-b-[#1E2021] border-b-[1px] pb-5 cursor-pointer"
               onClick={() => {
                 if (view === "faqs") {
                   setView("");
@@ -277,7 +314,7 @@ export default function Documentation() {
 
             {/* Security */}
             <div
-              className="flex justify-between items-center border-b-[#433b5a] border-b-[2px] pb-5 cursor-pointer"
+              className="flex justify-between items-center border-b-[#1E2021] border-b-[1px] pb-5 cursor-pointer"
               onClick={() => {
                 if (view === "security") {
                   setView("");
@@ -307,7 +344,7 @@ export default function Documentation() {
 
             {/* Contact & Support */}
             <div
-              className="flex justify-between items-center border-b-[#433b5a] border-b-[2px] pb-5 cursor-pointer"
+              className="flex justify-between items-center border-b-[#1E2021] border-b-[1px] pb-5 cursor-pointer"
               onClick={() => {
                 if (view === "contact") {
                   setView("");
