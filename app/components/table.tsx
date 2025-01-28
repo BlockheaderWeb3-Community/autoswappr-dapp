@@ -24,7 +24,7 @@ interface Transaction {
     }
 }
 
-export default function CryptoTable() {
+export default function Table() {
     const [selectedRow, setSelectedRow] = useState<number | null>(null)
 
     return (
@@ -36,7 +36,6 @@ export default function CryptoTable() {
                         <th className="p-4 text-left text-sm font-normal text-white">To</th>
                         <th className="p-4 text-left text-sm font-normal text-white">Amount</th>
                         <th className="p-4 text-left text-sm font-normal text-white">Timestamp</th>
-                        <th className="w-[40px]"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -96,11 +95,6 @@ export default function CryptoTable() {
                                 <div className="flex flex-col">
                                     <span className="text-sm text-white">{transaction.date.day}</span>
                                     <span className="text-xs text-gray-500">{transaction.date.time}</span>
-                                </div>
-                            </td>
-                            <td className="p-4">
-                                <div className="flex items-center justify-end">
-                                    <div className="h-5 w-5 rounded-full bg-white"></div>
                                 </div>
                             </td>
                         </tr>

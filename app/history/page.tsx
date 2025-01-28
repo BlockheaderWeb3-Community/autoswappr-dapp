@@ -3,9 +3,9 @@
 import { history } from "@/constants/history";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import CryptoTable from "../components/dex-history-table";
+import Table from "../components/table";
 
-export default function DexHistory() {
+export default function History() {
   const tableRef = useRef<HTMLTableElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -36,8 +36,7 @@ export default function DexHistory() {
           <h1 className="capitalize text-white text-xl md:text-2xl py-0 my-0 text-main-white font-semibold">Autoswappr DEX History</h1>
           <p className="text-base md:text-xl font-thin text-white py-0 my-0 ">Here’s your history report of all transactions carried out by Autoswappr</p>
         </div>
-
-        <CryptoTable />
+        <Table />
       </section>
     </>
   );
