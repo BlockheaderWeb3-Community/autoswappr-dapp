@@ -22,7 +22,7 @@ export const footerDocumentation: { name: string; path: string }[] = [
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col-reverse md:flex-row justify-between items-center bg-[#000014] px-4 md:px-8 lg:px-20 py-6 md:py-[38px] gap-6 md:gap-4">
+    <footer className="flex flex-col-reverse md:flex-row justify-between items-center bg-[#010409] px-4 md:px-8 lg:px-20 py-6 md:py-[38px] gap-6 md:gap-4">
       {/* Copyright section */}
       <p className="text-sm md:text-base leading-6 text-[#E7ECF0] text-center md:text-left">
         copyright@Autoswappr 2024
