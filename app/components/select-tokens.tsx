@@ -83,7 +83,7 @@ const SelectTokens = () => {
           <h1 className="text-center text-[20px] mb-2 lg:mb-6">Autoswappr Subscription Form</h1>
           <p className="text-center text-grey-700 mb-4 lg:mb-8">Please fill out this form carefully.</p>
           <div className="hover:cursor-pointer" onClick={() => router.push("/")}>
-            <X className="w-5 h-5 absolute right-1 top-3 text-grey-300" />
+            <X className="w-5 h-5 absolute top-[0.5rem] right-[0.5rem] sm:right-1 sm:top-3 text-grey-300" />
           </div>
         </div>
         <div
