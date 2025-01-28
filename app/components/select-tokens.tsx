@@ -2,8 +2,6 @@
 import React, { useState, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { TimeIcon } from "@/svgs/TimeIcon";
-import { SearchIcon } from "@/svgs/SearchIcon";
-import SelectPercentage from "./select-percentage";
 import LockBodyScroll from "./lock-body-scroll";
 import GrantPermissionModal from "./grant-permission-modal";
 import { Coin } from "../utils/types";
@@ -13,49 +11,44 @@ import { useContractWriteUtility } from "../utils/helper";
 import { swappr_contract_address } from "../utils/addresses";
 import { ERC20_ABI } from "../abis/erc20-abi";
 import { useRouter } from "next/navigation";
+import { DividerShort } from "@/svgs/DividerShort";
+import { EditIcon } from "@/svgs/EditIcon";
 
 const SelectTokens = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCoin, setSelectedCoin] = useState<
-    { coin: Coin; amount: number; base: string } | undefined
-  >(undefined);
+  const [swapAmount, setSwapAmount] = useState("");
+  const [baseToken, setBaseToken] = useState<Coin | undefined>(undefined);
+  const [quoteToken, setQuoteToken] = useState<Coin | undefined>(undefined);
+  const [isPermissionModalOpen, setIsPermissionModalOpen] = useState<boolean>(false);
+
   const contractAddress =
-    selectedCoin?.coin.contractAddress ||
+    baseToken?.contractAddress ||
     "0x0000000000000000000000000000000000000000";
+  
   const { writeAsync, waitData } = useContractWriteUtility(
     "approve",
     [
       swappr_contract_address,
-      selectedCoin?.amount
-        ? BigInt(selectedCoin.amount) * BigInt(10 ** selectedCoin.coin.decimals)
+      swapAmount
+        ? BigInt(swapAmount) * BigInt(10 ** (baseToken?.decimals ?? 18))
         : BigInt(0),
     ],
     ERC20_ABI,
     contractAddress
   );
-  const [isSelectingCoin, setIsSelectingCoin] = useState(false);
-  const [clickedCoin, setClickedCoin] = useState<Coin | undefined>(undefined);
-  const [isPermissionModalOpen, setIsPermissionModalOpen] =
-    useState<boolean>(false);
 
   const router = useRouter();
 
   const filteredCoins = useMemo(() => {
-    if (searchTerm.trim() === "") return supportedTokens;
-    return supportedTokens.filter((coin) =>
-      `${coin.coinName} ${coin.coinSymbol}`
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
-    );
-  }, [searchTerm]);
+    return supportedTokens
+  }, [swapAmount]);
 
-  function handleSelectCoin(coin: Coin, amount: number, base: string) {
-    setSelectedCoin({ coin, amount, base });
-  }
+  // function handleSelectCoin(coin: Coin) {
+  //     setBaseToken(coin);
+  // }
 
   async function handleSubscribe() {
     try {
-      if (!selectedCoin) return;
+      if (!baseToken) return;
       await writeAsync();
       if (waitData) {
         // TODO save information in the backend
@@ -66,27 +59,16 @@ const SelectTokens = () => {
     }
   }
 
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (baseToken && quoteToken && swapAmount && Number(swapAmount)) {
+      setIsPermissionModalOpen(true);
+    }
+  };
+
   return (
     <>
-      <LockBodyScroll
-        lock={
-          (isSelectingCoin && clickedCoin !== undefined) ||
-          isPermissionModalOpen
-        }
-      />
-      {isSelectingCoin &&
-        clickedCoin &&
-        createPortal(
-          <SelectPercentage
-            handleClose={() => {
-              setIsSelectingCoin(false);
-              setClickedCoin(undefined);
-            }}
-            handleSelectCoin={handleSelectCoin}
-            coin={clickedCoin}
-          />,
-          document.body
-        )}
+      <LockBodyScroll lock={isPermissionModalOpen} />
       {isPermissionModalOpen &&
         createPortal(
           <GrantPermissionModal
@@ -95,66 +77,117 @@ const SelectTokens = () => {
           />,
           document.body
         )}
-      <div
-        className="shadow-lg bg-[#08001F] relative rounded-[32px] w-[350px] text-[#F9F9F9] border-[#170F2E] border-2 sm:w-fit p-12 flex justify-center flex-col items-center"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <p className="font-[600] text-center sm:text-left text-lg sm:text-[24px] mb-4">
-          Select a token to auto-swap from
-        </p>
-        <p className="text-center font-normal text-[12px] sm:text-[16px] leading-[22px] max-w-[624px] text-[#A199B8] mb-7">
-          You can select a token to auto-swap from here. You can select how many
-          percent of that token should be auto-swapped whenever you get funded.
-        </p>
-        <form className="mx-auto flex items-center justify-center flex-col">
-          <div className="relative bg-[#100827] px-4 py-2 flex items-center justify-between w-full rounded-full">
-            <input
-              type="search"
-              className="bg-[#100827] text-[14px] p-1 text-white border-none focus:outline-none"
-              placeholder="Search tokens..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              required
-            />
-            <SearchIcon />
-          </div>
-          <div className="flex flex-col mt-4">
-            <div className="flex items-center md:text-sm text-xs gap-2">
-              <TimeIcon />
-              <p>Selected tokens</p>
-            </div>
-            {filteredCoins.length === 0 ? (
-              <p className="text-center text-[#A199B8] mt-4">
-                No tokens found.
-              </p>
-            ) : (
-              <div className="grid mt-4 grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-                {filteredCoins.map((coin) => (
-                  <CoinCard
-                    key={coin.key}
-                    coin={coin}
-                    isSelected={selectedCoin?.coin.coinName === coin.coinName}
-                    onSelect={(selected) => {
-                      if (selectedCoin?.coin.coinName === selected.coinName) {
-                        setSelectedCoin(undefined);
-                      } else {
-                        setClickedCoin(selected);
-                        setIsSelectingCoin(true);
-                      }
-                    }}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        </form>
-        <button
-          className="w-full text-white bg-[#100827] cursor-pointer h-[60px] disabled:cursor-not-allowed disabled:bg-opacity-80 rounded-[32px] mt-10"
-          disabled={!selectedCoin}
-          onClick={() => setIsPermissionModalOpen(true)}
+      <div className="relative px-2 py-4 sm:px-8 xl:py-10 text-grey-300 max-w-4xl mx-auto">
+        <h1 className="text-center text-[20px] mb-2">Autoswappr Subscription Form</h1>
+        <p className="text-center text-grey-700 mb-4">Please fill out this form carefully.</p>
+        <div
+          className="shadow-lg relative rounded-[12px] w-full lg:w-full border-grey-1100 border-2 px-4 py-5 lg:py-8 lg:px-6 flex justify-center flex-col items-center"
+          onClick={(e) => e.stopPropagation()}
         >
-          Next
-        </button>
+          <form 
+            className="w-full flex gap-8 lg:gap-y-10 items-center justify-center flex-col"
+            onSubmit={handleFormSubmit}
+          >
+            <div className="flex w-full flex-col">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 w-full">
+                <div className="flex items-center md:text-sm text-xs gap-2">
+                  <TimeIcon />
+                  <p>Select Base Tokens</p>
+                </div>
+                <span className="hidden sm:flex">
+                  <DividerShort />
+                </span>
+                <div className="flex flex-col text-grey-700 text-xs">
+                  <p className="">These are tokens you want to automatically swap from. </p>
+                  <p>They are mostly unstable tokens and their values easily fluctuate in the market.</p>
+                </div>
+              </div>
+              {filteredCoins.length === 0 ? (
+                <p className="text-center text-[#A199B8] mt-4">
+                  No tokens found.
+                </p>
+              ) : (
+                <div className="grid mt-4 lg:mt-8 grid-cols-2 lg:grid-cols-2 w-full gap-x-1 sm:gap-x-3 gap-y-2">
+                  {filteredCoins.map((coin) => (
+                    <CoinCard
+                      key={coin.key}
+                      coin={coin}
+                      isSelected={baseToken?.coinName === coin.coinName}
+                      onSelect={(selected) => {
+                        if (baseToken?.coinName === selected.coinName) {
+                          setBaseToken(undefined);
+                        } else {
+                          setBaseToken(selected);
+                        }
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="flex flex-col items-start w-full gap-3">
+              <label htmlFor="swapAmount" className="">Input the amount you want to autoswap</label>
+              <div className="relative bg-[#0D1016] px-4 py-3 flex items-center justify-between w-full rounded-[8px]">
+                <input
+                  type="number"
+                  name="swapAmount"
+                  className="bg-transparent w-full text-[14px] p-1 placeholder:text-grey-900 border-none focus:outline-none"
+                  placeholder="Input how much you want to autoswap"
+                  value={swapAmount}
+                  onChange={(e) => setSwapAmount(e.target.value)}
+                  required
+                />
+                <EditIcon />
+              </div>
+            </div>
+
+            <div className="flex flex-col w-full">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 w-full">
+                <div className="flex items-center md:text-sm text-xs gap-2">
+                  <TimeIcon />
+                  <p>Select Quote Tokens</p>
+                </div>
+                <span className="hidden sm:flex">
+                  <DividerShort />
+                </span>
+                <div className="flex flex-col text-grey-700 text-xs">
+                  <p>These are the tokens you want to automatically swap to. </p>
+                  <p>  These tokens are stable tokens and they maintain a constant value in the market.</p>
+                </div>
+              </div>
+              {filteredCoins.length === 0 ? (
+                <p className="text-center text-[#A199B8] mt-4">
+                  No tokens found.
+                </p>
+              ) : (
+                <div className="grid mt-4 grid-cols-2 w-full gap-x-1 gap-y-1 lg:gap-x-3 lg:gap-y-2">
+                  {filteredCoins.map((coin) => (
+                    <CoinCard
+                      key={coin.key}
+                      coin={coin}
+                      isSelected={quoteToken?.coinName === coin.coinName}
+                      onSelect={(selected) => {
+                        if (quoteToken?.coinName === selected.coinName) {
+                          setQuoteToken(undefined);
+                        } else {
+                          setQuoteToken(selected);
+                        }
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </form>
+          <p className="text-center text-[0.875rem] pt-6 lg:pt-10 text-grey-700">If you have more tokens to add or autoswap, you can fo that in the dashboard page that will load after this setup. Thank you for choosing Autoswappr.</p>
+          <button
+            className="w-full text-white bg-accent disabled:bg-[#0D1016] transition-all cursor-pointer h-[60px] disabled:cursor-not-allowed rounded-[8px] mt-6 lg:mt-10"
+            disabled={!baseToken || !quoteToken || !swapAmount || !Number(swapAmount)}
+            onClick={() => setIsPermissionModalOpen(true)}
+          >
+            Done
+          </button>
+        </div>
       </div>
     </>
   );
