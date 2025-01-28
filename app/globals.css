@@ -17,6 +17,15 @@ input:-webkit-autofill {
   -webkit-text-fill-color: var(--foreground) !important;
 }
 
+:root {
+  --accent: #1D8CF4;
+  --grey-300: #CBCFD2;
+  --grey-700: #7E8489;
+  --grey-900: #4C5053;
+  --grey-1100: #1E2021;
+}
+
+
 @layer utilities {
   /*
         https://github.com/tailwindlabs/tailwindcss/discussions/2394
