@@ -23,12 +23,9 @@ export default function Home() {
       <LockBodyScroll lock={isModalOpen} />
 
       {isModalOpen &&
-        createPortal(
-          <WalletModal isOpen={isModalOpen} setIsOpen={toggleModal} />,
-          document.body
-        )}
+        createPortal(<WalletModal setIsOpen={toggleModal} />, document.body)}
       {/* Hero Section */}
-      <div className="relative flex flex-col pt-[150px] md:pt-0 items-center md:justify-center text-center h-[844px] md:h-[700px] px-6 bg-main-bg-mobile md:bg-main-bg bg-cover bg-no-repeat">
+      <div className="relative flex flex-col pt-[150px] md:pt-0 items-center md:justify-center text-center h-[844px] md:h-[700px] px-6 bg-main-bg bg-cover bg-no-repeat">
         <Image className="md:hidden mb-[77px]" src={m_Img} alt="Token badge" />
         <div className="flex flex-col items-center">
           <h1 className="text-2xl md:text-[48px] md:leading-[65px] font-semibold text-[#F9F9F9] max-w-[280px] md:max-w-full">
