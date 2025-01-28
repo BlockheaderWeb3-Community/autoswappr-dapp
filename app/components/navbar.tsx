@@ -26,7 +26,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-[#000014] bg-opacity-80 backdrop-blur-sm px-6 md:px-[80px] z-20 py-5 md:py-[14px] flex items-center justify-between">
+    <nav className="fixed top-0 left-0 w-full bg-[#080B11] bg-opacity-80 backdrop-blur-sm px-6 md:px-[80px] z-20 py-5 md:py-[14px] flex items-center justify-between">
       <LockBodyScroll lock={isMenuOpen} />
       {isMenuOpen &&
         createPortal(
