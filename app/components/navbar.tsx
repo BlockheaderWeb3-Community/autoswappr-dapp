@@ -25,7 +25,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-transparent backdrop-blur-sm px-6 md:px-[80px] z-20 py-5 md:py-[26px] flex items-center justify-between">
+    <nav className="fixed top-0 left-0 w-full bg-transparent backdrop-blur-sm pr-6 md:pr-[80px] z-20 py-3 md:py-[14px] flex items-center justify-between">
       <LockBodyScroll lock={isMenuOpen || connectModalIsOpen} />
 
       {connectModalIsOpen &&
@@ -43,38 +43,36 @@ const Navbar = () => {
           document.body
         )}
 
-      {/* Logo */}
-      <button
-        className="flex items-center cursor-pointer"
-        onClick={() => (window.location.href = "/")}
-      >
-        <img
-          src="/auto-swappr-logo.svg"
-          className="w-[85px] hidden md:inline-block"
-          alt=""
-        />
-        <img
-          src="/auto-swappr-logo-icon.svg"
-          className="md:hidden inline-block w-[24px]"
-          alt=""
-        />
-      </button>
+      <div className="bg-[#080B11] rounded-[0_16px_16px_0] px-6 md:px-[80px] flex items-center">
+        <button
+          className="flex items-center cursor-pointer"
+          onClick={() => (window.location.href = "/")}
+        >
+          <img
+            src="/auto-swappr-logo.svg"
+            className="w-[85px] hidden md:inline-block"
+            alt=""
+          />
+          <img
+            src="/auto-swappr-logo-icon.svg"
+            className="md:hidden inline-block w-[24px]"
+            alt=""
+          />
+        </button>
 
-      {/* Desktop Navigation */}
-      {/* {address && ( */}
-      <ul className="hidden md:flex items-center gap-6">
-        {navLinks.map((link) => (
-          <li key={link.title}>
-            <a
-              href={link.href}
-              className=" hover:opacity-80 text-sm md:text-base  text-[#F3F5FF] transition-all ease-in-out font-medium"
-            >
-              {link.title}
-            </a>
-          </li>
-        ))}
-      </ul>
-      {/* )} */}
+        <ul className="hidden md:flex items-center gap-6 w-[627px] justify-center py-7">
+          {navLinks.map((link) => (
+            <li key={link.title}>
+              <a
+                href={link.href}
+                className=" hover:opacity-80 text-sm md:text-base  text-[#F3F5FF] transition-all ease-in-out font-medium"
+              >
+                {link.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       {/* Connect Wallet Button */}
       <div className="hidden md:flex items-center">

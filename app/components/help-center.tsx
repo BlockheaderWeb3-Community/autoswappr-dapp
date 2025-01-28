@@ -55,16 +55,24 @@ function HelpCenter() {
   return (
     <main className="relative">
       {/* <Navbar /> */}
-      <div className="text-center w-full mt-0 flex flex-col justify-start items-center pt-32 md:pt-44">
+      <div className="text-center w-full mt-0 flex flex-col justify-start items-center pt-24 lg:pt-32 md:pt-44">
         <div className="w-full h-[138px] bg-main-bg bg-cover absolute top-0 -z-10"></div>
-        <div className="mx-auto">
-          <h2 className="text-[24px]">Help Center</h2>
-        </div>
+
         <div className="flex md:flex-row flex-col justify-between mx-auto md:px-24 px-6 w-full md:w-[80%] mt-20">
           <div className=" md:w-[698px] w-full">
-            <div className="text-start mb-16">
+            <div className="text-start text-white mb-14">
+              <div className="w-full border-[#382E56] mb-5">
+                <h2 className="text-[20px] font-semibold">Help Support</h2>
+              </div>
+              <p className="text-[16px] font-normal">
+                We are on standby to listen to what you have to say about your
+                experience with Autoswappr. So don’t shy away from contacting
+                our Help Center Team.
+              </p>
+            </div>
+            <div className="text-start mb-12 text-white">
               <div className="w-full pb-5 border-b-[1px] border-[#382E56] mb-5">
-                <h2 className="text-[20px]">Support</h2>
+                <h2 className="text-[20px] font-semibold">Support</h2>
               </div>
               <p className="text-[14px]">
                 Have questions or need assistance? Fill out the form below, and
@@ -72,7 +80,7 @@ function HelpCenter() {
               </p>
             </div>
             <form
-              className="flex flex-col gap-y-10 text-start mb-20"
+              className="flex flex-col text-white gap-y-10 text-start mb-20"
               onSubmit={handleSubmit}
             >
               <div className="flex flex-col gap-y-5">
@@ -82,7 +90,7 @@ function HelpCenter() {
                 <input
                   type="text"
                   placeholder="Your email address"
-                  className="p-[16px] rounded-full bg-[#100827]"
+                  className="p-[16px] rounded-lg bg-[#0D1016]"
                   name="email"
                 />
               </div>
@@ -103,7 +111,7 @@ function HelpCenter() {
                   cols={10}
                   rows={7}
                   placeholder="Write your message here…"
-                  className="px-[16px] py-[12px] bg-[#100827] rounded-2xl"
+                  className="px-[16px] py-[12px] bg-[#0D1016] rounded-lg"
                   name="details"
                 />
                 <p className="text-[14px]">
@@ -123,8 +131,8 @@ function HelpCenter() {
                 >
                   <label
                     htmlFor="attachments"
-                    className={`flex flex-row items-center justify-center w-full h-[54px] rounded-full ${
-                      isDragOver ? "bg-blue-300" : "bg-[#100827]"
+                    className={`flex flex-row items-center justify-center w-full h-[54px] rounded-lg ${
+                      isDragOver ? "bg-blue-300" : "bg-[#0D1016]"
                     } cursor-pointer px-4`}
                   >
                     <div className="flex flex-row items-center justify-center gap-3 overflow-hidden">
@@ -181,15 +189,15 @@ function HelpCenter() {
               </div>
               <button
                 type="submit"
-                className="py-4 md:w-[309px] w-auto  flex items-center justify-center bg-[#0F96E3] rounded-full text-[16px]"
+                className="py-4 md:w-full w-auto  flex items-center justify-center bg-[#0F96E3] rounded-lg text-[16px]"
               >
-                Submit report
+                Done
               </button>
             </form>
           </div>
           <div className="w-full md:w-[113px] text-start relative md:mb-0 mb-[100px] pl-2 md:pl-0">
             <h3 className="text-[20px] text-[#F9F9F9]">Community</h3>
-            <ul className="mt-5 text-start text-[14px] text-[#D2CED8] flex flex-col gap-5 list-disc underline cursor-pointer">
+            <ul className="mt-5 ml-5 text-start text-[14px] text-[#D2CED8] flex flex-col gap-5 list-disc underline cursor-pointer">
               <li>Discord</li>
               <li>Telegram</li>
               <li>Github</li>

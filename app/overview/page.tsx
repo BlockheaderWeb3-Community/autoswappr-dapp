@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
-import arrow from "../../public/arrow.svg";
 import eth from "../../public/coin-logos/eth-logo.svg";
 import usdc from "../../public/coin-logos/usdc-logo.svg";
 import { createPortal } from "react-dom";
@@ -13,6 +12,7 @@ import { useContractWriteUtility } from "../utils/helper";
 import { swappr_contract_address } from "../utils/addresses";
 import { ERC20_ABI } from "../abis/erc20-abi";
 import { supportedTokens } from "../utils/data";
+import { Pencil, Plus, Trash } from "lucide-react";
 interface TokenPair {
   id: number;
   from: { name: string; symbol: string; logo: StaticImageData };
@@ -104,143 +104,123 @@ export default function Overview() {
           </GenericModal>,
           document.body
         )}
-      <div className="flex flex-col items-center text-center md:pt-[182px] pt-[150px] px-5 md:px-0">
-        <h1 className="max-w-[700px] text-[20px] md:text-2xl font-semibold text-[#F9F9F9] mb-[10px]">
-          Autoswappr Overview
-        </h1>
-        <p className="text-center text-[16px] leading-[22px] mb-8 text-[#A199B8] max-w-[700px]">
-          These are a list of all the tokens you have setup to be auto-swapped
-          to a stable token. To add more tokens to the list, click on the
-          &apos;Add More Tokens&apos; Button below.
-        </p>
-
-        <div className="w-full min-w-[350px] overflow-x-auto max-w-[900px] mt-10">
-          <table className="w-full border-collapse">
-            <thead className="">
-              <tr className="border-b border-[#1E1B24]  text-white">
-                <th colSpan={2} className="py-3 px-4 font-[200] text-left">
-                  From
-                </th>
-                <th className="py-3 px-4 font-[200]"></th>
-                <th className="py-3 px-4 font-[200] text-left">To</th>
-                <th className="py-3 px-4 font-[200] text-left ">
-                  <div className="ml-12 md:ml-0">Amount</div>
-                </th>
-                <th className="py-3 px-4 font-[200] text-left"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {tokenPairs.map((pair, index) => (
-                <tr
-                  key={pair.id}
-                  className=" hover:bg-[#100827]/20 transition-colors"
+      <section className="relative bg-cover bg-main-bg bg-center bg-no-repeat pt-[100px] md:pt-[147px] text-[#F3F5FF] px-4 lg:px-[187px] min-h-[95vh]">
+        <div className="flex justify-between md:flex-row flex-col gap-y-3 items-start">
+          <div>
+            <h1 className="text-base md:text-[20px] md:leading-[27px] font-semibold md:mb-2">
+              Autoswappr Overview
+            </h1>
+            <p className="text-sm md:text-base leading-[22px] max-w-[638px]">
+              These are a list of all the tokens you have setup to be
+              auto-swapped to a stable token. To add more tokens to the list,
+              click on the ‘Add More Tokens’ Button.
+            </p>
+          </div>
+          <button
+            className="bg-transparent  text-white py-2 md:py-3 px-4 w-[200px] md:w-[311px] border border-[#2C3035] rounded-lg text-sm transition-colors duration-300 flex items-center justify-center gap-2"
+            onClick={() => setIsAddingToken(true)}
+          >
+            <span className="bg-[#1E2021] rounded-full p-[6px]">
+              <Plus size={20} />
+            </span>
+            Add Tokens
+          </button>
+        </div>
+        <div className="overflow-scroll my-10 lg:my-20">
+          <div className="border border-[#2C3035] rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-[35px_35px_40px_1fr_1fr] sm:grid-cols-5 gap-x-4 text-xs md:text-sm py-4 px-5 border-b border-b-[#2C3035]">
+              <div>From</div>
+              <div>To</div>
+              <div>Amount</div>
+              <div>Timestamp</div>
+              <div></div>
+            </div>
+            <div className="flex flex-col gap-y-4 py-4 px-3 md:px-5 max-h-[900px] overflow-scroll">
+              {tokenPairs.map((token, i) => (
+                <div
+                  className="grid grid-cols-[35px_35px_40px_1fr_1fr] sm:grid-cols-5 py-2 md:py-3 gap-x-4"
+                  key={i}
                 >
-                  <td className="py-4 px-4 text-[#A199B8]">{index + 1}.</td>
-
-                  <td className="py-4 px-4">
-                    <div className="flex items-center gap-3">
-                      <Image
-                        src={pair.from.logo}
-                        alt={pair.from.name}
-                        width={32}
-                        height={32}
-                        className="rounded-full  w-6 h-6 md:w-8 md:h-8"
-                      />
-                      <div>
-                        <div className="text-white text-sm md:text-base">
-                          {pair.from.name}
-                        </div>
-                        <div className="text-[#A199B8] text-left text-xs  md:text-sm">
-                          {pair.from.symbol}
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-
-                  <td className=" py-4 px-4">
+                  <div className="flex items-center gap-x-3 text-[#4C5053]">
+                    <span className="text-xs font-semibold">{i + 1}.</span>
                     <Image
-                      src={arrow}
-                      alt="arrow"
-                      width={24}
-                      height={24}
-                      className="-rotate-90"
+                      src={token.from.logo}
+                      alt="coin-from"
+                      className="w-5 h-5 md:w-8 md:h-8 flex-none"
                     />
-                  </td>
-
-                  <td className="py-4 px-4">
-                    <div className="flex items-center gap-3">
-                      <Image
-                        src={pair.to.logo}
-                        alt={pair.to.name}
-                        width={32}
-                        height={32}
-                        className="rounded-full w-6 h-6 md:w-8 md:h-8"
-                      />
-                      <div>
-                        <div className="text-white text-sm md:text-base">
-                          {pair.to.name}
-                        </div>
-                        <div className="text-[#A199B8] text-left text-xs  md:text-sm">
-                          {pair.to.symbol}
-                        </div>
-                      </div>
+                    <div className="sm:flex flex-col hidden">
+                      <span className="text-sm md:text-base md:leading-[22px] text-[#F3F5FF]">
+                        {token.from.name}
+                      </span>
+                      <span className="text-xs md:text-sm">
+                        {token.from.symbol}
+                      </span>
                     </div>
-                  </td>
-
-                  <td className="py-4  px-4 text-[#F9F9F9] text-left">
-                    <div className="relative ml-12 md:ml-0 w-24">
-                      <h3 className="text-base leading-[22px]">100</h3>
-                      <h4 className="font-semibold text-sm text-[#433B5A]">
-                        STRK
-                      </h4>
+                  </div>
+                  <div className="flex items-center gap-x-3 text-[#4C5053]">
+                    <Image
+                      src={token.to.logo}
+                      alt="coin-from"
+                      className="w-5 h-5 md:w-8 md:h-8 flex-none"
+                    />
+                    <div className="sm:flex flex-col hidden">
+                      <span className="text-sm md:text-base md:leading-[22px] text-[#F3F5FF]">
+                        {token.to.name}
+                      </span>
+                      <span className="text-xs md:text-sm">
+                        {token.to.symbol}
+                      </span>
                     </div>
-                  </td>
-
-                  <td className="py-4 px-4 text-[#FDFDFD] flex justify-start gap-x-4 underline">
+                  </div>
+                  <div className="flex sm:flex-row flex-col sm:items-center text-left gap-x-3 text-[#F3F5FF] text-[10px] sm:text-xs md:text-base">
+                    <span>{token.amount}</span>
+                  </div>
+                  <div className="flex flex-col text-[#F3F5FF] text-[10px] md:text-base">
+                    <span>10.09.2024</span>
+                    <span className="text-[#4C5053] text-[10px] md:text-sm">
+                      GMT 21:08 PM
+                    </span>
+                  </div>
+                  <div className="text-[#FDFDFD] flex justify-start gap-x-2 md:gap-x-4 underline">
                     <button
                       onClick={() => {
                         setTokenSelected({
-                          coinName: pair.from.name,
+                          coinName: token.from.name,
                           contractAddress: supportedTokens.filter(
-                            (cur) => cur.coinName === pair.from.name
+                            (cur) => cur.coinName === token.from.name
                           )[0].contractAddress,
                         });
                         setIsEditing(true);
                       }}
                     >
-                      Edit
+                      <span className="hidden md:flex">Edit</span>
+                      <span className="md:hidden flex">
+                        <Pencil size={12} />
+                      </span>
                     </button>
                     <button
                       onClick={() => {
                         setTokenSelected({
-                          coinName: pair.from.name,
+                          coinName: token.from.name,
                           contractAddress: supportedTokens.filter(
-                            (cur) => cur.coinName === pair.from.name
+                            (cur) => cur.coinName === token.from.name
                           )[0].contractAddress,
                         });
                         handleUnsubscribe();
                       }}
                     >
-                      Delete
+                      <span className="hidden md:flex">Delete</span>
+                      <span className="md:hidden flex">
+                        <Trash size={12} />
+                      </span>
                     </button>
-                  </td>
-                </tr>
+                  </div>
+                </div>
               ))}
-            </tbody>
-          </table>
+            </div>
+          </div>
         </div>
-        <button
-          className="bg-transparent  text-white py-4 px-16 border border-[#0F96E3] rounded-[900px] text-sm mt-10  transition-colors duration-300 flex items-center gap-2"
-          onClick={() => setIsAddingToken(true)}
-        >
-          <img
-            src="/plusIcon.svg"
-            alt="plus"
-            className="bg-[#100827] rounded-full p- w-6 h-6"
-          />
-          Add Tokens
-        </button>
-      </div>
+      </section>
     </div>
   );
 }

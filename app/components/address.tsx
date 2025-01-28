@@ -15,26 +15,24 @@ const Address: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-[#FDFDFD] leading-6 text-sm">
+    <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-[#F3F5FF] leading-6 text-sm font-semibold">
       {isModalOpen &&
         createPortal(
           <DisconnectModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />,
           document.body
         )}
-      <div className="flex bg-[#100827] items-center gap-2 px-4 sm:px-8 py-3 sm:py-[18px] rounded-full">
+      <div className="flex bg-[#0D1016A3] items-center gap-2 px-[14px] py-3 rounded-lg">
         <img
-          src="/usdt.svg"
+          src="/coin-logos/usdt-logo.svg"
           alt="USDT icon"
           className="w-5 h-5 sm:w-6 sm:h-6"
         />
         <span>USDT: $114,000</span>
       </div>
 
-      <div className="flex bg-[#100827] items-center gap-2 px-4 sm:px-6 py-3 sm:py-[18px] rounded-full">
+      <div className="flex bg-[#0D1016A3] items-center gap-2 px-[14px] py-3 rounded-lg">
         <img src="/user.svg" alt="" className="w-5 h-5 sm:w-6 sm:h-6" />
-        <span className="text-[#FDFDFD] leading-6 font-semibold sm:text-sm">
-          {address ? shortenAddress(address) : ""}
-        </span>
+        <span>{address ? shortenAddress(address) : ""}</span>
         <button onClick={() => setIsModalOpen(true)} className="p-1">
           <MoreVertical className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
         </button>

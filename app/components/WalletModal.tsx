@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useConnect, Connector } from "@starknet-react/core";
-import { X } from "lucide-react";
 import Image from "next/image";
+import GenericModal from "./generic-modal";
 
 const walletDetails = {
   argentX: {
@@ -44,20 +44,12 @@ export function WalletModal({ setIsOpen }: WalletModalProps) {
       className="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm flex items-center justify-center"
       onClick={() => setIsOpen(false)}
     >
-      <div className="w-full md:w-[800px] bg-[#08001F] border border-[#170F2E] rounded-3xl py-12 px-6 relative">
-        <button
-          onClick={() => setIsOpen(false)}
-          className="text-gray-400 hover:text-white transition-colors absolute top-8 right-8"
-        >
-          <X className="w-6 h-6" />
-        </button>
-
-        {/* Header */}
-        <h3 className="text-2xl text-center font-semibold text-[#f9f9f9]">
+      <div className="w-full md:w-[610px] bg-[#000103] border border-[#1E2021] rounded-3xl py-12 px-6 relative">
+        <GenericModal handleClose={() => setIsOpen(false)}  > 
           Connect Wallet
-        </h3>
+        </GenericModal>
 
-        <p className="text-[#D7D7D7] mt-3 mb-10 text-base text-center">
+        <p className="text-[#D7D7D7] mt-6 mb-10 text-base text-center">
           Choose a wallet you want to connect to Auto-swapper
         </p>
 
@@ -81,7 +73,7 @@ export function WalletModal({ setIsOpen }: WalletModalProps) {
                   e.stopPropagation();
                   setSelectedConnector(connector);
                 }}
-                className={`w-full sm:w-[416px] flex items-center p-5 pl-[124px] rounded-full border gap-2
+                className={`w-[full] sm:w-[264px] h-[57px] flex items-center p-5 justify-center rounded-[8px] border gap-5
                     ${isSelected ? "border-blue-500" : "border-[#2C3356]"}
                     hover:border-blue-500 transition-colors`}
               >
@@ -107,8 +99,8 @@ export function WalletModal({ setIsOpen }: WalletModalProps) {
 
         {/* Continue Button */}
         <button
-          className={`w-full sm:w-[416px] mt-[81px] block py-5 rounded-full
-              ${selectedConnector ? "bg-blue-600 hover:bg-blue-700" : "bg-[#100827]"}
+          className={`w-[264px] sm:w-[264px] mt-[81px] block py-5 rounded-[8px]
+              ${selectedConnector ? "bg-blue-600 hover:bg-blue-700" : "bg-[#0D1016]"}
               text-[#F9F9F9] text-base font-semibold mx-auto transition-colors`}
           onClick={handleConnect}
           disabled={!selectedConnector}
