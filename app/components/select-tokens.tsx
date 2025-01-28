@@ -5,7 +5,7 @@ import { TimeIcon } from "@/svgs/TimeIcon";
 import LockBodyScroll from "./lock-body-scroll";
 import GrantPermissionModal from "./grant-permission-modal";
 import { Coin } from "../utils/types";
-import { supportedTokens } from "../utils/data";
+import { quoteTokens, supportedTokens } from "../utils/data";
 import CoinCard from "./coin-card";
 import { useContractWriteUtility } from "../utils/helper";
 import { swappr_contract_address } from "../utils/addresses";
@@ -41,6 +41,10 @@ const SelectTokens = () => {
 
   const filteredCoins = useMemo(() => {
     return supportedTokens
+  }, [swapAmount]);
+  
+  const quoteCoins = useMemo(() => {
+    return quoteTokens;
   }, [swapAmount]);
 
   // function handleSelectCoin(coin: Coin) {
@@ -82,9 +86,9 @@ const SelectTokens = () => {
         <div className="relative w-full">
           <h1 className="text-center text-[20px] mb-2 lg:mb-6">Autoswappr Subscription Form</h1>
           <p className="text-center text-grey-700 mb-4 lg:mb-8">Please fill out this form carefully.</p>
-          <div className="hover:cursor-pointer" onClick={() => router.push("/")}>
+           {/* <button className="hover:cursor-pointer" onClick={() => router.back()}> */}
             <X className="w-5 h-5 absolute top-[0.5rem] right-[0.5rem] sm:right-1 sm:top-3 text-grey-300" />
-          </div>
+           {/* </button> */}
         </div>
         <div
           className="shadow-lg relative rounded-[12px] w-full lg:w-full border-grey-1100 border-2 px-4 py-5 lg:py-8 lg:px-6 flex justify-center flex-col items-center"
@@ -113,7 +117,7 @@ const SelectTokens = () => {
                   No tokens found.
                 </p>
               ) : (
-                <div className="grid mt-4 lg:mt-8 grid-cols-2 lg:grid-cols-2 w-full gap-x-1 sm:gap-x-3 gap-y-2">
+                <div className="grid mt-4 lg:mt-8 grid-cols-2 w-full gap-x-1 sm:gap-x-3 gap-y-2">
                   {filteredCoins.map((coin) => (
                     <CoinCard
                       key={coin.key}
@@ -161,13 +165,13 @@ const SelectTokens = () => {
                   <p>  These tokens are stable tokens and they maintain a constant value in the market.</p>
                 </div>
               </div>
-              {filteredCoins.length === 0 ? (
+              {quoteCoins.length === 0 ? (
                 <p className="text-center text-[#A199B8] mt-4">
-                  No tokens found.
+                  No Quote tokens found.
                 </p>
               ) : (
-                <div className="grid mt-4 grid-cols-2 w-full gap-x-1 gap-y-1 lg:gap-x-3 lg:gap-y-2">
-                  {filteredCoins.map((coin) => (
+                <div className="grid mt-4 lg:mt-8 grid-cols-2 w-full gap-x-1 lg:gap-x-3 gap-y-2">
+                  {quoteCoins.map((coin) => (
                     <CoinCard
                       key={coin.key}
                       coin={coin}

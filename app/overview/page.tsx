@@ -13,6 +13,7 @@ import { swappr_contract_address } from "../utils/addresses";
 import { ERC20_ABI } from "../abis/erc20-abi";
 import { supportedTokens } from "../utils/data";
 import { Pencil, Plus, Trash } from "lucide-react";
+import { Modal } from "../components/modal";
 interface TokenPair {
   id: number;
   from: { name: string; symbol: string; logo: StaticImageData };
@@ -93,15 +94,16 @@ export default function Overview() {
       <LockBodyScroll lock={isEditing || isAddingToken} />
       {(isEditing || isAddingToken) &&
         createPortal(
-          <GenericModal
-            className="flex justify-center items-center"
+          <Modal
+            isOpen={isEditing || isAddingToken}
+            // className="flex justify-center items-center"
             handleClose={() => {
               setIsEditing(false);
               setIsAddingToken(false);
             }}
           >
             <SelectTokens />
-          </GenericModal>,
+          </Modal>,
           document.body
         )}
       <section className="relative bg-cover bg-main-bg bg-center bg-no-repeat pt-[100px] md:pt-[147px] text-[#F3F5FF] px-4 lg:px-[187px] min-h-[95vh]">
