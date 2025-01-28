@@ -82,13 +82,13 @@ const SelectTokens = () => {
           />,
           document.body
         )}
-      <div className="relative px-2 py-4 sm:px-8 xl:py-10 text-grey-300 max-w-4xl mx-auto">
+      <div className="relative px-2 py-8 sm:px-8 xl:py-10 text-grey-300 max-w-4xl mx-auto">
         <div className="relative w-full">
           <h1 className="text-center text-[20px] mb-2 lg:mb-6">Autoswappr Subscription Form</h1>
           <p className="text-center text-grey-700 mb-4 lg:mb-8">Please fill out this form carefully.</p>
-           {/* <button className="hover:cursor-pointer" onClick={() => router.back()}> */}
+           <button className="hover:cursor-pointer" >
             <X className="w-5 h-5 absolute top-[0.5rem] right-[0.5rem] sm:right-1 sm:top-3 text-grey-300" />
-           {/* </button> */}
+           </button>
         </div>
         <div
           className="shadow-lg relative rounded-[12px] w-full lg:w-full border-grey-1100 border-2 px-4 py-5 lg:py-8 lg:px-6 flex justify-center flex-col items-center"

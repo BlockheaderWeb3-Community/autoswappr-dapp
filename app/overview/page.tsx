@@ -5,7 +5,6 @@ import Image, { StaticImageData } from "next/image";
 import eth from "../../public/coin-logos/eth-logo.svg";
 import usdc from "../../public/coin-logos/usdc-logo.svg";
 import { createPortal } from "react-dom";
-import GenericModal from "../components/generic-modal";
 import SelectTokens from "../components/select-tokens";
 import LockBodyScroll from "../components/lock-body-scroll";
 import { useContractWriteUtility } from "../utils/helper";
@@ -96,13 +95,15 @@ export default function Overview() {
         createPortal(
           <Modal
             isOpen={isEditing || isAddingToken}
-            // className="flex justify-center items-center"
             handleClose={() => {
               setIsEditing(false);
               setIsAddingToken(false);
             }}
+            className="backdrop-blur-xl overflow-y-scroll !z-10"
           >
-            <SelectTokens />
+            <div className=" md:mt-[6rem] mt-[4.5rem]">
+              <SelectTokens />
+            </div>
           </Modal>,
           document.body
         )}
