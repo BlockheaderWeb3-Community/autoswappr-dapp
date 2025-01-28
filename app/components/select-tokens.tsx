@@ -13,6 +13,7 @@ import { ERC20_ABI } from "../abis/erc20-abi";
 import { useRouter } from "next/navigation";
 import { DividerShort } from "@/svgs/DividerShort";
 import { EditIcon } from "@/svgs/EditIcon";
+import { X } from "lucide-react";
 
 const SelectTokens = () => {
   const [swapAmount, setSwapAmount] = useState("");
@@ -78,14 +79,19 @@ const SelectTokens = () => {
           document.body
         )}
       <div className="relative px-2 py-4 sm:px-8 xl:py-10 text-grey-300 max-w-4xl mx-auto">
-        <h1 className="text-center text-[20px] mb-2">Autoswappr Subscription Form</h1>
-        <p className="text-center text-grey-700 mb-4">Please fill out this form carefully.</p>
+        <div className="relative w-full">
+          <h1 className="text-center text-[20px] mb-2 lg:mb-6">Autoswappr Subscription Form</h1>
+          <p className="text-center text-grey-700 mb-4 lg:mb-8">Please fill out this form carefully.</p>
+          <div className="hover:cursor-pointer" onClick={() => router.push("/")}>
+            <X className="w-5 h-5 absolute right-1 top-3 text-grey-300" />
+          </div>
+        </div>
         <div
           className="shadow-lg relative rounded-[12px] w-full lg:w-full border-grey-1100 border-2 px-4 py-5 lg:py-8 lg:px-6 flex justify-center flex-col items-center"
           onClick={(e) => e.stopPropagation()}
         >
           <form 
-            className="w-full flex gap-8 lg:gap-y-10 items-center justify-center flex-col"
+            className="w-full flex gap-8 lg:gap-y-12 items-center justify-center flex-col"
             onSubmit={handleFormSubmit}
           >
             <div className="flex w-full flex-col">
@@ -179,7 +185,7 @@ const SelectTokens = () => {
               )}
             </div>
           </form>
-          <p className="text-center text-[0.875rem] pt-6 lg:pt-10 text-grey-700">If you have more tokens to add or autoswap, you can fo that in the dashboard page that will load after this setup. Thank you for choosing Autoswappr.</p>
+          <p className="text-center text-[0.875rem] pt-6 lg:pt-10 text-grey-700">If you have more tokens to add or autoswap, you can do that in the dashboard page that will load after this setup. Thank you for choosing Autoswappr.</p>
           <button
             className="w-full text-white bg-accent disabled:bg-[#0D1016] transition-all cursor-pointer h-[60px] disabled:cursor-not-allowed rounded-[8px] mt-6 lg:mt-10"
             disabled={!baseToken || !quoteToken || !swapAmount || !Number(swapAmount)}
