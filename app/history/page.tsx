@@ -1,7 +1,5 @@
 "use client"
 
-import { history } from "@/constants/history";
-import Image from "next/image";
 import { useEffect, useRef } from "react";
 import Table from "../components/table";
 
