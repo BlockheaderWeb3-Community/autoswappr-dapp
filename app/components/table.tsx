@@ -4,26 +4,6 @@ import { useState } from "react"
 import Image from "next/image"
 import { history } from "@/constants/history"
 
-interface Transaction {
-    from: {
-        fromImage: string
-        toImage: string
-        coinFrom: string
-        coinTo: string
-    }
-    to: {
-        coinTo: string
-        coinToAmount: number
-        coinFrom: string
-        coinFromAmount: number
-    }
-    percentage: number
-    date: {
-        day: string
-        time: string
-    }
-}
-
 export default function Table() {
     const [selectedRow, setSelectedRow] = useState<number | null>(null)
 
