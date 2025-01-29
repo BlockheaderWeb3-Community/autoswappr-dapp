@@ -6,18 +6,22 @@ const CoinCard = ({
   coin,
   isSelected,
   onSelect,
+  disabled = false,
 }: {
   coin: Coin;
   isSelected: boolean;
   onSelect: (coin: Coin) => void;
+  disabled?: boolean;
 }) => (
   <div
     onClick={(e) => {
       e.preventDefault();
-      onSelect(coin);
+      if (!disabled) {
+        onSelect(coin);
+      }
     }}
-    className={`rounded-[8px] border-grey-1100 border py-1 px-2 grid grid-cols-[24px_auto_30px] items-center sm:grid-cols-[35px_auto_30px] cursor-pointer ${
-      isSelected ? "" : ""
+    className={`rounded-[8px] border-grey-1100 border py-1 px-2 grid grid-cols-[24px_auto_30px] items-center sm:grid-cols-[35px_auto_30px] ${
+      disabled ? 'cursor-not-allowed' : 'cursor-pointer'
     }`}
   >
     <div className="items-center justify-center flex">

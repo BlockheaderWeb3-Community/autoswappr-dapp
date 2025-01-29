@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { TimeIcon } from "@/svgs/TimeIcon";
 import LockBodyScroll from "./lock-body-scroll";
 import GrantPermissionModal from "./grant-permission-modal";
-import { Coin } from "../utils/types";
+import { Coin, TokenPair } from "../utils/types";
 import { quoteTokens, supportedTokens } from "../utils/data";
 import CoinCard from "./coin-card";
 import { useContractWriteUtility } from "../utils/helper";
@@ -15,10 +15,19 @@ import { DividerShort } from "@/svgs/DividerShort";
 import { EditIcon } from "@/svgs/EditIcon";
 import { X } from "lucide-react";
 
-const SelectTokens = () => {
-  const [swapAmount, setSwapAmount] = useState("");
-  const [baseToken, setBaseToken] = useState<Coin | undefined>(undefined);
-  const [quoteToken, setQuoteToken] = useState<Coin | undefined>(undefined);
+interface SelectTokenProps {
+  tokenPair?: TokenPair | undefined;
+  onClose?: () => void;
+}
+
+const SelectTokens = ({ tokenPair, onClose }: SelectTokenProps) => {
+  const [swapAmount, setSwapAmount] = useState(tokenPair ? String(tokenPair.amount) : "");
+  const [baseToken, setBaseToken] = useState<Coin | undefined>(
+    tokenPair ? supportedTokens.find(token => token.coinName === tokenPair.from.name) : undefined
+  );
+  const [quoteToken, setQuoteToken] = useState<Coin | undefined>(
+    tokenPair ? quoteTokens.find(token => token.coinName === tokenPair.to.name) : undefined
+  );
   const [isPermissionModalOpen, setIsPermissionModalOpen] = useState<boolean>(false);
 
   const contractAddress =
@@ -46,10 +55,6 @@ const SelectTokens = () => {
   const quoteCoins = useMemo(() => {
     return quoteTokens;
   }, [swapAmount]);
-
-  // function handleSelectCoin(coin: Coin) {
-  //     setBaseToken(coin);
-  // }
 
   async function handleSubscribe() {
     try {
@@ -84,11 +89,13 @@ const SelectTokens = () => {
         )}
       <div className="relative px-2 py-8 sm:px-8 xl:py-10 text-grey-300 max-w-4xl mx-auto">
         <div className="relative w-full">
-          <h1 className="text-center text-[20px] mb-2 lg:mb-6">Autoswappr Subscription Form</h1>
+          <h1 className="text-center text-[20px] mb-2 lg:mb-6">
+            {tokenPair ? 'Edit Autoswappr Subscription' : 'Autoswappr Subscription Form'}
+          </h1>
           <p className="text-center text-grey-700 mb-4 lg:mb-8">Please fill out this form carefully.</p>
-           <button className="hover:cursor-pointer" >
+          <button className="hover:cursor-pointer" onClick={onClose}>
             <X className="w-5 h-5 absolute top-[0.5rem] right-[0.5rem] sm:right-1 sm:top-3 text-grey-300" />
-           </button>
+          </button>
         </div>
         <div
           className="shadow-lg relative rounded-[12px] w-full lg:w-full border-grey-1100 border-2 px-4 py-5 lg:py-8 lg:px-6 flex justify-center flex-col items-center"
@@ -124,12 +131,15 @@ const SelectTokens = () => {
                       coin={coin}
                       isSelected={baseToken?.coinName === coin.coinName}
                       onSelect={(selected) => {
-                        if (baseToken?.coinName === selected.coinName) {
-                          setBaseToken(undefined);
-                        } else {
-                          setBaseToken(selected);
+                        if (!tokenPair) {  
+                          if (baseToken?.coinName === selected.coinName) {
+                            setBaseToken(undefined);
+                          } else {
+                            setBaseToken(selected);
+                          }
                         }
                       }}
+                      disabled={!!tokenPair}
                     />
                   ))}
                 </div>
@@ -177,12 +187,15 @@ const SelectTokens = () => {
                       coin={coin}
                       isSelected={quoteToken?.coinName === coin.coinName}
                       onSelect={(selected) => {
-                        if (quoteToken?.coinName === selected.coinName) {
-                          setQuoteToken(undefined);
-                        } else {
-                          setQuoteToken(selected);
+                        if (!tokenPair) {
+                          if (quoteToken?.coinName === selected.coinName) {
+                            setQuoteToken(undefined);
+                          } else {
+                            setQuoteToken(selected);
+                          }
                         }
                       }}
+                      disabled={!!tokenPair}
                     />
                   ))}
                 </div>

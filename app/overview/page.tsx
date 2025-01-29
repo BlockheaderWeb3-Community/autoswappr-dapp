@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import eth from "../../public/coin-logos/eth-logo.svg";
 import usdc from "../../public/coin-logos/usdc-logo.svg";
 import { createPortal } from "react-dom";
@@ -13,16 +13,12 @@ import { ERC20_ABI } from "../abis/erc20-abi";
 import { supportedTokens } from "../utils/data";
 import { Pencil, Plus, Trash } from "lucide-react";
 import { Modal } from "../components/modal";
-interface TokenPair {
-  id: number;
-  from: { name: string; symbol: string; logo: StaticImageData };
-  to: { name: string; symbol: string; logo: StaticImageData };
-  amount: number;
-  enabled: boolean;
-}
+import { TokenPair } from "../utils/types";
+
 export default function Overview() {
   const [isEditing, setIsEditing] = useState(false);
   const [isAddingToken, setIsAddingToken] = useState(false);
+  const [selectedTokenPair, setSelectedTokenPair] = useState<TokenPair | undefined>(undefined);
   const [tokenSelected, setTokenSelected] = useState<
     | {
         coinName: string;
@@ -98,11 +94,19 @@ export default function Overview() {
             handleClose={() => {
               setIsEditing(false);
               setIsAddingToken(false);
+              setSelectedTokenPair(undefined);
             }}
             className="backdrop-blur-xl overflow-y-scroll !z-10"
           >
-            <div className=" md:mt-[6rem] mt-[4.5rem]">
-              <SelectTokens />
+            <div className="md:mt-[6rem] mt-[4.5rem]">
+              <SelectTokens
+                tokenPair={selectedTokenPair}
+                onClose={() => {
+                  setIsEditing(false);
+                  setIsAddingToken(false);
+                  setSelectedTokenPair(undefined);
+                }}
+              />
             </div>
           </Modal>,
           document.body
@@ -193,6 +197,7 @@ export default function Overview() {
                             (cur) => cur.coinName === token.from.name
                           )[0].contractAddress,
                         });
+                        setSelectedTokenPair(token);
                         setIsEditing(true);
                       }}
                     >
