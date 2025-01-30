@@ -1,3 +1,4 @@
+// @typescript-eslint/no-explicit-any
 import { StaticImageData } from "next/image";
 
 export type Coin = {
@@ -15,6 +16,7 @@ export interface TokenPair {
   to: { name: string; symbol: string; logo: StaticImageData };
   amount: number;
   enabled?: boolean;
-  edit: any;
-  delete: any;
+  // @ts-ignore
+  edit: unknown;
+  delete: unknown;
 }
