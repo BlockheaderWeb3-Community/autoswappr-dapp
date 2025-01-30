@@ -16,7 +16,6 @@ export interface TokenPair {
   to: { name: string; symbol: string; logo: StaticImageData };
   amount: number;
   enabled?: boolean;
-  // @ts-ignore
-  edit: unknown;
-  delete: unknown;
+  edit: any;
+  delete: any;
 }
