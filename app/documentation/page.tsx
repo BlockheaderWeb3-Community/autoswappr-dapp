@@ -71,12 +71,12 @@ export default function Documentation() {
 
   return (
     <>
-      <section className=" bg-none leading-[19.07px] py-12">
-        <div className="max-w-[776px] mx-auto text-center mb-12 px-4">
+      <section style={{ paddingTop: '120px' }} className="bg-none leading-[19.07px] py-12">
+        <div className="max-w-[776px] mx-auto text-center mb-12 px-5">
           <h1 className="text-[20px] font-[600] capitalize mb-2 text-[#F3F5FF] text-left">
             Documentation
           </h1>
-          <div className="text-[#A199B8] font-[400] text-[16px] leading-relaxed text-left">
+          <div className="text-[#DCDFE1] font-[400] text-[16px] leading-relaxed text-left">
             <p>
               For transparency and the purpose of understanding what Autoswappr
               does and how it works,
@@ -97,7 +97,7 @@ export default function Documentation() {
               <h1
                 onClick={viewHandler}
                 className={`${
-                  sections[number].id === view ? "text-[#A199B8]" : "text-[#A199B8]"
+                  sections[number].id === view ? "text-[#615f68]" : "text-[#4e4c53]"
                 } cursor-pointer`}
               >
                 {sections[number].title}
@@ -112,16 +112,16 @@ export default function Documentation() {
           </div>
 
           
+          <nav className="flex gap-3 mx-auto w-full md:w-fit hidden md:flex pl-2 md:pl-[calc((100%-776px)/2-2.7rem)]"> 
 
-          <nav className="flex gap-3 mx-auto w-full md:w-fit hidden md:flex pl-2 md:pl-[calc((100%-776px)/2-2.25rem)]">
             {sections.map((section) => (
               <button
                 key={section.id}
                 onClick={() => setView(section.id)}
                 className={`text-[13px] md:text-[15px] font-[400] py-1.5 px-3.5 rounded-[7px] transition ${
                   view === section.id
-                    ? "bg-[#323537] text-white border-none"
-                    : "bg-[#010307] text-[#A199B8] border border-[rgba(255,255,255,0.2)] hover:bg-[#323537]"
+                    ? "bg-[#323537] text-[#F3F5FF] border-none"
+                    : "bg-[#010307] text-[#979FA5] border border-[rgba(255,255,255,0.2)] hover:bg-[#323537]"
                 }`}
               >
                 {section.title}
@@ -147,7 +147,7 @@ export default function Documentation() {
                   introduction
                 </h3>
                 <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#A199B8] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
+                <h5 className="uppercase text-[#A8AFB4] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
                   brief overview of AUTOSWAPPER
                 </h5>
               </div>
@@ -177,7 +177,7 @@ export default function Documentation() {
                   getting started
                 </h3>
                 <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#A199B8] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
+                <h5 className="uppercase text-[#A8AFB4] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
                   step-by-step guide
                 </h5>
               </div>
@@ -207,7 +207,7 @@ export default function Documentation() {
                   Features
                 </h3>
                 <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#A199B8] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
+                <h5 className="uppercase text-[#A8AFB4] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
                   what we offer
                 </h5>
               </div>
@@ -237,7 +237,7 @@ export default function Documentation() {
                   User Guide
                 </h3>
                 <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#A199B8] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
+                <h5 className="uppercase text-[#A8AFB4] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
                   How it works
                 </h5>
               </div>
@@ -267,7 +267,7 @@ export default function Documentation() {
                   Technical Specification
                 </h3>
                 <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#A199B8] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
+                <h5 className="uppercase text-[#A8AFB4] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
                   techicalities 
                 </h5>
               </div>
@@ -298,7 +298,7 @@ export default function Documentation() {
                   FAQs
                 </h3>
                 <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#A199B8] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
+                <h5 className="uppercase text-[#A8AFB4] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
                   questions we are usually asked
                 </h5>
               </div>
@@ -328,7 +328,7 @@ export default function Documentation() {
                   Security
                 </h3>
                 <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#A199B8] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
+                <h5 className="uppercase text-[#A8AFB4] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
                   How secure is AUTOSWAPPR
                 </h5>
               </div>
@@ -358,7 +358,7 @@ export default function Documentation() {
                   Contact & Support
                 </h3>
                 <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#A199B8] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
+                <h5 className="uppercase text-[#A8AFB4] text-[12px] font-[400] sm:font-normal sm:text-xs leading-[16.34px]">
                   reach out to us
                 </h5>
               </div>
@@ -376,4 +376,4 @@ export default function Documentation() {
       </section>
     </>
   );
-}
+} 
