@@ -5,20 +5,22 @@ import eth from "../../public/coin-logos/eth-logo.svg";
 import strk from "../../public/coin-logos/strk-logo.svg";
 import usdc from "../../public/coin-logos/usdc-logo.svg";
 import usdt from "../../public/coin-logos/usdt-logo.svg";
+import sol from "../../public/coin-logos/sol-logo.svg";
+import graph from "../../public/coin-logos/graph-logo.svg";
 import Table, { ColumnDef } from "./table.beta";
 
 interface ActivityLog {
   from: {
-    img: string
-    name: string
-    symbol: string
-    amount: number
+    fromImage: string
+    toImage: string
+    coinFrom: string
+    coinTo: string
   }
   to: {
-    img: string
-    name: string
-    symbol: string
-    amount: number
+    coinTo: string
+    coinToAmount: number
+    coinFrom: string
+    coinFromAmount: number
   }
   percentage: number
   date: {
@@ -27,99 +29,91 @@ interface ActivityLog {
   }
 }
 
-const columns: ColumnDef<ActivityLog>[] = [
-  {
-    header: "From",
-    accessorKey: "from",
-    cell: (info, index) => (
-      <div className="flex items-center gap-4">
-        <span className="text-xs text-gray-500">{index as number + 1}.</span>
-        <div className="relative flex items-center">
+  const columns: ColumnDef<ActivityLog>[] = [
+    {
+      header: "From",
+      accessorKey: "from",
+      cell: (info, index) => (
+        <div className="flex items-center gap-3">
+          <p className="text-[#4C5053] text-xs text-[16px] font-semibold">{index as number + 1}.</p>
           <div className="h-8 w-8 overflow-hidden rounded-full">
-            <Image width={32}
-              height={32} src={info.from.img || "/placeholder.svg"} alt={info.from.name} className="h-full w-full object-cover" />
+            <Image
+              src={info.from.fromImage || "/placeholder.svg"}
+              alt={info.from.coinFrom}
+              width={32}
+              height={32}
+              className="h-full w-full object-cover"
+            />
           </div>
-          <div className="absolute -right-6 h-10 w-10 overflow-hidden rounded-full">
-            <Image width={32}
-              height={32} src={info.to.img || "/placeholder.svg"} alt={info.to.name} className="h-full w-full object-cover" />
+          <div className="flex flex-col">
+            <span className="text-sm font-medium text-white capitalize">{info.from.coinFrom}</span>
+            <span className="text-xs text-gray-500">{info.to.coinFrom}</span>
           </div>
         </div>
-        <div className="ml-4 pl-2 flex flex-col">
-          <span className="text-lg font-medium text-white">{info.from.name}</span>
-          <span className="text-sm text-indigo-400">{info.to.symbol}</span>
+      ),
+    },
+    {
+      header: "To",
+      accessorKey: "to",
+      cell: (info) => (
+        <div className="flex items-center gap-3">
+          <div className="h-8 w-8 overflow-hidden rounded-full">
+            <Image
+              src={info.from.toImage || "/placeholder.svg"}
+              alt={info.from.coinTo}
+              width={32}
+              height={32}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-medium text-white">{info.from.coinTo}</span>
+            <span className="text-xs text-gray-500">{info.to.coinTo}</span>
+          </div>
         </div>
-      </div>
-    ),
-  },
-  {
-    header: "To",
-    accessorKey: "to",
-    cell: (info) => (
-      <div className="flex flex-col">
-        <span className="text-sm text-white">
-          {info.from.amount} {info.from.symbol}
-        </span>
-        <span className="text-xs text-gray-500">
-          {info.to.amount} {info.to.symbol}
-        </span>
-      </div>
-    ),
-  },
-  {
-    header: "Percentage",
-    accessorKey: "percentage",
-    cell: (info) => (
-      <div className="w-24 h-12 bg-[#100827] rounded-full justify-center items-center gap-0.5 inline-flex">
-        <div className="text-[#f9f9f9] text-sm font-semibold uppercase">{info.percentage}%</div>
-      </div>
-    ),
-  },
-  {
-    header: "Date/Time",
-    accessorKey: "date",
-    cell: (info) => (
-      <div className="flex flex-col">
-        <span className="text-sm text-white">{info.date.day}</span>
-        <span className="text-xs text-gray-500">{info.date.time}</span>
-      </div>
-    ),
-  }
-];
+      ),
+    },
+    {
+      header: "Amount",
+      accessorKey: "to",
+      cell: (info) => (
+        <div className="flex flex-col">
+          <span className="text-sm text-white">
+            {info.to.coinFromAmount} {info.to.coinFrom}
+          </span>
+          <span className="text-xs text-gray-500">
+            {info.to.coinToAmount} {info.to.coinTo}
+          </span>
+        </div>
+      ),
+    },
+    {
+      header: "Timestamp",
+      accessorKey: "date",
+      cell: (info) => (
+        <div className="flex flex-col">
+          <span className="text-sm text-white">{info.date.day}</span>
+          <span className="text-xs text-gray-500">{info.date.time}</span>
+        </div>
+      ),
+    }
+  ]
 
 const dummyActivites: ActivityLog[] = [
   {
     from: {
-      img: strk,
-      name: "STARKNET",
-      symbol: "STRK",
-      amount: 0.0002,
+      fromImage: btc,
+      toImage: usdc,
+      coinFrom: "bitcoin",
+      coinTo: "USDC",
     },
     to: {
-      img: usdc,
-      name: "USDC",
-      symbol: "USDC",
-      amount: 1220,
+      coinTo: "USDC",
+      coinToAmount: 1220,
+      coinFrom: "BTC",
+      coinFromAmount: 0.34421,
     },
-    percentage: 25,
-    date: {
-      day: "10.09.2024",
-      time: "GMT 21:08 PM",
-    },
-  },
-  {
-    from: {
-      img: eth,
-      name: "Ethereum",
-      symbol: "ETH",
-      amount: 0.0002,
-    },
-    to: {
-      img: usdt,
-      name: "USDT",
-      symbol: "USDT",
-      amount: 900,
-    },
-    percentage: 75,
+    percentage: 29,
     date: {
       day: "21.12.2024",
       time: "GMT 21:08 PM",
@@ -127,18 +121,132 @@ const dummyActivites: ActivityLog[] = [
   },
   {
     from: {
-      img: btc,
-      name: "Bitcoin",
-      symbol: "BTC",
-      amount: 0.0002,
+      fromImage: btc,
+      toImage: usdt,
+      coinFrom: "bitcoin",
+      coinTo: "USDT",
     },
     to: {
-      img: usdt,
-      name: "USDT",
-      symbol: "USDT",
-      amount: 900,
+      coinTo: "USDT",
+      coinToAmount: 30,
+      coinFrom: "BTC",
+      coinFromAmount: 900,
     },
-    percentage: 75,
+    percentage: 79,
+    date: {
+      day: "21.12.2024",
+      time: "GMT 21:08 PM",
+    },
+  },
+  {
+    from: {
+      fromImage: graph,
+      toImage: usdt,
+      coinFrom: "the graph",
+      coinTo: "USDT",
+    },
+    to: {
+      coinTo: "USDT",
+      coinToAmount: 30,
+      coinFrom: "GRT",
+      coinFromAmount: 200,
+    },
+    percentage: 90,
+    date: {
+      day: "21.12.2024",
+      time: "GMT 21:08 PM",
+    },
+  },
+  {
+    from: {
+      fromImage: strk,
+      toImage: usdc,
+      coinFrom: "starknet",
+      coinTo: "USDT",
+    },
+    to: {
+      coinTo: "USDT",
+      coinToAmount: 30,
+      coinFrom: "STRK",
+      coinFromAmount: 900,
+    },
+    percentage: 100,
+    date: {
+      day: "21.12.2024",
+      time: "GMT 21:08 PM",
+    },
+  },
+  {
+    from: {
+      fromImage: eth,
+      toImage: usdc,
+      coinFrom: "ethereum",
+      coinTo: "USDC",
+    },
+    to: {
+      coinTo: "USDC",
+      coinToAmount: 2500,
+      coinFrom: "ETH",
+      coinFromAmount: 0.7,
+    },
+    percentage: 29,
+    date: {
+      day: "21.12.2024",
+      time: "GMT 21:08 PM",
+    },
+  },
+  {
+    from: {
+      fromImage: sol,
+      toImage: usdt,
+      coinFrom: "solana",
+      coinTo: "USDT",
+    },
+    to: {
+      coinTo: "USDT",
+      coinToAmount: 300,
+      coinFrom: "SOL",
+      coinFromAmount: 10,
+    },
+    percentage: 79,
+    date: {
+      day: "21.12.2024",
+      time: "GMT 21:08 PM",
+    },
+  },
+  {
+    from: {
+      fromImage: sol,
+      toImage: usdt,
+      coinFrom: "solana",
+      coinTo: "USDT",
+    },
+    to: {
+      coinTo: "USDT",
+      coinToAmount: 300,
+      coinFrom: "SOL",
+      coinFromAmount: 10,
+    },
+    percentage: 79,
+    date: {
+      day: "21.12.2024",
+      time: "GMT 21:08 PM",
+    },
+  },
+  {
+    from: {
+      fromImage: btc,
+      toImage: usdc,
+      coinFrom: "bitcoin",
+      coinTo: "USDC",
+    },
+    to: {
+      coinTo: "USDC",
+      coinToAmount: 1220,
+      coinFrom: "BTC",
+      coinFromAmount: 0.34421,
+    },
+    percentage: 29,
     date: {
       day: "21.12.2024",
       time: "GMT 21:08 PM",

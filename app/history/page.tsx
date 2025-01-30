@@ -128,7 +128,7 @@ export default function History() {
       <section className="bg-cover bg-black mt-10 pt-20 px-4 pb-10 leading-[19.7px] min-h-screen flex flex-col">
         <div className="w-full max-w-[936px] flex flex-col gap-0 mb-12 mx-auto">
           <h1 className="capitalize text-white text-xl md:text-2xl py-0 my-0 text-main-white font-semibold">Autoswappr DEX History</h1>
-          <p className="text-base md:text-xl font-thin text-white py-0 my-0 ">Here’s your history report of all transactions carried out by Autoswappr</p>
+          <p className="text-base md:text-xl font-thin text-[#A8AFB4] py-0 my-0 ">Here’s your history report of all transactions carried out by Autoswappr</p>
         </div>
         <div className="w-full max-w-[936px] flex flex-col gap-0 mb-12 mx-auto">
         <Table data={history} columns={columns} onRowClick={handleRowClick} />
