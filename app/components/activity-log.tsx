@@ -1,12 +1,92 @@
+"use client"
+import Image from "next/image";
 import btc from "../../public/coin-logos/btc-logo.svg";
 import eth from "../../public/coin-logos/eth-logo.svg";
 import strk from "../../public/coin-logos/strk-logo.svg";
 import usdc from "../../public/coin-logos/usdc-logo.svg";
 import usdt from "../../public/coin-logos/usdt-logo.svg";
-import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import Table, { ColumnDef } from "./table.beta";
 
-const dummyActivites = [
+interface ActivityLog {
+  from: {
+    img: string
+    name: string
+    symbol: string
+    amount: number
+  }
+  to: {
+    img: string
+    name: string
+    symbol: string
+    amount: number
+  }
+  percentage: number
+  date: {
+    day: string
+    time: string
+  }
+}
+
+const columns: ColumnDef<ActivityLog>[] = [
+  {
+    header: "From",
+    accessorKey: "from",
+    cell: (info, index) => (
+      <div className="flex items-center gap-4">
+        <span className="text-xs text-gray-500">{index as number + 1}.</span>
+        <div className="relative flex items-center">
+          <div className="h-8 w-8 overflow-hidden rounded-full">
+            <Image width={32}
+              height={32} src={info.from.img || "/placeholder.svg"} alt={info.from.name} className="h-full w-full object-cover" />
+          </div>
+          <div className="absolute -right-6 h-10 w-10 overflow-hidden rounded-full">
+            <Image width={32}
+              height={32} src={info.to.img || "/placeholder.svg"} alt={info.to.name} className="h-full w-full object-cover" />
+          </div>
+        </div>
+        <div className="ml-4 pl-2 flex flex-col">
+          <span className="text-lg font-medium text-white">{info.from.name}</span>
+          <span className="text-sm text-indigo-400">{info.to.symbol}</span>
+        </div>
+      </div>
+    ),
+  },
+  {
+    header: "To",
+    accessorKey: "to",
+    cell: (info) => (
+      <div className="flex flex-col">
+        <span className="text-sm text-white">
+          {info.from.amount} {info.from.symbol}
+        </span>
+        <span className="text-xs text-gray-500">
+          {info.to.amount} {info.to.symbol}
+        </span>
+      </div>
+    ),
+  },
+  {
+    header: "Percentage",
+    accessorKey: "percentage",
+    cell: (info) => (
+      <div className="w-24 h-12 bg-[#100827] rounded-full justify-center items-center gap-0.5 inline-flex">
+        <div className="text-[#f9f9f9] text-sm font-semibold uppercase">{info.percentage}%</div>
+      </div>
+    ),
+  },
+  {
+    header: "Date/Time",
+    accessorKey: "date",
+    cell: (info) => (
+      <div className="flex flex-col">
+        <span className="text-sm text-white">{info.date.day}</span>
+        <span className="text-xs text-gray-500">{info.date.time}</span>
+      </div>
+    ),
+  }
+];
+
+const dummyActivites: ActivityLog[] = [
   {
     from: {
       img: strk,
@@ -70,78 +150,14 @@ const ActivityLog = () => {
   return (
     <>
       <section className="relative bg-cover bg-main-bg bg-center bg-no-repeat pt-[100px] md:pt-[147px] text-[#F3F5FF] px-4 lg:px-[187px] min-h-[95vh]">
-        <h1 className="text-base md:text-[20px] md:leading-[27px] font-semibold md:mb-2">
-          Autoswappr Activity log
-        </h1>
-        <p className="text-sm md:text-base leading-[22px]">
-          These are a list of all your AutoSwap activities.
-        </p>
-        <div className="overflow-scroll my-10 lg:my-20">
-          <div className="border border-[#2C3035] rounded-2xl overflow-hidden">
-            <div className="grid grid-cols-[50px_50px_1fr_1fr] sm:grid-cols-4 gap-x-4 text-sm py-4 px-5 border-b border-b-[#2C3035]">
-              <div>From</div>
-              <div>To</div>
-              <div>Amount</div>
-              <div>Timestamp</div>
-            </div>
-            <div className="flex flex-col gap-y-4 py-4 px-5 max-h-[900px] overflow-scroll">
-              {dummyActivites.map((activity, i) => (
-                <div
-                  className="grid grid-cols-[50px_50px_1fr_1fr] sm:grid-cols-4 py-3 gap-x-4"
-                  key={i}
-                >
-                  <div className="flex items-center gap-x-3 text-[#4C5053]">
-                    <span className="text-xs font-semibold">{i + 1}.</span>
-                    <Image
-                      src={activity.from.img}
-                      alt="coin-from"
-                      className="w-5 h-5 md:w-8 md:h-8 flex-none"
-                    />
-                    <div className="sm:flex flex-col hidden">
-                      <span className="text-sm md:text-base md:leading-[22px] text-[#F3F5FF]">
-                        {activity.from.name}
-                      </span>
-                      <span className="text-xs md:text-sm">
-                        {activity.from.symbol}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-x-3 text-[#4C5053]">
-                    <Image
-                      src={activity.to.img}
-                      alt="coin-from"
-                      className="w-5 h-5 md:w-8 md:h-8 flex-none"
-                    />
-                    <div className="sm:flex flex-col hidden">
-                      <span className="text-sm md:text-base md:leading-[22px] text-[#F3F5FF]">
-                        {activity.to.name}
-                      </span>
-                      <span className="text-xs md:text-sm">
-                        {activity.to.symbol}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex sm:flex-row flex-col sm:items-center text-left gap-x-3 text-[#F3F5FF] text-[10px] sm:text-xs md:text-base">
-                    <span>
-                      {activity.from.amount} {activity.from.symbol}
-                    </span>
-                    <span className="text-sm">
-                      <ArrowRight size={10} />
-                    </span>
-                    <span>
-                      {activity.to.amount} {activity.to.symbol}
-                    </span>
-                  </div>
-                  <div className="flex flex-col text-[#F3F5FF] text-xs md:text-base">
-                    <span>{activity.date.day}</span>
-                    <span className="text-[#4C5053] text-[10px] md:text-sm">
-                      {activity.date.time}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
+        <div className="w-full max-w-[936px] flex flex-col gap-6 mb-12 mx-auto">
+          <div>
+          <h1 className="capitalize text-white text-xl md:text-2xl py-0 my-0 text-main-white font-semibold">
+            Autoswappr Activity Log
+          </h1>
+          <p className="w-full text-[#a199b8] text-base font-normal">These are a list of all AutoSwap activities.</p>
           </div>
+          <Table data={dummyActivites} columns={columns} />
         </div>
       </section>
     </>
