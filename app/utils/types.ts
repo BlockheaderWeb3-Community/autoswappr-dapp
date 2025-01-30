@@ -14,5 +14,7 @@ export interface TokenPair {
   from: { name: string; symbol: string; logo: StaticImageData };
   to: { name: string; symbol: string; logo: StaticImageData };
   amount: number;
-  enabled: boolean;
+  enabled?: boolean;
+  edit: any;
+  delete: any;
 }

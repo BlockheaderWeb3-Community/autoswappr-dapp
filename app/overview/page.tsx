@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import Image from "next/image";
 import eth from "../../public/coin-logos/eth-logo.svg";
@@ -13,14 +12,12 @@ import { ERC20_ABI } from "../abis/erc20-abi";
 import Table, { ColumnDef } from "../components/table.beta";
 import { Plus } from "lucide-react";
 import { supportedTokens } from "../utils/data";
-import { Pencil, Plus, Trash } from "lucide-react";
 import { Modal } from "../components/modal";
 import { TokenPair } from "../utils/types";
 
 export default function Overview() {
   const [isEditing, setIsEditing] = useState(false);
   const [isAddingToken, setIsAddingToken] = useState(false);
-  const [selectedTokenPair, setSelectedTokenPair] = useState<TokenPair | undefined>(undefined);
   const [selectedTokenPair, setSelectedTokenPair] = useState<TokenPair | undefined>(undefined);
   const [tokenSelected, setTokenSelected] = useState<
     | {
@@ -42,31 +39,46 @@ export default function Overview() {
       id: 1,
       from: { name: "Ethereum", symbol: "ETH", logo: eth },
       to: { name: "USDC", symbol: "USDC", logo: usdc },
-      amount: 50
+      amount: 50,
+      enabled: false,
+      edit: undefined,
+      delete: undefined
     },
     {
       id: 2,
       from: { name: "Ethereum", symbol: "ETH", logo: eth },
       to: { name: "USDC", symbol: "USDC", logo: usdc },
-      amount: 50
+      amount: 50,
+      enabled: false,
+      edit: undefined,
+      delete: undefined
     },
     {
       id: 3,
       from: { name: "Ethereum", symbol: "ETH", logo: eth },
       to: { name: "USDC", symbol: "USDC", logo: usdc },
       amount: 50,
+      enabled: false,
+      edit: undefined,
+      delete: undefined
     },
     {
       id: 4,
       from: { name: "Ethereum", symbol: "ETH", logo: eth },
       to: { name: "USDC", symbol: "USDC", logo: usdc },
       amount: 50,
+      enabled: false,
+      edit: undefined,
+      delete: undefined
     },
     {
       id: 5,
       from: { name: "Ethereum", symbol: "ETH", logo: eth },
       to: { name: "USDC", symbol: "USDC", logo: usdc },
       amount: 50,
+      enabled: false,
+      edit: undefined,
+      delete: undefined
     },
   ]);
 
@@ -74,8 +86,6 @@ export default function Overview() {
     try {
       await writeAsync();
       if (waitData) {
-        // TODO save information in the backend
-        // router.push("/overview");
       }
     } catch (err) {
       console.log(err);
@@ -128,7 +138,7 @@ export default function Overview() {
   },
   {
     header: "Amount",
-    accessorKey: "to",
+    accessorKey: "amount",
     cell: (info) => (
       <div className="flex flex-col">
         <span className="text-sm text-white">
