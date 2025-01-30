@@ -4,9 +4,10 @@ interface ModalProps {
   children: React.ReactNode;
   isOpen: boolean;
   handleClose: () => void;
+  className?: string;
 }
 
-export function Modal({ children, isOpen, handleClose }: ModalProps) {
+export function Modal({ children, isOpen, handleClose, className }: ModalProps) {
   useEffect(() => {
     const closeOnEscapeKey = (e: KeyboardEvent) =>
       e.key === "Escape" ? handleClose() : null;
@@ -29,7 +30,7 @@ export function Modal({ children, isOpen, handleClose }: ModalProps) {
 
   return (
     <div
-      className="absolute inset-0 flex justify-center bg-black bg-opacity-60 backdrop-blur-sm z-[200]"
+      className={`absolute inset-0 flex justify-center bg-black bg-opacity-60 backdrop-blur-sm z-[200] ${className}`}
       onClick={handleClose}
     >
       {children}

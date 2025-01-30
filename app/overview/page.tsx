@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import eth from "../../public/coin-logos/eth-logo.svg";
 import usdc from "../../public/coin-logos/usdc-logo.svg";
 import { createPortal } from "react-dom";
-import GenericModal from "../components/generic-modal";
 import SelectTokens from "../components/select-tokens";
 import LockBodyScroll from "../components/lock-body-scroll";
 import { useContractWriteUtility } from "../utils/helper";
@@ -13,16 +12,13 @@ import { swappr_contract_address } from "../utils/addresses";
 import { ERC20_ABI } from "../abis/erc20-abi";
 import { supportedTokens } from "../utils/data";
 import { Pencil, Plus, Trash } from "lucide-react";
-interface TokenPair {
-  id: number;
-  from: { name: string; symbol: string; logo: StaticImageData };
-  to: { name: string; symbol: string; logo: StaticImageData };
-  amount: number;
-  enabled: boolean;
-}
+import { Modal } from "../components/modal";
+import { TokenPair } from "../utils/types";
+
 export default function Overview() {
   const [isEditing, setIsEditing] = useState(false);
   const [isAddingToken, setIsAddingToken] = useState(false);
+  const [selectedTokenPair, setSelectedTokenPair] = useState<TokenPair | undefined>(undefined);
   const [tokenSelected, setTokenSelected] = useState<
     | {
         coinName: string;
@@ -93,15 +89,26 @@ export default function Overview() {
       <LockBodyScroll lock={isEditing || isAddingToken} />
       {(isEditing || isAddingToken) &&
         createPortal(
-          <GenericModal
-            className="flex justify-center items-center"
+          <Modal
+            isOpen={isEditing || isAddingToken}
             handleClose={() => {
               setIsEditing(false);
               setIsAddingToken(false);
+              setSelectedTokenPair(undefined);
             }}
+            className="backdrop-blur-xl overflow-y-scroll !z-10"
           >
-            <SelectTokens />
-          </GenericModal>,
+            <div className="md:mt-[6rem] mt-[4.5rem]">
+              <SelectTokens
+                tokenPair={selectedTokenPair}
+                onClose={() => {
+                  setIsEditing(false);
+                  setIsAddingToken(false);
+                  setSelectedTokenPair(undefined);
+                }}
+              />
+            </div>
+          </Modal>,
           document.body
         )}
       <section className="relative bg-cover bg-main-bg bg-center bg-no-repeat pt-[100px] md:pt-[147px] text-[#F3F5FF] px-4 lg:px-[187px] min-h-[95vh]">
@@ -190,6 +197,7 @@ export default function Overview() {
                             (cur) => cur.coinName === token.from.name
                           )[0].contractAddress,
                         });
+                        setSelectedTokenPair(token);
                         setIsEditing(true);
                       }}
                     >
