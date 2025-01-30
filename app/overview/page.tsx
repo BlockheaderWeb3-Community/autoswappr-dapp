@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import eth from "../../public/coin-logos/eth-logo.svg";
 import usdc from "../../public/coin-logos/usdc-logo.svg";
 import { createPortal } from "react-dom";
-import GenericModal from "../components/generic-modal";
 import SelectTokens from "../components/select-tokens";
 import LockBodyScroll from "../components/lock-body-scroll";
 import { useContractWriteUtility } from "../utils/helper";
@@ -14,19 +13,14 @@ import { ERC20_ABI } from "../abis/erc20-abi";
 import Table, { ColumnDef } from "../components/table.beta";
 import { Plus } from "lucide-react";
 import { supportedTokens } from "../utils/data";
-
-interface TokenPair {
-  id: number;
-  from: { name: string; symbol: string; logo: StaticImageData };
-  to: { name: string; symbol: string; logo: StaticImageData };
-  amount: number;
-  edit?: any;
-  delete?: any
-}
+import { Pencil, Plus, Trash } from "lucide-react";
+import { Modal } from "../components/modal";
+import { TokenPair } from "../utils/types";
 
 export default function Overview() {
   const [isEditing, setIsEditing] = useState(false);
   const [isAddingToken, setIsAddingToken] = useState(false);
+  const [selectedTokenPair, setSelectedTokenPair] = useState<TokenPair | undefined>(undefined);
   const [selectedTokenPair, setSelectedTokenPair] = useState<TokenPair | undefined>(undefined);
   const [tokenSelected, setTokenSelected] = useState<
     | {
@@ -182,15 +176,26 @@ export default function Overview() {
       <LockBodyScroll lock={isEditing || isAddingToken} />
       {(isEditing || isAddingToken) &&
         createPortal(
-          <GenericModal
-            className="flex justify-center items-center"
+          <Modal
+            isOpen={isEditing || isAddingToken}
             handleClose={() => {
               setIsEditing(false);
               setIsAddingToken(false);
+              setSelectedTokenPair(undefined);
             }}
+            className="backdrop-blur-xl overflow-y-scroll !z-10"
           >
-            <SelectTokens />
-          </GenericModal>,
+            <div className="md:mt-[6rem] mt-[4.5rem]">
+              <SelectTokens
+                tokenPair={selectedTokenPair}
+                onClose={() => {
+                  setIsEditing(false);
+                  setIsAddingToken(false);
+                  setSelectedTokenPair(undefined);
+                }}
+              />
+            </div>
+          </Modal>,
           document.body
         )}
       <section className="relative bg-cover bg-main-bg bg-center bg-no-repeat pt-[100px] md:pt-[147px] text-[#F3F5FF] px-4 lg:px-[187px] min-h-[95vh]">

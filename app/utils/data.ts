@@ -45,3 +45,24 @@ export const supportedTokens: Coin[] = [
     decimals: 18,
   },
 ];
+ 
+
+
+export const quoteTokens: Coin[] = [
+  {
+    key: "usdt",
+    imgLink: "/coin-logos/usdt-logo.svg",
+    coinName: "USDT",
+    coinSymbol: "USDT",
+    contractAddress: "0x0",
+    decimals: 18,
+  },
+  {
+    key: "usdc",
+    imgLink: "/coin-logos/usdc-logo.svg",
+    coinName: "USDC",
+    coinSymbol: "USDC",
+    contractAddress: "0x0",
+    decimals: 18,
+  },
+];
