@@ -41,8 +41,8 @@ export default function Overview() {
       to: { name: "USDC", symbol: "USDC", logo: usdc },
       amount: 50,
       enabled: false,
-      edit: undefined,
-      delete: undefined
+      edit: false,
+      delete: false
     },
     {
       id: 2,
@@ -50,8 +50,8 @@ export default function Overview() {
       to: { name: "USDC", symbol: "USDC", logo: usdc },
       amount: 50,
       enabled: false,
-      edit: undefined,
-      delete: undefined
+      edit: false,
+      delete: false
     },
     {
       id: 3,
@@ -59,8 +59,8 @@ export default function Overview() {
       to: { name: "USDC", symbol: "USDC", logo: usdc },
       amount: 50,
       enabled: false,
-      edit: undefined,
-      delete: undefined
+      edit: false,
+      delete: false
     },
     {
       id: 4,
@@ -68,8 +68,8 @@ export default function Overview() {
       to: { name: "USDC", symbol: "USDC", logo: usdc },
       amount: 50,
       enabled: false,
-      edit: undefined,
-      delete: undefined
+      edit: false,
+      delete: false
     },
     {
       id: 5,
@@ -77,8 +77,8 @@ export default function Overview() {
       to: { name: "USDC", symbol: "USDC", logo: usdc },
       amount: 50,
       enabled: false,
-      edit: undefined,
-      delete: undefined
+      edit: false,
+      delete: false
     },
   ]);
 
