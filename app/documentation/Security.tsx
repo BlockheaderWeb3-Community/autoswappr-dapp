@@ -2,7 +2,7 @@
 
 
 export default function Security(){
-    return <div className="grid gap-5">
+    return <div className="grid gap-5 text-[#DCDFE1]">
     <div className="grid gap-2 font-normal leading-6 text-sm">
         <h3 className="font-semibold text-sm leading-6">AutoswapAudit Reports</h3>
         <p className="text-[#D2CED8CC]">Our smart contracts have been audited by Certik.</p>
