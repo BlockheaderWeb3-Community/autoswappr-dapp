@@ -12,17 +12,48 @@ import Contact from "./Contact";
 import Security from "./Security";
 
 const sections = [
-  { id: "introduction", title: "Introduction", component: <Introduction /> },
+  {
+    id: "introduction",
+    title: "Introduction",
+    description: "Brief overview of autoswappr",
+    component: <Introduction />,
+  },
   {
     id: "getting-started",
     title: "Getting Started",
+    description: "Brief overview of autoswappr",
     component: <GetStarted />,
   },
-  { id: "features", title: "Features", component: <Features /> },
-  { id: "user-guide", title: "User Guide", component: <UserGuide /> },
-  { id: "faqs", title: "FAQs", component: <Faqs /> },
-  { id: "security", title: "Security", component: <Security /> },
-  { id: "contact", title: "Contact & Support", component: <Contact /> },
+  {
+    id: "features",
+    title: "Features",
+    description: "what we offer",
+    component: <Features />,
+  },
+  {
+    id: "user-guide",
+    title: "User Guide",
+    description: "How it works",
+    component: <UserGuide />,
+  },
+  {
+    id: "faqs",
+    title: "FAQs",
+    description: "questions we are usually asked",
+    component: <Faqs />,
+  },
+  {
+    id: "security",
+    title: "Security",
+    description: "How secure IS AUTOSWAPPR",
+    component: <Security />,
+  },
+  {
+    id: "contact",
+    title: "Contact & Support",
+    description: "reach out to us",
+    component: <Contact />,
+  },
 ];
 
 export default function Documentation() {
@@ -75,13 +106,19 @@ export default function Documentation() {
         ))}
       </nav>
       <section className="md:w-[994px] my-10 grid gap-10">
-        {sections.map(({ id, title, component }) => (
+        {sections.map(({ id, title, component, description }) => (
           <div key={id}>
             <div
               className="flex justify-between items-center border-b border-[#1E2021] pb-4 cursor-pointer"
               onClick={() => setView(view === id ? "" : id)}
             >
-              <h3 className="text-xl font-semibold">{title}</h3>
+              <div className="flex items-center gap-3">
+                <h3 className="text-xl font-semibold">{title}</h3>
+                <span className="w-[3px] h-4 bg-[#2C3035] rounded-lg" />
+                <h5 className="uppercase text-[#A8AFB4] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
+                  {description}
+                </h5>
+              </div>
               <Image
                 src={arrow}
                 alt="toggle"
