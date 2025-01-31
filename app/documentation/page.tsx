@@ -69,9 +69,13 @@ export default function Documentation() {
   return (
     <section className="relative bg-main-bg bg-cover bg-center text-[#F3F5FF] px-4 lg:px-[187px] min-h-[95vh] pt-[100px] md:pt-[147px]">
       <div className="max-w-[936px] mb-10">
-        <h1 className="text-xl md:text-2xl font-semibold">Documentation</h1>
-        <p className="text-base md:text-xl font-thin text-[#A8AFB4]">
-          Learn about Autoswappr’s features and how it works.
+        <h1 className="text-xl text-[#F3F5FF] font-semibold mb-2">
+          Documentation
+        </h1>
+        <p className="text-base font-thin text-[#DCDFE1]">
+          For transparency and the purpose of understanding what Autoswappr does
+          and how it works, we have documented every necessary information for
+          you.
         </p>
       </div>
       <div className="flex md:hidden px-4 mx-auto max-w-[740px] w-[95%] sm:w-4/5 my-4 gap-10">
