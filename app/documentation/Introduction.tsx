@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 
 export default function Introduction() {
   return (
-    <div className="w-full relative ">
+    <div className="w-full relative text-[#DCDFE1]">
       <Image src={starIcon} alt="" className="absolute right-0 top-14" />
       <Image src={starIcon} alt="" className="absolute left-0 top-14" />
 
-      <div className="grid gap-5 font-normal leading-6 text-sm text-[#D2CED8CC]">
+      <div className="grid gap-5 font-normal leading-6 text-sm ">
         <p>
           Autoswappr is an innovative blockchain platform designed to simplify
           token management. Whether you &apos;re a trader, a frequent blockchain
