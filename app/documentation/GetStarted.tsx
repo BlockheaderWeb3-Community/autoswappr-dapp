@@ -3,16 +3,18 @@ import getHero from "../../public/getting-started-hero.png";
 import getMid from "../../public/getting-started-mid.png";
 import getBottom from "../../public/getting-started-bottom.png";
 
- 
 export default function GetStarted() {
   return (
-    <div className="w-full relative bg-[#08001F]">
+    <div className="w-full relative text-[#DCDFE1]">
       <Image src={getHero} alt="" className="w-full py-5" />
       <div className="grid gap-5 font-normal leading-6 text-sm">
         <h3 className="font-semibold text-sm leading-6">Creating an Account</h3>
-        <ol className="list-decimal text-[#D2CED8CC] pl-4">
+        <ol className="list-decimal  pl-4">
           <li>Visit autoswapper.io</li>
-          <li>Click the &apos; Connect Wallet &apos &apos; button in the top-right corner</li>
+          <li>
+            Click the &apos; Connect Wallet &apos &apos; button in the top-right
+            corner
+          </li>
           <li>Select a wallet to connect to Autoswapper</li>
           <li>Grant Autoswapper permision and you are good to go!</li>
         </ol>
@@ -22,10 +24,8 @@ export default function GetStarted() {
         <h3 className="font-semibold text-sm leading-6">
           Connecting Your Wallet
         </h3>
-        <p className="text-[#D2CED8CC]">
-          Autoswappr supports the following wallets:
-        </p>
-        <ol className="list-decimal text-[#D2CED8CC] pl-4">
+        <p className="">Autoswappr supports the following wallets:</p>
+        <ol className="list-decimal  pl-4">
           <li>Argent</li>
           <li>Braavos</li>
         </ol>
@@ -36,7 +36,7 @@ export default function GetStarted() {
         <h3 className="font-semibold text-sm leading-6">
           To connect your wallet
         </h3>
-        <ol className="list-decimal text-[#D2CED8CC] pl-4">
+        <ol className="list-decimal  pl-4">
           <li>Click the Connect Wallet button on the homepage.</li>
           <li>Choose your wallet provider from the list.</li>
           <li>Confirm the connection through your wallet app.</li>

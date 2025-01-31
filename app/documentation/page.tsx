@@ -11,300 +11,131 @@ import UserGuide from "./UserGuide";
 import Contact from "./Contact";
 import Security from "./Security";
 
-
-
 const sections = [
   {
     id: "introduction",
-    title: "Introduction ",
+    title: "Introduction",
+    description: "Brief overview of autoswappr",
+    component: <Introduction />,
   },
   {
     id: "getting-started",
     title: "Getting Started",
+    description: "Brief overview of autoswappr",
+    component: <GetStarted />,
   },
   {
     id: "features",
     title: "Features",
+    description: "what we offer",
+    component: <Features />,
   },
   {
     id: "user-guide",
     title: "User Guide",
+    description: "How it works",
+    component: <UserGuide />,
   },
   {
     id: "faqs",
     title: "FAQs",
+    description: "questions we are usually asked",
+    component: <Faqs />,
   },
   {
     id: "security",
     title: "Security",
+    description: "How secure IS AUTOSWAPPR",
+    component: <Security />,
   },
   {
     id: "contact",
     title: "Contact & Support",
+    description: "reach out to us",
+    component: <Contact />,
   },
 ];
+
 export default function Documentation() {
   const [view, setView] = useState("introduction");
-  const [number, setNumber] = useState(0);
+  const [index, setIndex] = useState(0);
 
-  function increase() {
-    if (number === 6) return;
-    setNumber((num) => num + 1);
-  }
+  const navigate = (direction: number) => {
+    setIndex((prev) =>
+      Math.max(0, Math.min(sections.length - 1, prev + direction))
+    );
+  };
 
-  function decrease() {
-    if (number === 0) return;
-    setNumber((num) => num - 1);
-  }
-
-  function viewHandler() {
-    if (sections[number].id === view) {
-      setView("");
-      return;
-    }
-    setView(sections[number].id);
-  }
   return (
-    <>
-      <div className="hidden md:block w-full h-[100px] bg-main-bg bg-cover" />
-      <section className="bg-main-bg bg-center bg-cover md:bg-none leading-[19.07px] md:py-0 py-32 md:mt-10">
-        <h1 className="text-center font-semibold capitalize text-2xl pb-5">
-          documentation
+    <section className="relative bg-main-bg bg-cover bg-center text-[#F3F5FF] px-4 lg:px-[187px] min-h-[95vh] pt-[100px] md:pt-[147px]">
+      <div className="max-w-[936px] mb-10">
+        <h1 className="text-xl text-[#F3F5FF] font-semibold mb-2">
+          Documentation
         </h1>
-        <main className="">
-          <div className="flex md:hidden px-4 mx-auto max-w-[740px] w-[95%] sm:w-4/5 my-16 gap-10">
-            <Image
-              src={arrow}
-              alt="arrow"
-              className={`transition-all duration-300 m:hidden w-[30px] rotate-90`}
-              onClick={decrease}
-            />
-            <div className="w-3/4 font-medium text-xl text-center">
-              <h1
-                onClick={viewHandler}
-                className={`${sections[number].id === view ? "text-[#1d77aa]" : ""} cursor-pointer`}
-              >
-                {sections[number].title}
-              </h1>
+        <p className="text-base font-thin text-[#DCDFE1]">
+          For transparency and the purpose of understanding what Autoswappr does
+          and how it works, we have documented every necessary information for
+          you.
+        </p>
+      </div>
+      <div className="flex md:hidden px-4 mx-auto max-w-[740px] w-[95%] sm:w-4/5 my-4 gap-10">
+        <Image
+          src={arrow}
+          alt="prev"
+          className="w-[30px] rotate-90"
+          onClick={() => navigate(-1)}
+        />
+        <h1
+          className="text-xl text-center cursor-pointer"
+          onClick={() => setView(sections[index].id)}
+        >
+          {sections[index].title}
+        </h1>
+        <Image
+          src={arrow}
+          alt="next"
+          className="w-[30px] -rotate-90"
+          onClick={() => navigate(1)}
+        />
+      </div>
+      <nav className="hidden md:flex gap-5">
+        {sections.map(({ id, title }) => (
+          <button
+            key={id}
+            onClick={() => setView(id)}
+            className={`py-2 px-6 border border-[#1E2021] rounded-lg transition ${view === id ? "bg-[#323537] text-[#F3F5FF]" : "bg-[#010307] text-[#979FA5] hover:bg-[#010307]"}`}
+          >
+            {title}
+          </button>
+        ))}
+      </nav>
+      <section className="md:w-[994px] my-10 grid gap-10">
+        {sections.map(({ id, title, component, description }) => (
+          <div key={id}>
+            <div
+              className="flex justify-between items-center border-b border-[#1E2021] pb-4 cursor-pointer"
+              onClick={() => setView(view === id ? "" : id)}
+            >
+              <div className="flex items-center gap-3">
+                <h3 className="text-xl font-semibold">{title}</h3>
+                <span className="w-[3px] h-4 bg-[#2C3035] rounded-lg" />
+                <h5 className="uppercase text-[#A8AFB4] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
+                  {description}
+                </h5>
+              </div>
+              <Image
+                src={arrow}
+                alt="toggle"
+                className={`transition-all duration-300 ${view === id ? "rotate-0" : "-rotate-90"}`}
+              />
             </div>
-            <Image
-              src={arrow}
-              alt="arrow"
-              className={`transition-all duration-300 md:hidden w-[30px] -rotate-90`}
-              onClick={increase}
-            />
+            <div className={`${view === id ? "py-6" : ""}`}>
+              {view === id && component}
+            </div>
           </div>
-          <nav className="gap-5 mx-auto w-[70%] overflow-hidden md:w-fit hidden md:flex">
-            {sections.map((section) => (
-              <button
-                key={section.id}
-                onClick={() => setView(section.id)}
-                className={`text-[14px] md:text-lg font-[400] py-2 px-4 rounded-[48px] transition text-[#A199B8] ${view === section.id ? "bg-[#1779A0]" : "bg-[#120A29] hover:bg-[#120A29]"}`}
-              >
-                {section.title}
-              </button>
-            ))}
-          </nav>
-          <section className="max-w-[740px] w-[95%] sm:w-4/5 mx-auto my-16 grid gap-10">
-            {/* intro */}
-            <div
-              className="flex justify-between items-center border-b-[#433b5a] border-b-[2px] pb-5 cursor-pointer"
-              onClick={() => {
-                if (view === "introduction") {
-                  setView("");
-                  return;
-                }
-                setView("introduction");
-              }}
-            >
-              <div className="flex justify-between items-center gap-3">
-                <h3 className="capitalize leading-[27.24px] font-[400] text-[14px] sm:font-semibold sm:text-xl">
-                  introduction
-                </h3>
-                <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#1d77aa] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
-                  brief overview of AUTOSWAPPER
-                </h5>
-              </div>
-              <Image
-                src={arrow}
-                alt="arrow"
-                className={`${view === "introduction" ? "rotate-0" : "-rotate-90"} transition-all duration-300`}
-              />
-            </div>
-            {view === "introduction" && <Introduction />}
-
-            {/* Getting started */}
-            <div
-              className="flex justify-between items-center border-b-[#433b5a] border-b-[2px] pb-5 cursor-pointer"
-              onClick={() => {
-                if (view === "getting-started") {
-                  setView("");
-                  return;
-                }
-                setView("getting-started");
-              }}
-            >
-              <div className="flex justify-between items-center gap-3">
-                <h3 className="capitalize leading-[27.24px] font-[400] text-[14px] sm:font-semibold sm:text-xl">
-                  getting started
-                </h3>
-                <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#1d77aa] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
-                  step-by-step guide
-                </h5>
-              </div>
-              <Image
-                src={arrow}
-                alt="arrow"
-                className={`${view === "getting-started" ? "rotate-0" : "-rotate-90"} transition-all duration-300`}
-              />
-            </div>
-            {view === "getting-started" && <GetStarted />}
-
-            {/* Features */}
-            <div
-              className="flex justify-between items-center border-b-[#433b5a] border-b-[2px] pb-5 cursor-pointer"
-              onClick={() => {
-                if (view === "features") {
-                  setView("");
-                  return;
-                }
-                setView("features");
-              }}
-            >
-              <div className="flex justify-between items-center gap-3">
-                <h3 className="capitalize leading-[27.24px] font-[400] text-[14px] sm:font-semibold sm:text-xl">
-                  Features
-                </h3>
-                <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#1d77aa] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
-                  what we offer
-                </h5>
-              </div>
-              <Image
-                src={arrow}
-                alt="arrow"
-                className={`${view === "features" ? "rotate-0" : "-rotate-90"} transition-all duration-300`}
-              />
-            </div>
-            {view === "features" && <Features />}
-
-            {/* User Guide */}
-            <div
-              className="flex justify-between items-center border-b-[#433b5a] border-b-[2px] pb-5 cursor-pointer"
-              onClick={() => {
-                if (view === "user-guide") {
-                  setView("");
-                  return;
-                }
-                setView("user-guide");
-              }}
-            >
-              <div className="flex justify-between items-center gap-3">
-                <h3 className="capitalize leading-[27.24px] font-[400] text-[14px] sm:font-semibold sm:text-xl">
-                  User Guide
-                </h3>
-                <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#1d77aa] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
-                  How it works
-                </h5>
-              </div>
-              <Image
-                src={arrow}
-                alt="arrow"
-                className={`${view === "user-guide" ? "rotate-0" : "-rotate-90"} transition-all duration-300`}
-              />
-            </div>
-            {view === "user-guide" && <UserGuide />}
-
-            {/* FAQs */}
-            <div
-              className="flex justify-between items-center border-b-[#433b5a] border-b-[2px] pb-5 cursor-pointer"
-              onClick={() => {
-                if (view === "faqs") {
-                  setView("");
-                  return;
-                }
-                setView("faqs");
-              }}
-            >
-              <div className="flex justify-between items-center gap-3">
-                <h3 className="capitalize leading-[27.24px] font-[400] text-[14px] sm:font-semibold sm:text-xl">
-                  FAQs
-                </h3>
-                <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#1d77aa] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
-                  questions we are usually asked
-                </h5>
-              </div>
-              <Image
-                src={arrow}
-                alt="arrow"
-                className={`${view === "faqs" ? "rotate-0" : "-rotate-90"} transition-all duration-300`}
-              />
-            </div>
-            {view === "faqs" && <Faqs />}
-
-            {/* Security */}
-            <div
-              className="flex justify-between items-center border-b-[#433b5a] border-b-[2px] pb-5 cursor-pointer"
-              onClick={() => {
-                if (view === "security") {
-                  setView("");
-                  return;
-                }
-                setView("security");
-              }}
-            >
-              <div className="flex justify-between items-center gap-3">
-                <h3 className="capitalize leading-[27.24px] font-[400] text-[14px] sm:font-semibold sm:text-xl">
-                  Security
-                </h3>
-                <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#1d77aa] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
-                  How secure IS AUTOSWAPPR
-                </h5>
-              </div>
-              <Image
-                src={arrow}
-                alt="arrow"
-                className={`${view === "security" ? "rotate-0" : "-rotate-90"} transition-all duration-300`}
-              />
-            </div>
-            {view === "security" && <Security />}
-
-            {/* Contact & Support */}
-            <div
-              className="flex justify-between items-center border-b-[#433b5a] border-b-[2px] pb-5 cursor-pointer"
-              onClick={() => {
-                if (view === "contact") {
-                  setView("");
-                  return;
-                }
-                setView("contact");
-              }}
-            >
-              <div className="flex justify-between items-center gap-3">
-                <h3 className="capitalize leading-[27.24px] font-[400] text-[14px] sm:font-semibold sm:text-xl">
-                  Contact & Support
-                </h3>
-                <span className="border-r w-[3px] h-3 border-r-[#100827]" />
-                <h5 className="uppercase text-[#1d77aa] text-[10px] font-[300] sm:font-normal sm:text-xs leading-[16.34px]">
-                  reach out to us
-                </h5>
-              </div>
-              <Image
-                src={arrow}
-                alt="arrow"
-                className={`${view === "contact" ? "rotate-0" : "-rotate-90"} transition-all duration-300`}
-              />
-            </div>
-            {view === "contact" && <Contact />}
-          </section>
-        </main>
+        ))}
       </section>
-      <div className="hidden md:block w-full h-[50px] bg-main-bg bg-cover bottom-0 transform rotate-180" />
-    </>
+      <div className="hidden md:block w-full h-[50px] bg-main-bg bottom-0 rotate-180" />
+    </section>
   );
 }

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import btc from "../../public/coin-logos/btc-logo.svg";
 import eth from "../../public/coin-logos/eth-logo.svg";
@@ -11,93 +11,99 @@ import Table, { ColumnDef } from "./table.beta";
 
 interface ActivityLog {
   from: {
-    fromImage: string
-    toImage: string
-    coinFrom: string
-    coinTo: string
-  }
+    fromImage: string;
+    toImage: string;
+    coinFrom: string;
+    coinTo: string;
+  };
   to: {
-    coinTo: string
-    coinToAmount: number
-    coinFrom: string
-    coinFromAmount: number
-  }
-  percentage: number
+    coinTo: string;
+    coinToAmount: number;
+    coinFrom: string;
+    coinFromAmount: number;
+  };
+  percentage: number;
   date: {
-    day: string
-    time: string
-  }
+    day: string;
+    time: string;
+  };
 }
 
-  const columns: ColumnDef<ActivityLog>[] = [
-    {
-      header: "From",
-      accessorKey: "from",
-      cell: (info, index) => (
-        <div className="flex items-center gap-3">
-          <p className="text-[#4C5053] text-xs text-[16px] font-semibold">{index as number + 1}.</p>
-          <div className="h-8 w-8 overflow-hidden rounded-full">
-            <Image
-              src={info.from.fromImage || "/placeholder.svg"}
-              alt={info.from.coinFrom}
-              width={32}
-              height={32}
-              className="h-full w-full object-cover"
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium text-white capitalize">{info.from.coinFrom}</span>
-            <span className="text-xs text-gray-500">{info.to.coinFrom}</span>
-          </div>
+const columns: ColumnDef<ActivityLog>[] = [
+  {
+    header: "From",
+    accessorKey: "from",
+    cell: (info, index) => (
+      <div className="flex items-center gap-3">
+        <p className="text-[#4C5053] text-xs text-[16px] font-semibold">
+          {(index as number) + 1}.
+        </p>
+        <div className="h-8 w-8 overflow-hidden rounded-full">
+          <Image
+            src={info.from.fromImage || "/placeholder.svg"}
+            alt={info.from.coinFrom}
+            width={32}
+            height={32}
+            className="h-full w-full object-cover"
+          />
         </div>
-      ),
-    },
-    {
-      header: "To",
-      accessorKey: "to",
-      cell: (info) => (
-        <div className="flex items-center gap-3">
-          <div className="h-8 w-8 overflow-hidden rounded-full">
-            <Image
-              src={info.from.toImage || "/placeholder.svg"}
-              alt={info.from.coinTo}
-              width={32}
-              height={32}
-              className="h-full w-full object-cover"
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium text-white">{info.from.coinTo}</span>
-            <span className="text-xs text-gray-500">{info.to.coinTo}</span>
-          </div>
-        </div>
-      ),
-    },
-    {
-      header: "Amount",
-      accessorKey: "to",
-      cell: (info) => (
         <div className="flex flex-col">
-          <span className="text-sm text-white">
-            {info.to.coinFromAmount} {info.to.coinFrom}
+          <span className="text-sm font-medium text-white capitalize">
+            {info.from.coinFrom}
           </span>
-          <span className="text-xs text-gray-500">
-            {info.to.coinToAmount} {info.to.coinTo}
-          </span>
+          <span className="text-xs text-gray-500">{info.to.coinFrom}</span>
         </div>
-      ),
-    },
-    {
-      header: "Timestamp",
-      accessorKey: "date",
-      cell: (info) => (
+      </div>
+    ),
+  },
+  {
+    header: "To",
+    accessorKey: "to",
+    cell: (info) => (
+      <div className="flex items-center gap-3">
+        <div className="h-8 w-8 overflow-hidden rounded-full">
+          <Image
+            src={info.from.toImage || "/placeholder.svg"}
+            alt={info.from.coinTo}
+            width={32}
+            height={32}
+            className="h-full w-full object-cover"
+          />
+        </div>
         <div className="flex flex-col">
-          <span className="text-sm text-white">{info.date.day}</span>
-          <span className="text-xs text-gray-500">{info.date.time}</span>
+          <span className="text-sm font-medium text-white">
+            {info.from.coinTo}
+          </span>
+          <span className="text-xs text-gray-500">{info.to.coinTo}</span>
         </div>
-      ),
-    }
-  ]
+      </div>
+    ),
+  },
+  {
+    header: "Amount",
+    accessorKey: "to",
+    cell: (info) => (
+      <div className="flex flex-col">
+        <span className="text-sm text-white">
+          {info.to.coinFromAmount} {info.to.coinFrom}
+        </span>
+        <span className="text-xs text-gray-500">
+          {info.to.coinToAmount} {info.to.coinTo}
+        </span>
+      </div>
+    ),
+  },
+  {
+    header: "Timestamp",
+    accessorKey: "date",
+    cell: (info) => (
+      <div className="flex flex-col">
+        <span className="text-sm text-white">{info.date.day}</span>
+        <span className="text-xs text-gray-500">{info.date.time}</span>
+      </div>
+    ),
+  },
+];
 
 const dummyActivites: ActivityLog[] = [
   {
@@ -260,10 +266,12 @@ const ActivityLog = () => {
       <section className="relative bg-cover bg-main-bg bg-center bg-no-repeat pt-[100px] md:pt-[147px] text-[#F3F5FF] px-4 lg:px-[187px] min-h-[95vh]">
         <div className="w-full max-w-[936px] flex flex-col gap-6 mb-12 mx-auto">
           <div>
-          <h1 className="capitalize text-white text-xl md:text-2xl py-0 my-0 text-main-white font-semibold">
-            Autoswappr Activity Log
-          </h1>
-          <p className="w-full text-[#a199b8] text-base font-normal">These are a list of all AutoSwap activities.</p>
+            <h1 className="capitalize text-white text-xl md:text-2xl py-0 my-0 text-main-white font-semibold">
+              Autoswappr Activity Log
+            </h1>
+            <p className="w-full text-[#a199b8] text-base font-normal">
+              These are a list of all AutoSwap activities.
+            </p>
           </div>
           <Table data={dummyActivites} columns={columns} />
         </div>
