@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useAccount } from "@starknet-react/core";
 import WalletBar from "./WalletBar";
 import Image from "next/image";
 import { X } from "lucide-react";
@@ -12,6 +13,7 @@ import { WalletModal } from "./WalletModal";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [connectModalIsOpen, setConnectModalIsOpen] = useState(false);
+  const { address } = useAccount();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -60,7 +62,7 @@ const Navbar = () => {
           />
         </button>
 
-        <ul className="hidden md:flex items-center gap-6 w-[627px] justify-center py-7">
+        {address && (<ul className="hidden md:flex items-center gap-6 w-[627px] justify-center py-7">
           {navLinks.map((link) => (
             <li key={link.title}>
               <a
@@ -71,7 +73,7 @@ const Navbar = () => {
               </a>
             </li>
           ))}
-        </ul>
+        </ul>)}
       </div>
 
       {/* Connect Wallet Button */}
