@@ -1,113 +1,100 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useConnect, Connector } from "@starknet-react/core";
 import Image from "next/image";
 import GenericModal from "./generic-modal";
 
 const walletDetails = {
-  argentX: {
-    name: "Argent",
-    subtext: "WEBSITE",
-    icon: "/argent.svg",
-  },
-  webwallet: {
-    name: "Argent",
-    subtext: "MOBILE",
-    icon: "/argent.svg",
-  },
-  braavos: {
-    name: "Braavos",
-    subtext: "WEBSITE",
-    icon: "/braavos.svg",
-  },
+  argentX: { name: "Argent", subtext: "WEBSITE", icon: "/argent.svg" },
+  webwallet: { name: "Argent", subtext: "MOBILE", icon: "/argent.svg" },
+  braavos: { name: "Braavos", subtext: "WEBSITE", icon: "/braavos.svg" },
 };
 
 interface WalletModalProps {
-  setIsOpen: (isOpen: boolean) => void;
+  handleClose: () => void;
 }
 
-export function WalletModal({ setIsOpen }: WalletModalProps) {
+export function WalletModal({ handleClose }: WalletModalProps) {
   const { connect, connectors } = useConnect();
   const [selectedConnector, setSelectedConnector] = useState<Connector | null>(
     null
   );
 
-  const handleConnect = async () => {
+  const handleConnect = useCallback(() => {
     if (selectedConnector) {
       connect({ connector: selectedConnector });
+      handleClose();
     }
-  };
+  }, [selectedConnector, connect, handleClose]);
+
+  const getWalletDetails = (connector: Connector) =>
+    walletDetails[connector.id as keyof typeof walletDetails] || {
+      name: connector.id,
+      subtext: "WEBSITE",
+      icon: "/assets/wallets/argent.svg",
+    };
 
   return (
-    <div
-      className="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm flex items-center justify-center"
-      onClick={() => setIsOpen(false)}
-    >
-      <div className="w-full md:w-[610px] bg-[#000103] border border-[#1E2021] rounded-3xl py-12 px-6 relative">
-        <GenericModal handleClose={() => setIsOpen(false)}  > 
-          Connect Wallet
-        </GenericModal>
+    <GenericModal handleClose={handleClose}>
+      <h2 className="text-2xl text-center font-semibold text-[#F3F5FF]">
+        Connect Wallet
+      </h2>
+      <p className="text-[#BABFC3] my-6 text-base text-center">
+        Choose a wallet you want to connect to Auto-swapper
+      </p>
 
-        <p className="text-[#D7D7D7] mt-6 mb-10 text-base text-center">
-          Choose a wallet you want to connect to Auto-swapper
-        </p>
+      {/* Wallet Options */}
+      <div className="gap-y-4 flex flex-col items-center">
+        {connectors.map((connector) => {
+          const details = getWalletDetails(connector);
+          const isSelected = selectedConnector?.id === connector.id;
 
-        {/* Wallet Options */}
-        <div className="space-y-4 flex flex-col items-center">
-          {connectors.map((connector) => {
-            const details = walletDetails[
-              connector.id as keyof typeof walletDetails
-            ] || {
-              name: connector.id,
-              subtext: "WEBSITE",
-              icon: "/assets/wallets/argent.svg",
-            };
-
-            const isSelected = selectedConnector?.id === connector.id;
-
-            return (
-              <button
-                key={connector.id}
-                onClick={(e) => {
-                  e.stopPropagation();
+          return (
+            <button
+              key={connector.id}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (isSelected) {
+                  setSelectedConnector(null);
+                } else {
                   setSelectedConnector(connector);
-                }}
-                className={`w-[full] sm:w-[264px] h-[57px] flex items-center p-5 justify-center rounded-[8px] border gap-5
-                    ${isSelected ? "border-blue-500" : "border-[#2C3356]"}
-                    hover:border-blue-500 transition-colors`}
-              >
-                <Image
-                  src={details.icon}
-                  alt={details.name}
-                  width={32}
-                  height={32}
-                  className="rounded-full"
-                />
-                <div className="flex flex-col items-start">
-                  <span className="text-[#F9F9F9] text-base leading-[22px] font-medium">
-                    {details.name}
-                  </span>
-                  <span className="text-sm leading-5 font-semibold text-[#433B5A]">
-                    {details.subtext}
-                  </span>
-                </div>
-              </button>
-            );
-          })}
-        </div>
+                }
+              }}
+              className={`w-full sm:w-[264px] flex items-center py-2 px-12 rounded-[8px] border gap-4
+                ${isSelected ? "border-[#1D8CF4]" : "border-[#1E2021]"}
+                hover:border-[#1D8CF4] transition-colors`}
+            >
+              <Image
+                src={details.icon}
+                alt={details.name}
+                width={32}
+                height={32}
+                className="rounded-full"
+              />
+              <div className="flex flex-col">
+                <span className="text-[#F3F5FF] text-base leading-[22px]">
+                  {details.name}
+                </span>
+                <span className="text-sm font-semibold text-[#4C5053]">
+                  {details.subtext}
+                </span>
+              </div>
+            </button>
+          );
+        })}
 
         {/* Continue Button */}
         <button
-          className={`w-[264px] sm:w-[264px] mt-[81px] block py-5 rounded-[8px]
-              ${selectedConnector ? "bg-blue-600 hover:bg-blue-700" : "bg-[#0D1016]"}
-              text-[#F9F9F9] text-base font-semibold mx-auto transition-colors`}
+          className={`w-[264px] py-4 rounded-lg transition-colors border
+            ${selectedConnector ? "bg-[#1D8CF4] border-[#1D8CF4]" : "bg-[#0D1016] border-[#1E2021]"}
+            text-[#F3F5FF] text-base leading-[22px] font-semibold disabled:cursor-not-allowed`}
           onClick={handleConnect}
           disabled={!selectedConnector}
         >
           Continue
         </button>
       </div>
-    </div>
+    </GenericModal>
   );
 }

@@ -12,7 +12,7 @@ function WalletBar({ toggleModal }: { toggleModal: () => void }) {
       ) : (
         <button
           onClick={toggleModal}
-          className="p-3 md:py-[12px] md:px-7 bg-[#0D10163D] border border-[#135DA3] rounded-lg text-sm leading-6 text-[#F3F5FF] font-semibold "
+          className="p-3 md:py-3 md:px-7 bg-[#0D10163D] border border-[#135DA3] rounded-lg text-sm leading-6 text-[#F3F5FF] font-semibold uppercase"
         >
           Connect Wallet
         </button>

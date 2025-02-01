@@ -6,8 +6,6 @@ export const metadata: Metadata = {
   description: "Monitor your activity.",
 };
 
-
-  
-export default function _ActivityLog() {
-    return <ActivityLog />;
+export default function Activity() {
+  return <ActivityLog />;
 }

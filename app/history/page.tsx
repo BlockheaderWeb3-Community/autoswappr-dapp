@@ -1,28 +1,29 @@
-"use client"
+"use client";
 
 import { useEffect, useRef } from "react";
 import Table, { type ColumnDef } from "../components/table.beta";
 import Image from "next/image";
 import { history } from "@/constants/history";
+import PageHeading from "../components/page-heading";
 
 interface Transaction {
   from: {
-    fromImage: string
-    toImage: string
-    coinFrom: string
-    coinTo: string
-  }
+    fromImage: string;
+    toImage: string;
+    coinFrom: string;
+    coinTo: string;
+  };
   to: {
-    coinTo: string
-    coinToAmount: number
-    coinFrom: string
-    coinFromAmount: number
-  }
-  percentage: number
+    coinTo: string;
+    coinToAmount: number;
+    coinFrom: string;
+    coinFromAmount: number;
+  };
+  percentage: number;
   date: {
-    day: string
-    time: string
-  }
+    day: string;
+    time: string;
+  };
 }
 
 export default function History() {
@@ -35,7 +36,9 @@ export default function History() {
       accessorKey: "from",
       cell: (info, index) => (
         <div className="flex items-center gap-3">
-          <p className="text-[#4C5053] text-xs text-[16px] font-semibold">{index as number + 1}.</p>
+          <p className="text-[#4C5053] text-xs text-[16px] font-semibold">
+            {(index as number) + 1}.
+          </p>
           <div className="h-8 w-8 overflow-hidden rounded-full">
             <Image
               src={info.from.fromImage || "/placeholder.svg"}
@@ -46,7 +49,9 @@ export default function History() {
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-medium text-white capitalize">{info.from.coinFrom}</span>
+            <span className="text-sm font-medium text-white capitalize">
+              {info.from.coinFrom}
+            </span>
             <span className="text-xs text-gray-500">{info.to.coinFrom}</span>
           </div>
         </div>
@@ -67,7 +72,9 @@ export default function History() {
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-medium text-white">{info.from.coinTo}</span>
+            <span className="text-sm font-medium text-white">
+              {info.from.coinTo}
+            </span>
             <span className="text-xs text-gray-500">{info.to.coinTo}</span>
           </div>
         </div>
@@ -96,8 +103,8 @@ export default function History() {
           <span className="text-xs text-gray-500">{info.date.time}</span>
         </div>
       ),
-    }
-  ]
+    },
+  ];
 
   useEffect(() => {
     const handleResize = () => {
@@ -107,33 +114,28 @@ export default function History() {
         if (tableWidth > containerWidth) {
           tableRef.current.style.width = `${tableWidth}px`;
         } else {
-          tableRef.current.style.width = '100%';
+          tableRef.current.style.width = "100%";
         }
       }
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     handleResize();
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  const handleRowClick = (row: Transaction) => {
-    console.log("Clicked row:", row)
-  }
 
   return (
     <>
-      <div className="hidden md:block w-[100vw] h-fit bg-black" />
-      <section className="bg-cover bg-black mt-10 pt-20 px-4 pb-10 leading-[19.7px] min-h-screen flex flex-col">
-        <div className="w-full max-w-[936px] flex flex-col gap-0 mb-12 mx-auto">
-          <h1 className="capitalize text-white text-xl md:text-2xl py-0 my-0 text-main-white font-semibold">Autoswappr DEX History</h1>
-          <p className="text-base md:text-xl font-thin text-[#A8AFB4] py-0 my-0 ">Here’s your history report of all transactions carried out by Autoswappr</p>
+      <div className="bg-main-bg bg-center bg-cover bg-no-repeat sm:h-[120vh] h-[150vh] pt-[100px] md:pt-[150px] text-[#F3F5FF] px-4 lg:px-[187px] min-h-[95vh]">
+        <PageHeading
+          title="Autoswappr DEX History"
+          subTitle="Here’s your history report of all transactions carried out by Autoswappr"
+        />
+        <div className="md:pr-[152px] mt-10">
+          <Table data={history} columns={columns} />
         </div>
-        <div className="w-full max-w-[936px] flex flex-col gap-0 mb-12 mx-auto">
-        <Table data={history} columns={columns} onRowClick={handleRowClick} />
-        </div>
-      </section>
+      </div>
     </>
   );
 }
