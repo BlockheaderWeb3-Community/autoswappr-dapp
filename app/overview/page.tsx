@@ -15,6 +15,7 @@ import { supportedTokens } from "../utils/data";
 import { Modal } from "../components/modal";
 import { TokenPair } from "../utils/types";
 import PageHeading from "../components/page-heading";
+import GiveFeedback from "../components/give-feedback";
 
 export default function Overview() {
   const [isEditing, setIsEditing] = useState(false);
@@ -249,6 +250,7 @@ export default function Overview() {
           <Table columns={columns} data={tokenPairs} />
         </div>
       </div>
+      <GiveFeedback />
     </div>
   );
 }

@@ -8,5 +8,7 @@ export const metadata: Metadata = {
 
   
 export default function _HelpCenter() {
-  return <HelpCenter />;
+  return <>
+  <HelpCenter />;
+  </>
 }
