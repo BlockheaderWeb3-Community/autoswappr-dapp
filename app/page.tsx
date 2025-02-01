@@ -14,16 +14,15 @@ export default function Home() {
   const { address } = useAccount();
   const router = useRouter();
 
-  const toggleModal = (state: boolean) => {
-    setIsModalOpen(state);
-  };
-
   return (
     <main>
       <LockBodyScroll lock={isModalOpen} />
 
       {isModalOpen &&
-        createPortal(<WalletModal setIsOpen={toggleModal} />, document.body)}
+        createPortal(
+          <WalletModal handleClose={() => setIsModalOpen(false)} />,
+          document.body
+        )}
       {/* Hero Section */}
       <div className="relative flex flex-col pt-[150px] md:pt-0 items-center md:justify-center text-center h-[844px] md:h-[700px] px-6 bg-main-bg bg-cover bg-no-repeat">
         <Image className="md:hidden mb-[77px]" src={m_Img} alt="Token badge" />
@@ -38,7 +37,7 @@ export default function Home() {
             className="flex gap-[5px] items-center justify-center py-3 md:py-5 w-full md:w-[280px] border border-[#0F96E3] rounded-full md:text-base md:leading-[22px] text-[#F9F9F9] text-sm leading-5"
             onClick={() => {
               if (!address) {
-                toggleModal(true);
+                setIsModalOpen(true);
                 return;
               }
               router.push("/select-base-token");

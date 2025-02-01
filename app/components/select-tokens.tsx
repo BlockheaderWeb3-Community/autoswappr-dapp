@@ -61,11 +61,11 @@ const SelectTokens = ({
 
   const filteredCoins = useMemo(() => {
     return supportedTokens;
-  }, [swapAmount]);
+  }, []);
 
   const quoteCoins = useMemo(() => {
     return quoteTokens;
-  }, [swapAmount]);
+  }, []);
 
   async function handleSubscribe() {
     try {

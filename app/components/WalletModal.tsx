@@ -26,7 +26,7 @@ export function WalletModal({ handleClose }: WalletModalProps) {
       connect({ connector: selectedConnector });
       handleClose();
     }
-  }, [selectedConnector, connect]);
+  }, [selectedConnector, connect, handleClose]);
 
   const getWalletDetails = (connector: Connector) =>
     walletDetails[connector.id as keyof typeof walletDetails] || {
