@@ -1,6 +1,13 @@
 import { strk_token_contract_address } from "./addresses";
 import { Coin } from "./types";
 
+export const navLinks = [
+  { title: "Home", href: "/" },
+  { title: "AutoSwap", href: "/select-tokens" },
+  { title: "Activity", href: "/activity" },
+  { title: "Dex", href: "/dex" },
+];
+
 export const supportedTokens: Coin[] = [
   {
     key: "starknet",
@@ -45,8 +52,6 @@ export const supportedTokens: Coin[] = [
     decimals: 18,
   },
 ];
- 
-
 
 export const quoteTokens: Coin[] = [
   {

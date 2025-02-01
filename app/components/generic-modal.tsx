@@ -2,39 +2,38 @@ import { X } from "lucide-react";
 import React from "react";
 import LockBodyScroll from "./lock-body-scroll";
 
+interface GenericModalProps {
+  children: React.ReactNode;
+  handleClose: () => void;
+  containerClass?: string;
+}
+
 function GenericModal({
   children,
-  className,
   handleClose,
-  removeCloseButton,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  handleClose: () => void;
-  removeCloseButton?: boolean;
-}) {
+  containerClass,
+}: GenericModalProps) {
   return (
-    <div
-      className={`inset-0 bg-opacity-80 backdrop-blur-sm z-[200] ${className}`}
-      onClick={handleClose}
-    >
+    <>
       <LockBodyScroll lock={true} />
-      <div className="w-full h-fit relative flex justify-between items-center">
-        <p></p>
-        <h3 className="text-2xl leading-[32px] text-center font-semibold text-[#f9f9f9]">
-          {children}
-        </h3>
-
-        {!removeCloseButton && (
+      <div
+        className="fixed inset-0 bg-black/60 z-[60] backdrop-blur-sm flex items-center justify-center px-4"
+        onClick={handleClose}
+      >
+        <div
+          className={`w-full md:w-[610px] bg-[#000103] text-center border border-[#1E2021] rounded-lg p-12 relative ${containerClass}`}
+          onClick={(e) => e.stopPropagation()}
+        >
           <button
-            className="text-gray-400 hover:text-white transition-colors top-8 right-8"
+            className="cursor-pointer absolute right-7 top-7 z-[51] text-[#F3F5FF]"
             onClick={handleClose}
           >
-            <X className="w-6 h-6 text-[#F3F5FF]" />
+            <X />
           </button>
-        )}
+          {children}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

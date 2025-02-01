@@ -8,6 +8,7 @@ import usdt from "../../public/coin-logos/usdt-logo.svg";
 import sol from "../../public/coin-logos/sol-logo.svg";
 import graph from "../../public/coin-logos/graph-logo.svg";
 import Table, { ColumnDef } from "./table.beta";
+import PageHeading from "./page-heading";
 
 interface ActivityLog {
   from: {
@@ -262,21 +263,15 @@ const dummyActivites: ActivityLog[] = [
 
 const ActivityLog = () => {
   return (
-    <>
-      <section className="relative bg-cover bg-main-bg bg-center bg-no-repeat pt-[100px] md:pt-[147px] text-[#F3F5FF] px-4 lg:px-[187px] min-h-[95vh]">
-        <div className="w-full max-w-[936px] flex flex-col gap-6 mb-12 mx-auto">
-          <div>
-            <h1 className="capitalize text-white text-xl md:text-2xl py-0 my-0 text-main-white font-semibold">
-              Autoswappr Activity Log
-            </h1>
-            <p className="w-full text-[#a199b8] text-base font-normal">
-              These are a list of all AutoSwap activities.
-            </p>
-          </div>
-          <Table data={dummyActivites} columns={columns} />
-        </div>
-      </section>
-    </>
+    <div className="bg-main-bg bg-center bg-cover bg-no-repeat sm:h-[120vh] h-[150vh] pt-[100px] md:pt-[150px] text-[#F3F5FF] px-4 lg:px-[187px] min-h-[95vh]">
+      <PageHeading
+        title="Autoswappr Activity Log"
+        subTitle="These are a list of all AutoSwap activities."
+      />
+      <div className="md:pr-[152px] mt-10">
+        <Table data={dummyActivites} columns={columns} />
+      </div>
+    </div>
   );
 };
 export default ActivityLog;
