@@ -1,18 +1,18 @@
 "use client";
 import React, { useState } from "react";
 import { useAccount } from "@starknet-react/core";
-import WalletBar from "./WalletBar";
+import WalletBar from "./wallet-bar";
 import Image from "next/image";
 import { X } from "lucide-react";
 import menu from "@/public/menu-11.svg";
 import MobileMenu from "./mobile-menu";
 import { createPortal } from "react-dom";
-import { WalletModal } from "./WalletModal";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navLinks } from "../utils/data";
+import ConnectWalletModal from "./connect-wallet-modal";
 
-const Navbar = () => {
+export default function Navbar() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [connectModalIsOpen, setConnectModalIsOpen] = useState(false);
@@ -22,7 +22,9 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 w-full bg-transparent backdrop-blur-sm pr-6 md:pr-[80px] z-10 py-3 md:py-[14px] flex items-center justify-between">
       {connectModalIsOpen &&
         createPortal(
-          <WalletModal handleClose={() => setConnectModalIsOpen(false)} />,
+          <ConnectWalletModal
+            handleClose={() => setConnectModalIsOpen(false)}
+          />,
           document.body
         )}
       {isMenuOpen &&
@@ -92,6 +94,4 @@ const Navbar = () => {
       </button>
     </nav>
   );
-};
-
-export default Navbar;
+}

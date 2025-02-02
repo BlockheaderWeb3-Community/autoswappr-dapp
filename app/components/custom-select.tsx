@@ -6,11 +6,17 @@ import { Token, tokenImages } from "@/constants/tokens";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 
-export const CustomSelect: React.FC<{
+interface CustomSelectProps {
   selectedToken: Token;
   onTokenSelect: (token: Token) => void;
   from: boolean;
-}> = ({ selectedToken, onTokenSelect, from }) => {
+}
+
+export default function CustomSelect({
+  selectedToken,
+  onTokenSelect,
+  from,
+}: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -55,4 +61,4 @@ export const CustomSelect: React.FC<{
         )}
     </>
   );
-};
+}

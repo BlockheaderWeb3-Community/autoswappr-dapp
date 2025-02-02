@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { useAccount } from "@starknet-react/core";
 import { RefreshCcw } from "lucide-react";
 import { Token, tokenPrices } from "@/constants/tokens";
-import { CustomSelect } from "./custom-select";
+import CustomSelect from "./custom-select";
 
-const Swapper = () => {
+export default function Swapper() {
   const [fromToken, setFromToken] = useState<Token>("STRK");
   const [toToken, setToToken] = useState<Token>("USDT");
   const [amount, setAmount] = useState("");
@@ -220,6 +220,4 @@ const Swapper = () => {
       </button>
     </div>
   );
-};
-
-export default Swapper;
+}

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { shortenAddress } from "../utils/helper";
 
-const Address = () => {
+export default function Address() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { address } = useAccount();
 
@@ -35,6 +35,4 @@ const Address = () => {
       </div>
     </div>
   );
-};
-
-export default Address;
+}
