@@ -5,17 +5,19 @@ import { useConnect, Connector } from "@starknet-react/core";
 import Image from "next/image";
 import GenericModal from "./generic-modal";
 
+interface ConnectWalletModalProps {
+  handleClose: () => void;
+}
+
 const walletDetails = {
   argentX: { name: "Argent", subtext: "WEBSITE", icon: "/argent.svg" },
   webwallet: { name: "Argent", subtext: "MOBILE", icon: "/argent.svg" },
   braavos: { name: "Braavos", subtext: "WEBSITE", icon: "/braavos.svg" },
 };
 
-interface WalletModalProps {
-  handleClose: () => void;
-}
-
-export function WalletModal({ handleClose }: WalletModalProps) {
+export default function ConnectWalletModal({
+  handleClose,
+}: ConnectWalletModalProps) {
   const { connect, connectors } = useConnect();
   const [selectedConnector, setSelectedConnector] = useState<Connector | null>(
     null

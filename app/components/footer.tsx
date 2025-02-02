@@ -17,15 +17,15 @@ export const footerIcons: { icons: IconType; path: string }[] = [
 export const footerLinks: { name: string; path: string }[] = [
   { name: "Team", path: "#" },
   { name: "Documentation", path: "/documentation" },
-  { name: "Contact Support", path: "#" },
+  { name: "Contact Support", path: "/help-center" },
 ];
 
-const Footer = () => {
+export default function Footer() {
   return (
     <footer className="flex flex-col-reverse md:flex-row justify-between items-center bg-[#010409] px-4 md:px-8 lg:px-20 py-6 md:py-[38px] gap-6 md:gap-4">
       {/* Copyright section */}
       <p className="text-sm md:text-base leading-6 text-[#a199b8] text-center md:text-left">
-      © Autoswappr {new Date().getFullYear()}
+        © Autoswappr {new Date().getFullYear()}
       </p>
 
       {/* Navigation section */}
@@ -55,6 +55,4 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

@@ -2,7 +2,11 @@
 import { useAccount } from "@starknet-react/core";
 import Address from "./address";
 
-function WalletBar({ toggleModal }: { toggleModal: () => void }) {
+interface WalletBarProps {
+  toggleModal: () => void;
+}
+
+export default function WalletBar({ toggleModal }: WalletBarProps) {
   const { address } = useAccount();
 
   return (
@@ -20,5 +24,3 @@ function WalletBar({ toggleModal }: { toggleModal: () => void }) {
     </div>
   );
 }
-
-export default WalletBar;

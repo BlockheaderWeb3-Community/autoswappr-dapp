@@ -5,9 +5,9 @@ import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import LockBodyScroll from "./components/lock-body-scroll";
 import { createPortal } from "react-dom";
-import { WalletModal } from "./components/WalletModal";
 import { useAccount } from "@starknet-react/core";
 import { useRouter } from "next/navigation";
+import ConnectWalletModal from "./components/connect-wallet-modal";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +20,7 @@ export default function Home() {
 
       {isModalOpen &&
         createPortal(
-          <WalletModal handleClose={() => setIsModalOpen(false)} />,
+          <ConnectWalletModal handleClose={() => setIsModalOpen(false)} />,
           document.body
         )}
       {/* Hero Section */}

@@ -261,7 +261,7 @@ const dummyActivites: ActivityLog[] = [
   },
 ];
 
-const ActivityLog = () => {
+export default function ActivityLog() {
   return (
     <div className="bg-main-bg bg-center bg-cover bg-no-repeat sm:h-[120vh] h-[150vh] pt-[100px] md:pt-[150px] text-[#F3F5FF] px-4 lg:px-[187px] min-h-[95vh]">
       <PageHeading
@@ -273,5 +273,4 @@ const ActivityLog = () => {
       </div>
     </div>
   );
-};
-export default ActivityLog;
+}

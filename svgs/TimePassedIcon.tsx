@@ -1,15 +1,3 @@
-export const RightBorder = () => (
-  <svg
-    width="1"
-    height="10"
-    viewBox="0 0 1 10"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <rect width="1" height="10" rx="0.5" fill="#2A2A2A" />
-  </svg>
-);
-
 export const TimePassed = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

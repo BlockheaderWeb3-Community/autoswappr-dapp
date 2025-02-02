@@ -8,7 +8,7 @@ interface GenericModalProps {
   containerClass?: string;
 }
 
-function GenericModal({
+export default function GenericModal({
   children,
   handleClose,
   containerClass,
@@ -36,5 +36,3 @@ function GenericModal({
     </>
   );
 }
-
-export default GenericModal;

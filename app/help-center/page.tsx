@@ -6,9 +6,10 @@ export const metadata: Metadata = {
   description: "Reach out to us -24/7 Customer services",
 };
 
-  
 export default function _HelpCenter() {
-  return <>
-  <HelpCenter />;
-  </>
+  return (
+    <>
+      <HelpCenter />;
+    </>
+  );
 }

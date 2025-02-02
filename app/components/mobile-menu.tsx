@@ -1,16 +1,18 @@
 import React from "react";
-import WalletBar from "./WalletBar";
+import WalletBar from "./wallet-bar";
 import LockBodyScroll from "./lock-body-scroll";
 
-function MobileMenu({
-  navLinks,
-  closeMenu,
-  toggleConnectModal,
-}: {
+interface MobileMenuProps {
   navLinks: { title: string; href: string }[];
   closeMenu: () => void;
   toggleConnectModal: () => void;
-}) {
+}
+
+export default function MobileMenu({
+  navLinks,
+  closeMenu,
+  toggleConnectModal,
+}: MobileMenuProps) {
   return (
     <>
       <LockBodyScroll lock={true} />
@@ -43,5 +45,3 @@ function MobileMenu({
     </>
   );
 }
-
-export default MobileMenu;

@@ -4,7 +4,11 @@ interface PageHeadingProps {
   isCenter?: boolean;
 }
 
-function PageHeading({ title, subTitle, isCenter = false }: PageHeadingProps) {
+export default function PageHeading({
+  title,
+  subTitle,
+  isCenter = false,
+}: PageHeadingProps) {
   return (
     <div
       className={`w-full max-w-[704px] py-2 ${isCenter && "mx-auto text-center"}`}
@@ -18,5 +22,3 @@ function PageHeading({ title, subTitle, isCenter = false }: PageHeadingProps) {
     </div>
   );
 }
-
-export default PageHeading;

@@ -8,8 +8,10 @@ export const metadata: Metadata = {
 };
 
 export default function Activity() {
-  return <>
-   <ActivityLog />;
-   <GiveFeedback />
-  </>
+  return (
+    <>
+      <ActivityLog />;
+      <GiveFeedback />
+    </>
+  );
 }

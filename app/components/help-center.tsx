@@ -1,10 +1,9 @@
 "use client";
 import * as React from "react";
 import { useState } from "react";
-import Select from "./selectOption";
 import Image from "next/image";
 
-function HelpCenter() {
+export default function HelpCenter() {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
 
@@ -98,7 +97,13 @@ function HelpCenter() {
                 <label htmlFor="subject">
                   Subject <span className="text-[#FC8181]">*</span>
                 </label>
-                <Select />
+                {/* <Select /> */}
+                <input
+                  type="text"
+                  placeholder="Your email address"
+                  className="p-[16px] rounded-lg bg-[#0D1016]"
+                  name="email"
+                />
                 <p className="text-[14px]">
                   Choose a reason that best describes your current issue.
                 </p>
@@ -217,5 +222,3 @@ function HelpCenter() {
     </main>
   );
 }
-
-export default HelpCenter;

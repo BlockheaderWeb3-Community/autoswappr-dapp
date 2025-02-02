@@ -1,7 +1,6 @@
 "use client";
-
-import { RightBorder, TimePassed } from "@/assets/swap-modals";
 import { Token, tokenAddresses, tokenImages } from "@/constants/tokens";
+import { TimePassed } from "@/svgs/TimePassedIcon";
 import { Search, X } from "lucide-react";
 import { useState } from "react";
 
@@ -21,7 +20,7 @@ const ModalHeader = ({
   <div className="flex items-center justify-between w-full">
     <div className="flex gap-[.5rem] items-center">
       <p className="text-[#4C5053] text-[13px] font-[400]">Select a token</p>
-      <RightBorder />
+      <div className="w-[1px] h-[10px] bg-[#1E2021]"></div>
       <p className="text-[16px] font-[400] text-[#F3F5FF]">
         Swap {from ? "From" : "To"}
       </p>

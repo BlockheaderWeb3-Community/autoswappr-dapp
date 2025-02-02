@@ -1,13 +1,15 @@
 import React from "react";
 import GenericModal from "./generic-modal";
 
-function GrantPermissionModal({
-  handleClose,
-  handleSubmit,
-}: {
+interface GrantPermissionModalProps {
   handleClose: () => void;
   handleSubmit: () => void;
-}) {
+}
+
+export default function GrantPermissionModal({
+  handleClose,
+  handleSubmit,
+}: GrantPermissionModalProps) {
   return (
     <GenericModal handleClose={handleClose} containerClass="md:w-[800px]">
       <h2 className="text-2xl text-center font-semibold text-[#F3F5FF]">
@@ -36,5 +38,3 @@ function GrantPermissionModal({
     </GenericModal>
   );
 }
-
-export default GrantPermissionModal;

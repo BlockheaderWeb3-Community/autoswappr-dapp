@@ -26,7 +26,7 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
       chains={[sepolia]}
       provider={jsonRpcProvider({
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        rpc: (chain) => ({ nodeUrl: process.env.NEXT_PUBLIC_RPC_URL }),
+        rpc: () => ({ nodeUrl: process.env.NEXT_PUBLIC_RPC_URL }),
       })}
       connectors={connectors}
       explorer={voyager}
@@ -36,5 +36,3 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
     </StarknetConfig>
   );
 }
-
-// provider={publicProvider()}
