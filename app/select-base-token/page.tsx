@@ -1,6 +1,7 @@
 import React from 'react'
 import { SelectBaseToken } from '../components/select-base-token'
 import { Metadata } from "next";
+import GiveFeedback from '../components/give-feedback';
 
 export const metadata: Metadata = {
   title: "Token Selection",
@@ -11,6 +12,7 @@ const page = () => {
   return (
     <div>
         <SelectBaseToken />
+        <GiveFeedback />
     </div>
   )
 }

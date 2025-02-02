@@ -1,5 +1,6 @@
 import ActivityLog from "../components/activity-log";
 import { Metadata } from "next";
+import GiveFeedback from "../components/give-feedback";
 
 export const metadata: Metadata = {
   title: "Activity Log",
@@ -7,5 +8,8 @@ export const metadata: Metadata = {
 };
 
 export default function Activity() {
-  return <ActivityLog />;
+  return <>
+   <ActivityLog />;
+   <GiveFeedback />
+  </>
 }

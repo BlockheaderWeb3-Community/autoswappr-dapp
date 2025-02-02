@@ -5,6 +5,7 @@ import Table, { type ColumnDef } from "../components/table.beta";
 import Image from "next/image";
 import { history } from "@/constants/history";
 import PageHeading from "../components/page-heading";
+import GiveFeedback from "../components/give-feedback";
 
 interface Transaction {
   from: {
@@ -136,6 +137,7 @@ export default function History() {
           <Table data={history} columns={columns} />
         </div>
       </div>
+      <GiveFeedback />
     </>
   );
 }

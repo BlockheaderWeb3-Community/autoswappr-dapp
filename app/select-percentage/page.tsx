@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import GiveFeedback from "../components/give-feedback";
 
 export const metadata: Metadata = {
   title: "Percentage",
@@ -7,5 +8,7 @@ export const metadata: Metadata = {
 
 export default function _SelectPercentage() {
   // return <SelectPercentage />;
-  return <div></div>;
+  return <div>
+    <GiveFeedback />
+  </div>;
 }
