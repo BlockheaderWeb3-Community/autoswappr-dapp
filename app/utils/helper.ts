@@ -69,3 +69,83 @@ export function useContractWriteUtility(
     error,
   };
 }
+
+export async function fetchSubscriptions(address: `0x${string}`) {
+  console.log("fetching subs");
+  const url = `https://autoswappr-backend.onrender.com/subscriptions?wallet_address=${address}`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching subscriptions:", error);
+    return null;
+  }
+}
+
+export async function createSubscription(data: {
+  wallet_address: `0x${string}`;
+  to_token: `0x${string}`;
+  from_token: `0x${string}`;
+  swap_amount: number;
+}) {
+  console.log(JSON.stringify(data));
+  try {
+    const response = await fetch(
+      "https://autoswappr-backend.onrender.com/subscriptions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    console.log(response);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log("Subscription created:", result);
+  } catch (error) {
+    console.error("Error creating subscription:", error);
+  }
+}
+
+export async function deleteSubscription(data: {
+  wallet_address: `0x${string}`;
+  from_token: `0x${string}`;
+}) {
+  try {
+    const response = await fetch(
+      "https://autoswappr-backend.onrender.com/unsubscribe",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    console.log(response);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log("Subscription created:", result);
+  } catch (error) {
+    console.error("Error deleting subscription:", error);
+  }
+}

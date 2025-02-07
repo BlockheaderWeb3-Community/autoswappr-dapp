@@ -64,6 +64,19 @@ input:-webkit-autofill {
   background-color: #5a4f7d;
 }
 
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media (max-width: 640px) {
   .custom-scrollbar table {
     table-layout: fixed;

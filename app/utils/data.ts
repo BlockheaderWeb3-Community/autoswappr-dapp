@@ -1,9 +1,12 @@
-import { strk_token_contract_address } from "./addresses";
+import {
+  strk_token_contract_address,
+  usdt_token_contract_address,
+} from "./addresses";
 import { Coin } from "./types";
 
 export const navLinks = [
   { title: "Home", href: "/" },
-  { title: "AutoSwap", href: "/select-tokens" },
+  { title: "AutoSwap", href: "/overview" },
   { title: "Activity", href: "/activity" },
   { title: "Dex", href: "/dex" },
 ];
@@ -71,3 +74,21 @@ export const quoteTokens: Coin[] = [
     decimals: 18,
   },
 ];
+
+export const STRK_TOKEN: Coin = {
+  key: "starknet",
+  imgLink: "/coin-logos/strk-logo.svg",
+  coinName: "Starknet",
+  coinSymbol: "STRK",
+  contractAddress: strk_token_contract_address,
+  decimals: 18,
+};
+
+export const USDT_TOKEN: Coin = {
+  key: "usdt",
+  imgLink: "/coin-logos/usdt-logo.svg",
+  coinName: "Tether",
+  coinSymbol: "USDT",
+  contractAddress: usdt_token_contract_address,
+  decimals: 18,
+};
