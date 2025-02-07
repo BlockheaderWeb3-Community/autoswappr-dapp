@@ -21,7 +21,7 @@ interface SelectTokenProps {
   hasCloseButton?: boolean;
 }
 
-const SelectTokens = ({
+const SubscribeForm = ({
   tokenPair,
   onClose,
   hasCloseButton = false,
@@ -247,4 +247,4 @@ const SelectTokens = ({
   );
 };
 
-export default SelectTokens;
+export default SubscribeForm;
