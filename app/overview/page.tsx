@@ -176,7 +176,7 @@ export default function Overview() {
           className="text-sm font-semibold text-[#A8AFB4] uppercase underline"
           onClick={handleUnsubscribe}
         >
-          DELETE
+          UNSUBSCRIBE
         </button>
       ),
     },
@@ -216,7 +216,7 @@ export default function Overview() {
             <div className="flex flex-col sm:flex-row items-start justify-between w-full">
               <PageHeading
                 title="Autoswappr Overview"
-                subTitle="List of all the tokens set for auto-swapping to a stable token."
+                subTitle="List of all the tokens subscribed for auto-swapping to a stable token."
               />
               {/* <button
                 className="btn-primary flex items-center gap-2"

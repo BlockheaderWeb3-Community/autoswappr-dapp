@@ -164,7 +164,7 @@ const SubscribeForm = ({
               }
             }}
           >
-            Autoswap
+            Subscribe
           </button>
         </form>
       </div>
