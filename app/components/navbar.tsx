@@ -38,7 +38,7 @@ export default function Navbar() {
         )}
 
       <div
-        className={`md:bg-[#0D1016] md:bg-opacity-25 rounded-[0_16px_16px_0] px-6 md:px-[80px] flex items-center lg:min-w-[800px] ${!address && "py-[15px]"}`}
+        className={`md:bg-[#0D1016] rounded-[0_16px_16px_0] px-6 md:px-[80px] flex items-center lg:min-w-[800px] ${!address && "py-[15px]"}`}
       >
         <button
           className="flex items-center cursor-pointer"
