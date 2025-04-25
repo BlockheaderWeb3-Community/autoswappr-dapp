@@ -10,15 +10,16 @@ export default function WhatIsAutoSwapper() {
         <div className="max-w-[380px] flex items-center">
           <p>
             Autoswappr automatically converts any STRK tokens you receive into
-            USDT — a stable token that holds its value. This means you won’t
-            have to worry about missing the right time to convert, especially if
-            you're not notified right away when STRK hits your wallet.
+            USDT — a stable token that holds its value. This means you
+            won&apos;t have to worry about missing the right time to convert,
+            especially if you&apos;re not notified right away when STRK hits
+            your wallet.
           </p>
         </div>
         <div className="w-[6px] rounded-lg bg-[#1E2021]"></div>
         <div className="max-w-[380px] flex items-center">
           <p>
-            It runs in the background, so you don’t have to do anything
+            It runs in the background, so you don&apos;t have to do anything
             manually. Your transactions are secured with advanced technology
             that protects your funds and personal data from fraud or hacking.
           </p>
