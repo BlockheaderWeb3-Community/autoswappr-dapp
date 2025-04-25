@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import ConnectWalletModal from "./components/connect-wallet-modal";
 import WhatIsAutoSwapper from "./components/what-is-autoswappr";
 import LandingHeroSection from "./components/landing-hero-section";
+import WhyAutoSwappr from "./components/why-autoswappr";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,6 +21,7 @@ export default function Home() {
 
       <LandingHeroSection openConnectModal={setIsModalOpen} />
       <WhatIsAutoSwapper />
+      <WhyAutoSwappr />
 
       <div className="px-4 md:px-[188px] pt-12 pb-[104px] flex flex-col gap-y-[80px]">
         {/* Select Base Tokens Section */}
