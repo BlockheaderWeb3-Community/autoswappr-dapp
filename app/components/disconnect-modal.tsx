@@ -3,7 +3,6 @@ import { useAccount, useDisconnect } from "@starknet-react/core";
 import GenericModal from "./generic-modal";
 import { shortenAddress } from "../utils/helper";
 import { ExternalLink } from "lucide-react";
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useUnsubscribe from "../hooks/useUnsubscribe";
 
@@ -15,7 +14,7 @@ export default function DisconnectModal({
   handleClose,
 }: DisconnectWalletModalProps) {
   const { disconnectAsync } = useDisconnect();
-  const { address, account } = useAccount();
+  const { address } = useAccount();
   const router = useRouter();
   const { handleUnsubscribe } = useUnsubscribe();
 

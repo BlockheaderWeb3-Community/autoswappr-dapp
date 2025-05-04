@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { deleteSubscription, useContractWriteUtility } from "../utils/helper";
 import {
   strk_token_contract_address,
