@@ -21,7 +21,7 @@ export default function GenericModal({
         onClick={handleClose}
       >
         <div
-          className={`w-full md:w-[610px] bg-[#000103] text-center border border-[#1E2021] rounded-lg p-12 relative ${containerClass}`}
+          className={`w-full md:w-[610px] bg-[#02060D] text-center border border-[#242E38] rounded-lg p-7 relative ${containerClass}`}
           onClick={(e) => e.stopPropagation()}
         >
           <button

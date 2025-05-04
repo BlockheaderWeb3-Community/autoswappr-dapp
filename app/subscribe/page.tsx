@@ -10,7 +10,17 @@ export const metadata: Metadata = {
 
 const page = () => {
   return (
-    <div className="bg-main-bg bg-center bg-cover bg-no-repeat sm:h-auto md:mt-[6rem] mt-[4.5rem] items-center justify-center flex relative">
+    <div className="sm:h-auto md:pt-[10rem] pt-[4.5rem] items-center justify-center flex relative">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
+      >
+        <source src="/app-bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <SubscribeForm />
       <GiveFeedback />
     </div>

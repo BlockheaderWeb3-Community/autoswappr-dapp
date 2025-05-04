@@ -40,7 +40,7 @@ function LandingHeroSection({
                 openConnectModal(true);
                 return;
               }
-              router.push("/select-base-token");
+              router.push("/overview");
             }}
           >
             Get started

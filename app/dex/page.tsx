@@ -11,7 +11,17 @@ export const metadata: Metadata = {
 
 export default function page() {
   return (
-    <div className="flex flex-col text-center px-[100px] sm:px-[120px] md:px-[187px] sm:h-[100vh] h-[150vh] min-h-[95vh] pt-[100px] md:pt-[150px]">
+    <div className="flex flex-col text-center px-[100px] sm:px-[120px] md:px-[187px] sm:h-[100vh] h-[150vh] min-h-[95vh] pt-[100px] md:pt-[150px] relative">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-[-1] pointer-events-none"
+      >
+        <source src="/app-bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <PageHeading
         title="Autoswappr DEX"
         subTitle="Please select a token to swap from to and how much you want to swap."
