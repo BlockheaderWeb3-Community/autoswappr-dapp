@@ -2,7 +2,7 @@ import { ArrowDownLeft, ChevronRight } from "lucide-react";
 import React, { useState } from "react";
 
 export default function HowToUseAutoSwappr() {
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep] = useState(1);
   return (
     <div className="py-[60px] px-[75px]">
       <h2 className="text-[32px] font-semibold text-[#F3F5FF] mb-4">
