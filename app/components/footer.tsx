@@ -22,26 +22,23 @@ export const footerLinks: { name: string; path: string }[] = [
 
 export default function Footer() {
   return (
-    <footer className="flex flex-col-reverse md:flex-row justify-between items-center bg-[#010409] px-4 md:px-8 lg:px-20 py-6 md:py-[38px] gap-6 md:gap-4">
-      {/* Copyright section */}
-      <p className="text-sm md:text-base leading-6 text-[#a199b8] text-center md:text-left">
+    <footer className="flex flex-col-reverse md:flex-row justify-between items-center bg-[#010409] px-4 md:px-8 lg:px-20 py-6 md:py-[38px] gap-6 md:gap-4 border-t-[#2C3035] border-t-[1px]">
+      <p className="text-sm text-[#DCDFE1] text-center md:text-left">
         © Autoswappr {new Date().getFullYear()}
       </p>
 
-      {/* Navigation section */}
       <div className="flex flex-row items-center gap-4 md:gap-6">
         {footerLinks.map((link, index) => (
           <Link
             key={index}
             href={link.path}
-            className="text-xs md:text-sm leading-6 hover:opacity-80 cursor-pointer text-[#E7ECF0]"
+            className="text-xs md:text-sm hover:opacity-80 cursor-pointer text-[#7E8489]"
           >
             {link.name}
           </Link>
         ))}
       </div>
 
-      {/* Social icons section */}
       <div className="flex items-center gap-7 px-[34px]">
         {footerIcons.map((icon, index) => (
           <Link

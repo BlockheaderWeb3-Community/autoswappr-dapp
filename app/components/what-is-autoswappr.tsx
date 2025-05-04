@@ -16,7 +16,7 @@ export default function WhatIsAutoSwapper() {
             your wallet.
           </p>
         </div>
-        <div className="w-[6px] rounded-lg bg-[#1E2021]"></div>
+        <div className="w-[2px] rounded-lg bg-[#1E2021]"></div>
         <div className="max-w-[380px] flex items-center">
           <p>
             It runs in the background, so you don&apos;t have to do anything

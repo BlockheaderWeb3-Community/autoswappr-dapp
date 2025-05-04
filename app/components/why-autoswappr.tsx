@@ -20,7 +20,7 @@ function WhyAutoSwappr() {
 
       <div className="grid grid-cols-[1fr] lg:grid-cols-[1fr_auto_1fr_auto_1fr] mt-[68px] items-end gap-x-[52px]">
         <div className="py-6">
-          <img src="/dot-pattern.png" className="mb-[60px]" alt="" />
+          <img src="/dot-pattern-1.svg" className="mb-[60px]" alt="" />
           <div className="max-w-[360px] py-4">
             <h5 className="mb-4 text-[#F3F5FF] text-xl">Security</h5>
             <p className="text-sm text-[#DCDFE1] h-[60px]">
@@ -31,7 +31,7 @@ function WhyAutoSwappr() {
         </div>
         <div className="w-[2px] h-[235px] bg-[#1E2021] rounded-lg lg:flex hidden" />
         <div className="py-6">
-          <img src="/dot-pattern.png" className="mb-[60px]" alt="" />
+          <img src="/dot-pattern-2.svg" className="mb-[60px]" alt="" />
           <div className="max-w-[360px] py-4">
             <h5 className="mb-4 text-[#F3F5FF] text-xl">Transparency</h5>
             <p className="text-sm text-[#DCDFE1] h-[60px]">
@@ -42,7 +42,7 @@ function WhyAutoSwappr() {
         </div>
         <div className="w-[2px] h-[235px] bg-[#1E2021] rounded-lg lg:flex hidden" />
         <div className="py-6">
-          <img src="/dot-pattern.png" className="mb-[60px]" alt="" />
+          <img src="/dot-pattern-3.svg" className="mb-[60px]" alt="" />
           <div className="max-w-[360px] py-4">
             <h5 className="mb-4 text-[#F3F5FF] text-xl">Efficiency</h5>
             <p className="text-sm text-[#DCDFE1] h-[60px]">
