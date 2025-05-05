@@ -7,7 +7,7 @@ import { Coin } from "./types";
 export const navLinks = [
   { title: "Home", href: "/" },
   { title: "AutoSwap", href: "/overview" },
-  { title: "Activity", href: "/activity" },
+  // { title: "Activity", href: "/activity" },
   { title: "Dex", href: "/dex" },
 ];
 

@@ -1,189 +1,86 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { createPortal } from "react-dom";
 import { useAccount } from "@starknet-react/core";
 import { useRouter } from "next/navigation";
-import { LoaderCircle } from "lucide-react";
-
-import {
-  deleteSubscription,
-  fetchSubscriptions,
-  useContractWriteUtility,
-} from "../utils/helper";
-import {
-  strk_token_contract_address,
-  swappr_contract_address,
-} from "../utils/addresses";
-import { ERC20_ABI } from "../abis/erc20-abi";
+import { EqualApproximately, LoaderCircle, Settings } from "lucide-react";
 import { TokenPair } from "../utils/types";
 
 import SubscribeForm from "../components/subscribe-form";
 import LockBodyScroll from "../components/lock-body-scroll";
-import Table, { ColumnDef } from "../components/table.beta";
 import { Modal } from "../components/modal";
-import PageHeading from "../components/page-heading";
 import GiveFeedback from "../components/give-feedback";
 
-import usdt from "../../public/coin-logos/usdc-logo.svg";
-import strk from "../../public/coin-logos/strk-logo.svg";
+// import usdt from "../../public/coin-logos/usdc-logo.svg";
+// import strk from "../../public/coin-logos/strk-logo.svg";
+import TranscationHistory from "./transcation-history";
+import ChangeAutoswapSettings from "../components/change-autoswap-settings";
 
 export default function Overview() {
   const { address } = useAccount();
   const router = useRouter();
 
   // State Management
-  const [isFetchingSubs, setIsFetchingSubs] = useState(true);
+  const [isFetchingSubs] = useState(false);
+  const [settingsIsOpen, setSettingsIsOpen] = useState(false);
   const [isAddingToken, setIsAddingToken] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [tokenPairs, setTokenPairs] = useState<TokenPair[]>([]);
+  // const [tokenPairs, setTokenPairs] = useState<TokenPair[]>([]);
   const [selectedTokenPair] = useState<TokenPair | undefined>(undefined);
-  // const [tokenSelected, setTokenSelected] = useState<
-  //   { coinName: string; contractAddress: `0x${string}` } | undefined
-  // >(undefined);
-
-  // Contract write utility
-  const { writeAsync, waitData } = useContractWriteUtility(
-    "approve",
-    [swappr_contract_address, 0],
-    ERC20_ABI,
-    strk_token_contract_address
-  );
-
   // Fetch subscriptions
   useEffect(() => {
     if (!address) return;
+    // TODO: Implement Fetch Data
+    // const fetchData = async () => {
+    //   setIsFetchingSubs(true);
+    //   try {
+    //     const subs = await fetchSubscriptions(address);
+    //     if (!subs?.data?.length) {
+    //       router.push("/subscribe");
+    //       return;
+    //     }
+    //     setTokenPairs([
+    //       {
+    //         id: 1,
+    //         from: { name: "Starknet", symbol: "STRK", logo: strk },
+    //         to: { name: "Tether", symbol: "USDT", logo: usdt },
+    //         amount: subs.data[0].swap_amount,
+    //         timestamp: "10.09.2024 GMT 21:08 PM",
+    //         enabled: false,
+    //         edit: false,
+    //         delete: false,
+    //       },
+    //     ]);
+    //   } catch (err) {
+    //     console.error("Error fetching subscriptions:", err);
+    //   } finally {
+    //     setIsFetchingSubs(false);
+    //   }
+    // };
 
-    const fetchData = async () => {
-      setIsFetchingSubs(true);
-      try {
-        const subs = await fetchSubscriptions(address);
-        if (!subs?.data?.length) {
-          router.push("/subscribe");
-          return;
-        }
-        setTokenPairs([
-          {
-            id: 1,
-            from: { name: "Starknet", symbol: "STRK", logo: strk },
-            to: { name: "Tether", symbol: "USDT", logo: usdt },
-            amount: subs.data[0].swap_amount,
-            enabled: false,
-            edit: false,
-            delete: false,
-          },
-        ]);
-      } catch (err) {
-        console.error("Error fetching subscriptions:", err);
-      } finally {
-        setIsFetchingSubs(false);
-      }
-    };
-
-    fetchData();
+    // fetchData();
   }, [address, router]);
 
-  // Handle Subscription Deletion
-  useEffect(() => {
-    if (!waitData || !address) return;
-
-    const deleteSub = async () => {
-      try {
-        await deleteSubscription({
-          wallet_address: address,
-          from_token: strk_token_contract_address,
-        });
-        router.push("/subscribe");
-      } catch (err) {
-        console.error("Error deleting subscription:", err);
-      }
-    };
-
-    deleteSub();
-  }, [waitData, address, router]);
-
-  // Handle Unsubscription
-  const handleUnsubscribe = async () => {
-    try {
-      await writeAsync();
-    } catch (err) {
-      console.error("Unsubscription error:", err);
-    }
-  };
-
-  // Table Columns Definition
-  const columns: ColumnDef<TokenPair>[] = [
-    {
-      header: "From",
-      accessorKey: "from",
-      cell: (info, index) => (
-        <div className="flex items-center gap-3">
-          <p className="text-xs font-semibold text-[#4C5053]">
-            {(index as number) + 1}.
-          </p>
-          <Image
-            src={info.from.logo || "/placeholder.svg"}
-            alt={info.from.name}
-            width={32}
-            height={32}
-            className="h-8 w-8 rounded-full object-cover"
-          />
-          <div className="flex flex-col">
-            <span className="text-sm font-medium text-white">
-              {info.from.name}
-            </span>
-            <span className="text-xs text-gray-500">{info.from.symbol}</span>
-          </div>
-        </div>
-      ),
-    },
-    {
-      header: "To",
-      accessorKey: "to",
-      cell: (info) => (
-        <div className="flex items-center gap-3">
-          <Image
-            src={info.to.logo || "/placeholder.svg"}
-            alt={info.to.name}
-            width={32}
-            height={32}
-            className="h-8 w-8 rounded-full object-cover"
-          />
-          <div className="flex flex-col">
-            <span className="text-sm font-medium text-white">
-              {info.to.name}
-            </span>
-            <span className="text-xs text-gray-500">{info.to.symbol}</span>
-          </div>
-        </div>
-      ),
-    },
-    {
-      header: "Amount",
-      accessorKey: "amount",
-      cell: (info) => (
-        <span className="text-sm text-white">
-          {info.amount} {info.from.symbol}
-        </span>
-      ),
-    },
-    {
-      header: "",
-      accessorKey: "delete",
-      cell: () => (
-        <button
-          className="text-sm font-semibold text-[#A8AFB4] uppercase underline"
-          onClick={handleUnsubscribe}
-        >
-          UNSUBSCRIBE
-        </button>
-      ),
-    },
-  ];
-
   return (
-    <div className="bg-main-bg bg-center bg-cover bg-no-repeat h-screen pt-[100px] md:pt-[150px] text-[#F3F5FF] px-4 lg:px-[187px] min-h-[95vh]">
+    <div className="sm:h-[130vh] pt-[100px] md:pt-[10rem] text-[#F3F5FF] px-4 lg:px-[187px] min-h-[95vh] relative">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-[-1] pointer-events-none"
+      >
+        <source src="/app-bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      {settingsIsOpen &&
+        createPortal(
+          <ChangeAutoswapSettings
+            handleClose={() => setSettingsIsOpen(false)}
+          />,
+          document.body
+        )}
       {isFetchingSubs ? (
         <div className="flex justify-center items-center h-full spinner">
           <LoaderCircle size={100} />
@@ -213,19 +110,44 @@ export default function Overview() {
               )
             : null}
           <div className="w-full flex flex-col gap-10">
-            <div className="flex flex-col sm:flex-row items-start justify-between w-full">
-              <PageHeading
-                title="Autoswappr Overview"
-                subTitle="List of all the tokens subscribed for auto-swapping to a stable token."
-              />
-              {/* <button
-                className="btn-primary flex items-center gap-2"
-                onClick={() => setIsAddingToken(true)}
-              >
-                <Plus size={20} /> Add Tokens
-              </button> */}
+            <div>
+              <h2 className="mb-1 text-[#F3F5FF] text-xl font-semibold">
+                Current Subscription
+              </h2>
+              <p className="text-[#BABFC3] text-sm mb-4">
+                Your Autoswap threshold is set to convert:
+              </p>
+
+              <div className="bg-[#0D1016] rounded-xl w-fit py-5 px-4 flex gap-x-8">
+                <div className="flex gap-x-2">
+                  <img
+                    src="/coin-logos/strk-logo.svg"
+                    className="mt-3 h-8 w-8"
+                    alt=""
+                  />
+                  <div className="text-[#F3F5FF]">
+                    <h3 className="text-[40px] leading-[54px] font-bold">
+                      3000 <span className="text-xs">STRK</span>
+                    </h3>
+
+                    <h5 className="flex gap-x-1 items-center text-sm">
+                      <span className="text-[#7E8489]">
+                        <EqualApproximately size={12} />
+                      </span>
+                      809 USDT
+                    </h5>
+                  </div>
+                </div>
+                <button
+                  className="flex items-center gap-x-2 text-sm text-[#DCDFE1] rounded-full bg-[#1D1E28] py-2 px-3 h-fit cursor-pointer"
+                  onClick={() => setSettingsIsOpen(true)}
+                >
+                  <Settings size={14} />
+                  Change Settings
+                </button>
+              </div>
             </div>
-            <Table columns={columns} data={tokenPairs} />
+            <TranscationHistory />
           </div>
           <GiveFeedback />
         </>

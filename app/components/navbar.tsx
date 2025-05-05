@@ -38,15 +38,12 @@ export default function Navbar() {
         )}
 
       <div
-        className={`md:bg-[#0D1016] md:bg-opacity-25 rounded-[0_16px_16px_0] px-6 md:px-[80px] flex items-center lg:min-w-[800px] ${!address && "py-[15px]"}`}
+        className={`md:bg-[#0D1016] rounded-[0_16px_16px_0] px-6 md:px-[80px] flex items-center lg:min-w-[800px] ${!address && "py-[15px]"}`}
       >
-        <button
-          className="flex items-center cursor-pointer"
-          onClick={() => (window.location.href = "/")}
-        >
+        <Link href={"/"} className="cursor-pointer">
           <img
             src="/auto-swappr-logo.svg"
-            className="w-[85px] hidden md:inline-block"
+            className="w-[85px] h-[48px] hidden md:inline-block"
             alt=""
           />
           <img
@@ -54,7 +51,7 @@ export default function Navbar() {
             className="md:hidden inline-block w-[24px]"
             alt=""
           />
-        </button>
+        </Link>
 
         {address && (
           <ul className="hidden md:flex items-center gap-4 w-[700px] justify-center py-7">
@@ -62,7 +59,7 @@ export default function Navbar() {
               <li key={link.title} className="flex gap-4 items-center">
                 <Link
                   href={link.href}
-                  className={`text-sm md:text-base  hover:text-[#F3F5FF] transition-all ease-in-out font-medium duration-300 ${pathname === link.href ? "text-[#F3F5FF]" : "text-[#7E8489]"}`}
+                  className={`text-sm md:text-base  hover:text-[#F3F5FF] transition-all ease-in-out duration-300 ${pathname === link.href ? "text-[#F3F5FF]" : "text-[#7E8489]"}`}
                 >
                   {link.title}
                 </Link>

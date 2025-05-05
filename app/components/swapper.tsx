@@ -98,7 +98,7 @@ export default function Swapper() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start space-y-2 mx-auto p-8 w-full h-fit sm:w-[544px]">
+    <div className="flex flex-col items-center justify-start space-y-2 mx-auto p-8 w-full h-fit sm:w-[544px] bg-[#0D10161F] backdrop-blur">
       <div className="flex flex-col items-center justify-start space-y-2 relative h-full w-full">
         <div className="w-full flex flex-row items-center justify-between rounded-[8px] px-[16px] md:px-[24px] py-[16px] border-[1px] border-[#1E2021] bg-[#02060D]">
           <div className="w-[60%] flex flex-col items-start">
