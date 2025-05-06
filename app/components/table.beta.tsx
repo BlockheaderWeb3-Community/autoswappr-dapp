@@ -23,14 +23,27 @@ export default function Table<T>({ data, columns, onRowClick }: Props<T>) {
   };
 
   return (
-    <div className="w-full overflow-x-auto border border-solid border-[#2C3035] rounded-2xl bg-black scrollbar-thin scrollbar-track-gray-800 scrollbar-thumb-gray-600 hover:scrollbar-thumb-gray-500 scrollbar-thumb-rounded-full">
-      <table className="w-full min-w-[600px] border-collapse">
+    <div className="w-full overflow-x-auto rounded-2xl bg-[#070A101F] backdrop-blur-sm scrollbar-thin scrollbar-track-gray-800 scrollbar-thumb-gray-600 hover:scrollbar-thumb-gray-500 scrollbar-thumb-rounded-full">
+      <table className="w-full min-w-[600px] border-collapse px-[83px]">
+        <colgroup>
+          {columns.map((_, index) => (
+            <col
+              key={index}
+              style={{
+                width:
+                  index === columns.length - 1
+                    ? "auto"
+                    : `${100 / (columns.length - 1)}%`,
+              }}
+            />
+          ))}
+        </colgroup>
         <thead>
-          <tr className="border-b border-gray-800">
+          <tr className="border-b border-[#11141A]">
             {columns.map((column, index) => (
               <th
                 key={index}
-                className="p-4 text-left text-sm font-normal text-white"
+                className={`p-4 text-left text-sm font-normal text-white`}
               >
                 {column.header}
               </th>
@@ -47,7 +60,7 @@ export default function Table<T>({ data, columns, onRowClick }: Props<T>) {
               onClick={() => handleRowClick(rowIndex, row)}
             >
               {columns.map((column, columnIndex) => (
-                <td key={columnIndex} className="p-4">
+                <td key={columnIndex} className={`p-4`}>
                   {column.cell(row, rowIndex)}
                 </td>
               ))}

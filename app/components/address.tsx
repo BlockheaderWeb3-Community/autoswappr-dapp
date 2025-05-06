@@ -17,20 +17,20 @@ export default function Address() {
           <DisconnectModal handleClose={() => setIsModalOpen(false)} />,
           document.body
         )}
-      <div className="flex bg-[#0D1016] md:bg-opacity-[64%] items-center gap-2 px-[14px] py-3 rounded-lg min-w-[164px] justify-center">
+      <div className="flex bg-[#0D1016] md:bg-opacity-[64%] items-center gap-2 px-[14px] py-3 rounded-lg min-w-[164px] justify-center text-sm">
         <img
           src="/coin-logos/usdt-logo.svg"
           alt="USDT icon"
-          className="w-5 h-5 sm:w-6 sm:h-6"
+          className="w-5 h-5"
         />
-        <span>USDT: 114</span>
+        <span>USDT: $114.00</span>
       </div>
 
-      <div className="flex bg-[#0D1016] md:bg-opacity-[64%] items-center gap-2 px-[14px] py-3 rounded-lg">
-        <img src="/user.svg" alt="" className="w-5 h-5 sm:w-6 sm:h-6" />
+      <div className="flex bg-[#0D1016] md:bg-opacity-[64%] items-center gap-2 px-[14px] py-3 rounded-lg text-sm">
+        <img src="/user.svg" alt="" className="w-5 h-5" />
         <span>{address ? shortenAddress(address) : ""}</span>
-        <button onClick={() => setIsModalOpen(true)} className="p-1">
-          <MoreVertical className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
+        <button onClick={() => setIsModalOpen(true)}>
+          <MoreVertical className="w-4 h-4 text-gray-400" />
         </button>
       </div>
     </div>
