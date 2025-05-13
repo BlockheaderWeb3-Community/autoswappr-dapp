@@ -1,11 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import { IconType } from "react-icons";
 import { FaTelegramPlane } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FiGithub } from "react-icons/fi";
 
-export const footerIcons: { icons: IconType; path: string }[] = [
+export const footerIcons = [
   {
     icons: FiGithub,
     path: "https://github.com/BlockheaderWeb3-Community/autoswappr-dapp",
@@ -28,9 +27,9 @@ export default function Footer() {
       </p>
 
       <div className="flex flex-row items-center gap-4 md:gap-6">
-        {footerLinks.map((link, index) => (
+        {footerLinks.map((link) => (
           <Link
-            key={index}
+            key={link.name}
             href={link.path}
             className="text-xs md:text-sm hover:opacity-80 cursor-pointer text-[#7E8489]"
           >
@@ -40,9 +39,9 @@ export default function Footer() {
       </div>
 
       <div className="flex items-center gap-7 px-[34px]">
-        {footerIcons.map((icon, index) => (
+        {footerIcons.map((icon) => (
           <Link
-            key={index}
+            key={icon.path}
             href={icon.path}
             className="text-sm md:text-xl hover:opacity-80 cursor-pointer text-white"
           >

@@ -92,3 +92,9 @@ export const USDT_TOKEN: Coin = {
   contractAddress: usdt_token_contract_address,
   decimals: 18,
 };
+
+export const walletDetails = {
+  argentX: { name: "Argent X", subtext: "WEBSITE", icon: "/argent.svg" },
+  webwallet: { name: "Argent", subtext: "MOBILE", icon: "/argent.svg" },
+  braavos: { name: "Braavos", subtext: "WEBSITE", icon: "/braavos.svg" },
+};

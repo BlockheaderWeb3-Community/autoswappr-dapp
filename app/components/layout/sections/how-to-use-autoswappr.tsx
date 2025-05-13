@@ -75,7 +75,10 @@ export default function HowToUseAutoSwappr() {
       </div>
 
       <div className="flex justify-end mt-[68px]">
-        <button className="py-5 bg-[#1D8CF4] rounded-lg w-[280px] flex items-center gap-x-3 justify-center text-white">
+        <button
+          type="button"
+          className="py-4 bg-[#1D8CF4] rounded-lg w-[230px] flex items-center gap-x-3 justify-center text-white text-base"
+        >
           Get Started <ChevronRight />
         </button>
       </div>
