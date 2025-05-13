@@ -1,7 +1,5 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
-import GrantPermissionModal from "./grant-permission-modal";
 import { TokenPair } from "../utils/types";
 import { STRK_TOKEN, USDT_TOKEN } from "../utils/data";
 import { createSubscription, useContractWriteUtility } from "../utils/helper";
@@ -11,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { EditIcon } from "@/svgs/EditIcon";
 import { ArrowRight, X } from "lucide-react";
 import { useAccount } from "@starknet-react/core";
+import GrantPermission from "./ui/modals/grant-permission-modal";
 
 interface SelectTokenProps {
   tokenPair?: TokenPair | undefined;
@@ -70,17 +69,15 @@ const SubscribeForm = ({
 
   return (
     <>
-      {isPermissionModalOpen &&
-        createPortal(
-          <GrantPermissionModal
-            handleClose={() => setIsPermissionModalOpen(false)}
-            handleSubmit={handleSubscribe}
-          />,
-          document.body
-        )}
+      <GrantPermission
+        onOpenChange={() => setIsPermissionModalOpen((prev) => !prev)}
+        open={isPermissionModalOpen}
+        handleSubmit={handleSubscribe}
+      />
       <div className="relative px-2 py-8 sm:px-8 xl:py-10 text-grey-300 max-w-4xl mx-auto mb-[200px]">
         {hasCloseButton && (
           <button
+            type="button"
             className="cursor-pointer absolute right-7 top-7 z-[51] text-[#F3F5FF]"
             onClick={onClose}
           >

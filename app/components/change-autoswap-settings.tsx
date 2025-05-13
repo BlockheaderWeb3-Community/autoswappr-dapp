@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import GenericModal from "./generic-modal";
 import { EditIcon } from "lucide-react";
 import { createSubscription, useContractWriteUtility } from "../utils/helper";
 import { swappr_contract_address } from "../utils/addresses";
@@ -7,8 +6,8 @@ import { STRK_TOKEN, USDT_TOKEN } from "../utils/data";
 import { ERC20_ABI } from "../abis/erc20-abi";
 import { useAccount } from "@starknet-react/core";
 import { useRouter } from "next/navigation";
-import { createPortal } from "react-dom";
-import GrantPermissionModal from "./grant-permission-modal";
+import GrantPermission from "./ui/modals/grant-permission-modal";
+import GenericModal from "./generic-modal";
 
 export default function ChangeAutoswapSettings({
   handleClose,
@@ -62,14 +61,11 @@ export default function ChangeAutoswapSettings({
   }, [writeAsync]);
   return (
     <>
-      {isPermissionModalOpen &&
-        createPortal(
-          <GrantPermissionModal
-            handleClose={() => setIsPermissionModalOpen(false)}
-            handleSubmit={handleSubscribe}
-          />,
-          document.body
-        )}
+      <GrantPermission
+        onOpenChange={() => setIsPermissionModalOpen((prev) => !prev)}
+        open={isPermissionModalOpen}
+        handleSubmit={handleSubscribe}
+      />
 
       <GenericModal handleClose={handleClose} containerClass="md:w-[552px]">
         <h2 className="text-lg text-left font-semibold text-[#F3F5FF] mb-[64px]">

@@ -10,29 +10,26 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navLinks } from "../utils/data";
-import ConnectWalletModal from "./connect-wallet-modal";
+import { ConnectWallet } from "./ui/modals/connect-wallet-modal";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [connectModalIsOpen, setConnectModalIsOpen] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
   const { address } = useAccount();
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-transparent backdrop-blur-sm pr-6 md:pr-[80px] z-10 py-3 md:py-[14px] flex items-center justify-between">
-      {connectModalIsOpen &&
-        createPortal(
-          <ConnectWalletModal
-            handleClose={() => setConnectModalIsOpen(false)}
-          />,
-          document.body
-        )}
+    <nav className="fixed top-0 left-0 w-full bg-transparent backdrop-blur-sm pr-6 md:pr-[80px] z-50 py-3 md:py-[14px] flex items-center justify-between">
+      <ConnectWallet
+        open={isConnecting}
+        onOpenChange={() => setIsConnecting((prev) => !prev)}
+      />
       {isMenuOpen &&
         createPortal(
           <MobileMenu
             navLinks={navLinks}
             closeMenu={() => setIsMenuOpen(false)}
-            toggleConnectModal={() => setConnectModalIsOpen((prev) => !prev)}
+            toggleConnectModal={() => setIsConnecting((prev) => !prev)}
           />,
           document.body
         )}
@@ -64,7 +61,7 @@ export default function Navbar() {
                   {link.title}
                 </Link>
                 {i + 1 !== navLinks.length && (
-                  <span className="w-[3px] h-3 rounded-lg bg-[#2C3035]"></span>
+                  <span className="w-[3px] h-3 rounded-lg bg-[#2C3035]" />
                 )}
               </li>
             ))}
@@ -74,11 +71,12 @@ export default function Navbar() {
 
       {/* Connect Wallet Button */}
       <div className="hidden md:flex items-center">
-        <WalletBar toggleModal={() => setConnectModalIsOpen(true)} />
+        <WalletBar toggleModal={() => setIsConnecting(true)} />
       </div>
 
       {/* Mobile Menu Button */}
       <button
+        type="button"
         className="md:hidden p-2 text-white"
         onClick={() => setIsMenuOpen(true)}
         aria-label="Toggle menu"
