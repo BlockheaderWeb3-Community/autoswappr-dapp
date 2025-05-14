@@ -29,7 +29,7 @@ function LandingHeroSection() {
         </video>
         <div className="relative z-[15] flex flex-col items-center md:justify-center text-center md:px-6">
           <div className="flex flex-col items-center bg-[#02060D1F] rounded-xl p-12 backdrop-blur">
-            <h1 className="text-3xl md:text-6xl md:leading-[100%] font-extrabold text-[#F3F5FF] md:max-w-[280px]">
+            <h1 className="text-3xl md:text-6xl md:leading-[100%] font-extrabold text-[#F3F5FF]">
               Your Tokens Your <span className="text-[#1D8CF4]">Rules</span>
             </h1>
             <p className="mt-2 mb-6 md:mb-12 text-sm md:text-lg md:leading-[22px] text-[#DCDFE1] max-w-[280px] md:max-w-full">
