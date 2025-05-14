@@ -1,7 +1,7 @@
 "use client";
 export default function GiveFeedback() {
   return (
-    <div className="w-full flex flex-row items-end justify-end pr-8 xl:pr-12 pb-12 absolute bottom-3 right-10">
+    <div className="w-full flex flex-row items-end justify-end pr-8 xl:pr-12 pb-12 absolute top-[90vh] right-10">
       <button
         type="button"
         className="flex flex-none w-auto py-[12px] px-[16px] sm:px-[20px] border-[1px] border-[#2C3035] rounded-[8px] items-center justify-center space-x-2.5"

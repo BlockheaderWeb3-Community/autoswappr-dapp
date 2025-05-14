@@ -25,7 +25,7 @@ export default function MobileMenu({
             <li key={link.title} className="px-4">
               <a
                 href={link.href}
-                className="text-base text-[#e7ecf0] hover:text-white block"
+                className="text-sm text-[#e7ecf0] hover:text-white block"
                 onClick={(e) => {
                   e.stopPropagation();
                   closeMenu();

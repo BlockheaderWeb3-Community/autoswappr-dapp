@@ -21,9 +21,9 @@ export const footerLinks: { name: string; path: string }[] = [
 
 export default function Footer() {
   return (
-    <footer className="flex flex-col-reverse md:flex-row justify-between items-center bg-[#010409] px-4 md:px-8 lg:px-20 py-6 md:py-[38px] gap-6 md:gap-4 border-t-[#2C3035] border-t-[1px]">
-      <p className="text-sm text-[#DCDFE1] text-center md:text-left">
-        © Autoswappr {new Date().getFullYear()}
+    <footer className="flex flex-col-reverse md:flex-row justify-between items-center bg-[#010409] px-4 md:px-8 lg:px-20 py-4 md:py-6 gap-4 md:gap-4 border-t-[#2C3035] border-t-[1px]">
+      <p className="text-xs md:text-sm text-[#DCDFE1] text-center md:text-left">
+        &copy; Autoswappr {new Date().getFullYear()}
       </p>
 
       <div className="flex flex-row items-center gap-4 md:gap-6">

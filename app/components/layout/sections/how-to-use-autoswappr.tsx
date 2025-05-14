@@ -4,24 +4,24 @@ import React, { useState } from "react";
 export default function HowToUseAutoSwappr() {
   const [activeStep] = useState(1);
   return (
-    <div className="py-[60px] px-[75px]">
-      <h2 className="text-[32px] font-semibold text-[#F3F5FF] mb-4">
+    <div className="py-10 md:py-[60px] px-6 md:px-[75px]">
+      <h2 className="text-xl md:text-[32px] font-semibold text-[#F3F5FF] mb-3 md:mb-4 text-center md:text-left">
         How to use AutoSwappr
       </h2>
-      <div className="flex gap-x-3">
-        <div className="py-2 px-4 border border-[#1E2021] rounded-lg text-sm text-[#F3F5FF]">
+      <div className="flex gap-x-3 text-center">
+        <div className="py-2 px-4 border border-[#1E2021] rounded-lg text-sm text-[#F3F5FF] flex-1 md:flex-none">
           Step 1
         </div>
-        <div className="py-2 px-4 border border-[#1E2021] rounded-lg text-sm text-[#F3F5FF]">
+        <div className="py-2 px-4 border border-[#1E2021] rounded-lg text-sm text-[#F3F5FF] flex-1 md:flex-none">
           Step 2
         </div>
-        <div className="py-2 px-4 border border-[#1E2021] rounded-lg text-sm text-[#F3F5FF]">
+        <div className="py-2 px-4 border border-[#1E2021] rounded-lg text-sm text-[#F3F5FF] flex-1 md:flex-none">
           All set
         </div>
       </div>
 
       <div
-        className="text-[#F3F5FF] mt-[68px]"
+        className="text-[#F3F5FF] mt-[68px] md:grid-rows-1 grid-rows-3"
         style={{
           display: "grid",
           gridTemplateColumns:
