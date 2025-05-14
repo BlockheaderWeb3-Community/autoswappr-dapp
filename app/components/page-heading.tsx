@@ -13,9 +13,9 @@ export default function PageHeading({
     <div
       className={`w-full max-w-[704px] py-2 ${isCenter && "mx-auto text-center"}`}
     >
-      <h1 className="text-xl font-semibold mb-2 text-[#F3F5FF]">{title}</h1>
+      <h1 className="text-xl font-semibold mb-1 text-[#F3F5FF]">{title}</h1>
       <p
-        className={`text-[#DCDFE1] ${!isCenter && "max-w-[600px]"} text-base leading-[22px]`}
+        className={`text-[#DCDFE1] ${!isCenter && "max-w-[600px]"} text-sm md:text-base leading-[22px]`}
       >
         {subTitle}
       </p>

@@ -43,7 +43,7 @@ export default function TranscationHistory() {
       header: "Amount",
       accessorKey: "amount",
       cell: (info) => (
-        <span className="text-sm text-white">
+        <span className="text-xs md:text-sm text-white">
           {info.amount} {info.from.symbol}
         </span>
       ),
@@ -52,7 +52,7 @@ export default function TranscationHistory() {
       header: "Timestamp",
       accessorKey: "timestamp",
       cell: (info) => (
-        <span className="text-sm text-white">
+        <span className="text-xs md:text-sm text-white">
           {info.timestamp.slice(0, 10)} <br /> {info.timestamp.slice(11)}
         </span>
       ),
@@ -62,7 +62,8 @@ export default function TranscationHistory() {
       accessorKey: "delete",
       cell: () => (
         <button
-          className="text-sm font-semibold text-[#A8AFB4] uppercase underline"
+          type="button"
+          className="text-xs md:text-sm font-semibold text-[#A8AFB4] uppercase underline"
           //   onClick={handleUnsubscribe}
         >
           <EllipsisVertical />
@@ -74,8 +75,13 @@ export default function TranscationHistory() {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <h4 className="text-base text-[#BABFC3]">Transaction History</h4>
-        <button className="text-[#4C5053] text-sm flex gap-x-2 items-center">
+        <h4 className="text-sm md:text-base text-[#BABFC3]">
+          Transaction History
+        </h4>
+        <button
+          type="button"
+          className="text-[#4C5053] text-sm flex gap-x-2 items-center"
+        >
           <ExternalLink size={14} />
           View in explorer
         </button>

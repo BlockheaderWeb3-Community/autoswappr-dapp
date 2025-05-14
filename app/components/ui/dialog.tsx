@@ -27,7 +27,8 @@ export const modalVariants = cva(
         fullModal: "bg-black left-0 right-0 m-auto top-10 bottom-10  ",
       },
       sizes: {
-        default: "w-full max-w-lg border",
+        default: "w-[95%] md:w-full max-w-lg border",
+        large: "w-[95%] md:w-[580px]",
         sideSize: "w-full max-w-2xl border",
         full: "w-[98%] h-[97dvh] ",
       },
@@ -54,7 +55,7 @@ const DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      "fixed inset-0 z-50 bg-black/70 backdrop-blur-sm overflow-y-auto  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "fixed inset-0 z-50 bg-black/70 px-6 backdrop-blur-sm overflow-y-auto  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
     {...props}
@@ -75,7 +76,7 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "bg-[#02060D] p-10",
+        "bg-[#02060D] p-10 px-6",
         modalVariants({ variant, sizes, animation, className }),
         "overflow-visible "
       )}

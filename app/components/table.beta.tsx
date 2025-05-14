@@ -43,7 +43,7 @@ export default function Table<T>({ data, columns, onRowClick }: Props<T>) {
             {columns.map((column, index) => (
               <th
                 key={index}
-                className={`p-4 text-left text-sm font-normal text-white`}
+                className="p-4 text-left text-xs md:text-sm font-normal text-white"
               >
                 {column.header}
               </th>
@@ -60,7 +60,7 @@ export default function Table<T>({ data, columns, onRowClick }: Props<T>) {
               onClick={() => handleRowClick(rowIndex, row)}
             >
               {columns.map((column, columnIndex) => (
-                <td key={columnIndex} className={`p-4`}>
+                <td key={columnIndex} className="p-4">
                   {column.cell(row, rowIndex)}
                 </td>
               ))}

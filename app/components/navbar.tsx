@@ -2,9 +2,7 @@
 import React, { useState } from "react";
 import { useAccount } from "@starknet-react/core";
 import WalletBar from "./wallet-bar";
-import Image from "next/image";
-import { X } from "lucide-react";
-import menu from "@/public/menu-11.svg";
+import { Menu, X } from "lucide-react";
 import MobileMenu from "./mobile-menu";
 import { createPortal } from "react-dom";
 import Link from "next/link";
@@ -19,7 +17,7 @@ export default function Navbar() {
   const { address } = useAccount();
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-transparent backdrop-blur-sm pr-6 md:pr-[80px] z-50 py-3 md:py-[14px] flex items-center justify-between">
+    <nav className="fixed top-0 left-0 w-full bg-transparent backdrop-blur-sm pl-6 md:pl-0 pr-6 md:pr-[80px] z-50 py-[14px] flex items-center justify-between">
       <ConnectWallet
         open={isConnecting}
         onOpenChange={() => setIsConnecting((prev) => !prev)}
@@ -35,17 +33,12 @@ export default function Navbar() {
         )}
 
       <div
-        className={`md:bg-[#0D1016] rounded-[0_16px_16px_0] px-6 md:px-[80px] flex items-center lg:min-w-[800px] ${!address && "py-[15px]"}`}
+        className={`md:bg-[#0D1016] md:rounded-[0_16px_16px_0] px-0 md:px-[80px] flex items-center lg:min-w-[800px] ${!address && "md:py-[15px]"}`}
       >
         <Link href={"/"} className="cursor-pointer">
           <img
             src="/auto-swappr-logo.svg"
-            className="w-[85px] h-[48px] hidden md:inline-block"
-            alt=""
-          />
-          <img
-            src="/auto-swappr-logo-icon.svg"
-            className="md:hidden inline-block w-[24px]"
+            className="md:w-[85px] md:h-[48px] h-10 w-[64px]"
             alt=""
           />
         </Link>
@@ -78,14 +71,10 @@ export default function Navbar() {
       <button
         type="button"
         className="md:hidden p-2 text-white"
-        onClick={() => setIsMenuOpen(true)}
+        onClick={() => setIsMenuOpen((prev) => !prev)}
         aria-label="Toggle menu"
       >
-        {isMenuOpen ? (
-          <X size={24} />
-        ) : (
-          <Image src={menu} alt="menu icon" width={24} height={24} />
-        )}
+        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
     </nav>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import SubscribeForm from "../components/subscribe-form";
-import { Metadata } from "next";
-import GiveFeedback from "../components/give-feedback";
+import type { Metadata } from "next";
+// import GiveFeedback from "../components/give-feedback";
 
 export const metadata: Metadata = {
   title: "Token Selection",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const page = () => {
   return (
-    <div className="sm:h-auto md:pt-[10rem] pt-[4.5rem] items-center justify-center flex relative">
+    <div className="md:pt-[120px] pt-[4.5rem] items-center justify-center flex relative sm:min-h-[100vh]">
       <video
         autoPlay
         loop
@@ -22,7 +22,7 @@ const page = () => {
         Your browser does not support the video tag.
       </video>
       <SubscribeForm />
-      <GiveFeedback />
+      {/* <GiveFeedback /> */}
     </div>
   );
 };

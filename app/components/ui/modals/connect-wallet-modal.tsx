@@ -46,10 +46,10 @@ export function ConnectWallet({ open, onOpenChange }: ConnectWalletModalProps) {
     >
       <DialogContent className="bg-[#02060D] text-center border border-[#242E38] rounded-lg p-7">
         <DialogHeader className="">
-          <DialogTitle className="text-xl text-center font-semibold text-[#F3F5FF]">
+          <DialogTitle className="text-base md:text-xl text-center font-semibold text-[#F3F5FF]">
             Connect Wallet
           </DialogTitle>
-          <DialogDescription className="text-[#BABFC3] mt-2 mb-6 text-sm text-center max-w-[75%] mx-auto">
+          <DialogDescription className="text-[#BABFC3] mt-2 mb-6 text-xs md:text-sm text-center max-w-[75%] mx-auto">
             Choose a wallet you want to connect to Auto-swapper
           </DialogDescription>
         </DialogHeader>
@@ -82,7 +82,7 @@ export function ConnectWallet({ open, onOpenChange }: ConnectWalletModalProps) {
                   className="rounded-full"
                 />
                 <div className="flex flex-col">
-                  <span className="text-[#F3F5FF] text-base leading-[22px]">
+                  <span className="text-[#F3F5FF] text-sm md:text-base leading-[22px]">
                     {details.name}
                   </span>
                   <span className="text-xs font-semibold text-[#4C5053]">
@@ -95,9 +95,9 @@ export function ConnectWallet({ open, onOpenChange }: ConnectWalletModalProps) {
 
           <button
             type="button"
-            className={`w-[264px] py-3 rounded-lg transition-colors border
+            className={`w-full py-3 rounded-lg transition-colors border
             ${selectedConnector ? "bg-[#1D8CF4] border-[#1D8CF4]" : "bg-[#0D1016] border-[#1E2021]"}
-            text-[#F3F5FF] text-sm font-semibold disabled:cursor-not-allowed`}
+            text-[#F3F5FF] text-xs md:text-sm font-semibold disabled:cursor-not-allowed`}
             onClick={handleConnect}
             disabled={!selectedConnector}
           >
