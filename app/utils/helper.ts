@@ -21,7 +21,7 @@ export function useContractFetch(
   abi: any,
   functionName: string,
   address: `0x${string}`,
-  args: any[] = []
+  args: any[] = [],
 ) {
   const { data, isLoading, refetch, isFetching, error } = useReadContract({
     abi: abi,
@@ -37,7 +37,7 @@ export function useContractWriteUtility(
   functionName: string,
   args: any[],
   abi: any,
-  contract_address: `0x${string}`
+  contract_address: `0x${string}`,
 ) {
   const { contract } = useContract({ abi, address: contract_address });
 
@@ -111,7 +111,7 @@ export async function createSubscription(data: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      }
+      },
     );
 
     console.log(response);
@@ -140,7 +140,7 @@ export async function deleteSubscription(data: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      }
+      },
     );
 
     console.log(response);
