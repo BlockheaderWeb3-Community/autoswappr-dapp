@@ -36,7 +36,7 @@ export default function STRKtoUSDTDisplay({ amount }: STRKtoUSDTDisplayProps) {
 
   useEffect(() => {
     fetchRate();
-    const interval = setInterval(fetchRate, 30000); // 30 seconds
+    const interval = setInterval(fetchRate, 30000);
     return () => clearInterval(interval);
   }, []);
 
