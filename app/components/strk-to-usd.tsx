@@ -9,7 +9,7 @@ interface STRKtoUSDTDisplayProps {
 }
 
 const COINGECKO_API =
-  "https://api.coingecko.com/api/v3/simple/price?ids=starknet&vs_currencies=usd";
+  "https://mainnet-api.ekubo.org/price/STRK/USDC/history?interval=60";
 
 export default function STRKtoUSDTDisplay({ amount }: STRKtoUSDTDisplayProps) {
   const [rate, setRate] = useState<number | null>(null);
@@ -24,7 +24,8 @@ export default function STRKtoUSDTDisplay({ amount }: STRKtoUSDTDisplayProps) {
       console.log(res);
       if (!res.ok) throw new Error("Failed to fetch price");
       const data = await res.json();
-      const price = data?.starknet?.usd;
+      const price = data?.data[0]?.min;
+      console.log("price and data are:  and data  " + data, price)
       if (typeof price !== "number") throw new Error("Invalid price data");
       setRate(price);
     } catch (err: any) {

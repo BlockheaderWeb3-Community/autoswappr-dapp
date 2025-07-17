@@ -113,7 +113,7 @@ export default function Overview() {
               <p className="text-[#BABFC3] text-xs md:text-sm mb-4 text-center md:text-left">
                 Your Autoswap threshold is set to convert:
               </p>
-
+              
               <div className="bg-[#0D1016] rounded-xl w-full md:w-fit py-5 px-4 flex gap-x-8 justify-between">
                 <div className="flex gap-x-2">
                   <img
