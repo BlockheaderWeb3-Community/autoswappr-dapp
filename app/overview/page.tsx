@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { EqualApproximately, LoaderCircle, Settings } from "lucide-react";
+import { LoaderCircle, Settings } from "lucide-react";
 // import type { TokenPair } from "../utils/types";
 
 import SubscribeForm from "../components/subscribe-form";
@@ -13,6 +13,7 @@ import { Modal } from "../components/modal";
 // import strk from "../../public/coin-logos/strk-logo.svg";
 import TranscationHistory from "./transcation-history";
 import ChangeAutoswapSettings from "../components/ui/modals/change-autoswap-settings";
+import STRKtoUSDTDisplay from "../components/strk-to-usd";
 
 export default function Overview() {
   // State Management
@@ -112,7 +113,7 @@ export default function Overview() {
               <p className="text-[#BABFC3] text-xs md:text-sm mb-4 text-center md:text-left">
                 Your Autoswap threshold is set to convert:
               </p>
-
+              
               <div className="bg-[#0D1016] rounded-xl w-full md:w-fit py-5 px-4 flex gap-x-8 justify-between">
                 <div className="flex gap-x-2">
                   <img
@@ -126,10 +127,7 @@ export default function Overview() {
                     </h3>
 
                     <h5 className="flex gap-x-1 items-center text-sm">
-                      <span className="text-[#7E8489]">
-                        <EqualApproximately size={12} />
-                      </span>
-                      809 USDT
+                      <STRKtoUSDTDisplay amount={3000} />
                     </h5>
                   </div>
                 </div>

@@ -15,7 +15,7 @@ export default function useUnsubscribe() {
     "approve",
     [swappr_contract_address, 0],
     ERC20_ABI,
-    strk_token_contract_address
+    strk_token_contract_address,
   );
 
   useEffect(() => {

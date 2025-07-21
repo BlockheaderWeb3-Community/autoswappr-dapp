@@ -21,7 +21,7 @@ export function useSubscription(swapAmount: string) {
         : BigInt(0),
     ],
     ERC20_ABI,
-    STRK_TOKEN.contractAddress
+    STRK_TOKEN.contractAddress,
   );
 
   useEffect(() => {
