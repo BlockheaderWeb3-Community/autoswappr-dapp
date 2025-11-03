@@ -113,26 +113,59 @@ jobs:
           script: |
             cd /home/ec2-user
             
-            # Pull latest image
+            echo "=== Starting Frontend Deployment ==="
+            
+            # Login to GitHub Container Registry
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            
+            # Pull latest image
+            echo "Pulling latest frontend image..."
             docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             
-            # Stop PM2 process
-            pm2 stop autoswappr-dapp || true
-            pm2 delete autoswappr-dapp || true
+            # Check if running via PM2 (legacy setup)
+            if pm2 list | grep -q "autoswappr-dapp"; then
+              echo "Detected PM2 process - migrating to Docker..."
+              pm2 stop autoswappr-dapp || true
+              pm2 delete autoswappr-dapp || true
+              pm2 save --force
+              echo "✓ PM2 process stopped and removed"
+            fi
             
-            # Stop and remove old container
-            docker stop autoswappr-dapp || true
-            docker rm autoswappr-dapp || true
+            # Stop and remove old Docker container if exists
+            if docker ps -a --format '{{.Names}}' | grep -q "^autoswappr-dapp$"; then
+              echo "Stopping existing Docker container..."
+              docker stop autoswappr-dapp || true
+              docker rm autoswappr-dapp || true
+            fi
             
             # Run new container
+            echo "Starting new frontend container..."
             docker run -d \
               --name autoswappr-dapp \
               --restart unless-stopped \
               -p 3000:3000 \
               ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             
+            # Wait for container to be healthy
+            echo "Waiting for frontend to be healthy..."
+            sleep 5
+            
+            # Health check
+            for i in {1..30}; do
+              if curl -f http://localhost:3000 >/dev/null 2>&1; then
+                echo "✓ Frontend is healthy!"
+                break
+              fi
+              if [ $i -eq 30 ]; then
+                echo "✗ Frontend health check failed!"
+                docker logs autoswappr-dapp --tail 50
+                exit 1
+              fi
+              echo "Waiting for frontend... ($i/30)"
+              sleep 2
+            done
+            
             # Clean up old images
             docker image prune -af
             
-            echo "Frontend deployment completed successfully!"
+            echo "=== Frontend Deployment Completed Successfully! ==="
