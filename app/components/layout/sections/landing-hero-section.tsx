@@ -37,7 +37,7 @@ function LandingHeroSection() {
             </p>
             <button
               type="button"
-              className="flex gap-1 items-center justify-center py-3 md:py-3 w-[70%] md:w-[230px] border border-[#4C5053] rounded-lg md:text-base font-semibold md:leading-[22px] text-[#F3F5FF] text-sm leading-5 bg-[#1D8CF4]"
+              className="flex gap-1 items-center justify-center py-3 w-fit px-6 md:py-3 border border-[#4C5053] rounded-lg md:text-base font-semibold md:leading-[22px] text-[#F3F5FF] text-sm leading-5 bg-[#1D8CF4]"
               onClick={() => {
                 if (!address) {
                   setIsConnecting(true);

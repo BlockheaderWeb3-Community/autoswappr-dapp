@@ -1,62 +1,83 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { LoaderCircle, Settings } from "lucide-react";
-// import type { TokenPair } from "../utils/types";
-
+import { useAccount } from "@starknet-react/core";
 import SubscribeForm from "../components/subscribe-form";
 import LockBodyScroll from "../components/lock-body-scroll";
 import { Modal } from "../components/modal";
-
-// import usdt from "../../public/coin-logos/usdc-logo.svg";
-// import strk from "../../public/coin-logos/strk-logo.svg";
 import TranscationHistory from "./transcation-history";
 import ChangeAutoswapSettings from "../components/ui/modals/change-autoswap-settings";
 import STRKtoUSDTDisplay from "../components/strk-to-usd";
+import { useContractFetch } from "../utils/helper";
+import { STRK_TOKEN_ABI } from "../abis/strk-abi";
+import {
+  strk_token_contract_address,
+  swappr_contract_address,
+} from "../utils/addresses";
 
 export default function Overview() {
-  // State Management
   const [isFetchingSubs] = useState(false);
   const [settingsIsOpen, setSettingsIsOpen] = useState(false);
   const [isAddingToken, setIsAddingToken] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  // const [tokenPairs, setTokenPairs] = useState<TokenPair[]>([]);
-  // const [selectedTokenPair] = useState<TokenPair | undefined>(undefined);
-  // Fetch subscriptions
-  // useEffect(() => {
-  //   if (!address) return;
-  // TODO: Implement Fetch Data
-  // const fetchData = async () => {
-  //   setIsFetchingSubs(true);
-  //   try {
-  //     const subs = await fetchSubscriptions(address);
-  //     if (!subs?.data?.length) {
-  //       router.push("/subscribe");
-  //       return;
-  //     }
-  //     setTokenPairs([
-  //       {
-  //         id: 1,
-  //         from: { name: "Starknet", symbol: "STRK", logo: strk },
-  //         to: { name: "Tether", symbol: "USDT", logo: usdt },
-  //         amount: subs.data[0].swap_amount,
-  //         timestamp: "10.09.2024 GMT 21:08 PM",
-  //         enabled: false,
-  //         edit: false,
-  //         delete: false,
-  //       },
-  //     ]);
-  //   } catch (err) {
-  //     console.error("Error fetching subscriptions:", err);
-  //   } finally {
-  //     setIsFetchingSubs(false);
-  //   }
-  // };
+  const { address } = useAccount();
 
-  // fetchData();
-  // }, [address, router]);
+  const allowanceArgs = useMemo(() => {
+    const ZERO_ADDRESS =
+      "0x0000000000000000000000000000000000000000000000000000000000000000";
+    const ownerAddress =
+      (address as `0x${string}` | undefined) ?? (ZERO_ADDRESS as `0x${string}`);
+    return [ownerAddress, swappr_contract_address] as const;
+  }, [address]);
 
+  const {
+    data: allowanceData,
+    isLoading: isLoadingAllowance,
+    error: allowanceError,
+    refetch: refetchAllowance,
+  } = useContractFetch(
+    STRK_TOKEN_ABI,
+    "allowance",
+    strk_token_contract_address as `0x${string}`,
+    allowanceArgs as unknown as any[]
+  );
+
+  // Convert allowance from wei to STRK (18 decimals)
+  const allowanceAmount = useMemo(() => {
+    if (!allowanceData) return 0;
+    try {
+      const normalizeToBigInt = (value: unknown): bigint => {
+        if (typeof value === "bigint") return value;
+        if (typeof value === "number") return BigInt(value);
+        if (typeof value === "string") return BigInt(value);
+        if (value && typeof value === "object") {
+          if ("low" in value && "high" in value) {
+            const low = normalizeToBigInt(
+              (value as { low: unknown; high: unknown }).low,
+            );
+            const high = normalizeToBigInt(
+              (value as { low: unknown; high: unknown }).high,
+            );
+            const shift = BigInt(2) ** BigInt(128);
+            return high * shift + low;
+          }
+          if ("toString" in value && typeof value.toString === "function") {
+            return BigInt(value.toString());
+          }
+        }
+        return BigInt(0);
+      };
+
+      const amount = normalizeToBigInt(allowanceData);
+      return Number(amount) / Math.pow(10, 18);
+    } catch (error) {
+      console.error("Error converting allowance:", error);
+      return 0;
+    }
+  }, [allowanceData]);
+ 
   return (
     <div className="sm:min-h-[100vh] pt-[100px] md:pt-[200px] text-[#F3F5FF] px-4 lg:px-[187px] min-h-[95vh] relative">
       <video
@@ -74,6 +95,14 @@ export default function Overview() {
           <ChangeAutoswapSettings
             open={settingsIsOpen}
             onOpenChange={() => setSettingsIsOpen((prev) => !prev)}
+            currentAllowance={allowanceAmount}
+            isLoadingAllowance={isLoadingAllowance}
+            allowanceError={
+              allowanceError instanceof Error ? allowanceError : null
+            }
+            onAllowanceRefresh={() => {
+              void refetchAllowance();
+            }}
           />,
           document.body
         )}
@@ -115,20 +144,37 @@ export default function Overview() {
               </p>
               
               <div className="bg-[#0D1016] rounded-xl w-full md:w-fit py-5 px-4 flex gap-x-8 justify-between">
-                <div className="flex gap-x-2">
+                <div className="flex items-start gap-x-2">
                   <img
                     src="/coin-logos/strk-logo.svg"
-                    className="mt-3 h-8 w-8"
+                    className="h-8 w-8"
                     alt=""
                   />
                   <div className="text-[#F3F5FF]">
-                    <h3 className="text-3xl leading-[54px] font-bold">
-                      3000 <span className="text-xs">STRK</span>
-                    </h3>
+                    {isLoadingAllowance ? (
+                      <div className="flex items-center gap-2">
+                        <LoaderCircle size={20} className="animate-spin" />
+                        <span className="text-sm text-[#DCDFE1]">Loading...</span>
+                      </div>
+                    ) : allowanceError ? (
+                      <div className="text-sm text-red-400">
+                        Error loading allowance
+                      </div>
+                    ) : (
+                      <>
+                        <h3 className="text-3xl font-bold">
+                          {allowanceAmount.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 0,
+                          })}{" "}
+                          <span className="text-xs">STRK</span>
+                        </h3>
 
-                    <h5 className="flex gap-x-1 items-center text-sm">
-                      <STRKtoUSDTDisplay amount={3000} />
-                    </h5>
+                        <h5 className="flex gap-x-1 items-center text-sm">
+                          <STRKtoUSDTDisplay amount={allowanceAmount} />
+                        </h5>
+                      </>
+                    )}
                   </div>
                 </div>
                 <button

@@ -9,8 +9,6 @@ export default function Home() {
       <LandingHeroSection />
       <WhatIsAutoSwapper />
       <WhyAutoSwappr />
-
-      {/*TODO: Implment this later */}
       {/* <HowToUseAutoSwappr /> */}
     </main>
   );

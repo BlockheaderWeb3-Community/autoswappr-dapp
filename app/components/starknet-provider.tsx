@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { sepolia } from "@starknet-react/chains";
+import { mainnet } from "@starknet-react/chains";
 import {
   StarknetConfig,
   argent,
@@ -23,7 +23,7 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <StarknetConfig
-      chains={[sepolia]}
+      chains={[mainnet]}
       provider={jsonRpcProvider({
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         rpc: () => ({ nodeUrl: process.env.NEXT_PUBLIC_RPC_URL }),

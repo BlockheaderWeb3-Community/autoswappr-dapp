@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../dialog";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useConnect, type Connector } from "@starknet-react/core";
 import Image from "next/image";
 import { walletDetails } from "@/app/utils/data";
@@ -19,8 +19,52 @@ interface ConnectWalletModalProps {
 export function ConnectWallet({ open, onOpenChange }: ConnectWalletModalProps) {
   const { connect, connectors } = useConnect();
   const [selectedConnector, setSelectedConnector] = useState<Connector | null>(
-    null
+    null,
   );
+
+  const MAINNET_CHAIN_ID = "SN_MAIN";
+
+  const supportsMainnet = (connector: Connector) => {
+    const connectorWithChains = connector as Connector & {
+      availableChains?: unknown;
+    };
+    const chains = connectorWithChains.availableChains;
+
+    if (!Array.isArray(chains) || chains.length === 0) {
+      return true;
+    }
+
+    return chains.some((chain) => {
+      if (typeof chain === "string") {
+        return chain === MAINNET_CHAIN_ID;
+      }
+      if (
+        chain &&
+        typeof chain === "object" &&
+        "id" in chain &&
+        typeof (chain as { id: unknown }).id === "string"
+      ) {
+        return (chain as { id: string }).id === MAINNET_CHAIN_ID;
+      }
+      return false;
+    });
+  };
+
+  const availableConnectors = useMemo(
+    () => connectors.filter(supportsMainnet),
+    [connectors],
+  );
+
+  useEffect(() => {
+    if (
+      selectedConnector &&
+      !availableConnectors.some(
+        (connector) => connector.id === selectedConnector.id,
+      )
+    ) {
+      setSelectedConnector(null);
+    }
+  }, [availableConnectors, selectedConnector]);
 
   const handleConnect = () => {
     if (!selectedConnector) return;
@@ -50,48 +94,56 @@ export function ConnectWallet({ open, onOpenChange }: ConnectWalletModalProps) {
             Connect Wallet
           </DialogTitle>
           <DialogDescription className="text-[#BABFC3] mt-2 mb-6 text-xs md:text-sm text-center max-w-[75%] mx-auto">
-            Choose a wallet you want to connect to Auto-swapper
+            Choose a wallet you want to connect to Auto-swapper. Only Starknet
+            Mainnet is supported.
           </DialogDescription>
         </DialogHeader>
         <section className="gap-y-4 flex flex-col items-center">
-          {connectors.map((connector) => {
-            const details = getWalletDetails(connector);
-            const isSelected = selectedConnector?.id === connector.id;
+          {availableConnectors.length === 0 ? (
+            <div className="text-[#BABFC3] text-xs md:text-sm text-center max-w-[280px]">
+              No compatible wallets detected for Starknet Mainnet. Please install
+              or enable a wallet that supports mainnet.
+            </div>
+          ) : (
+            availableConnectors.map((connector) => {
+              const details = getWalletDetails(connector);
+              const isSelected = selectedConnector?.id === connector.id;
 
-            return (
-              <button
-                type="button"
-                key={connector.id}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (isSelected) {
-                    setSelectedConnector(null);
-                  } else {
-                    setSelectedConnector(connector);
-                  }
-                }}
-                className={`w-full sm:w-[264px] flex items-center py-2 px-12 rounded-[8px] border gap-4
+              return (
+                <button
+                  type="button"
+                  key={connector.id}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (isSelected) {
+                      setSelectedConnector(null);
+                    } else {
+                      setSelectedConnector(connector);
+                    }
+                  }}
+                  className={`w-full sm:w-[264px] flex items-center py-2 px-12 rounded-[8px] border gap-4
                 ${isSelected ? "border-[#1D8CF4]" : "border-[#1E2021]"}
                 hover:border-[#1D8CF4] transition-colors`}
-              >
-                <Image
-                  src={details.icon}
-                  alt={details.name}
-                  width={28}
-                  height={28}
-                  className="rounded-full"
-                />
-                <div className="flex flex-col">
-                  <span className="text-[#F3F5FF] text-sm md:text-base leading-[22px]">
-                    {details.name}
-                  </span>
-                  <span className="text-xs font-semibold text-[#4C5053]">
-                    {details.subtext}
-                  </span>
-                </div>
-              </button>
-            );
-          })}
+                >
+                  <Image
+                    src={details.icon}
+                    alt={details.name}
+                    width={28}
+                    height={28}
+                    className="rounded-full"
+                  />
+                  <div className="flex flex-col">
+                    <span className="text-[#F3F5FF] text-sm md:text-base leading-[22px]">
+                      {details.name}
+                    </span>
+                    <span className="text-xs font-semibold text-[#4C5053]">
+                      {details.subtext}
+                    </span>
+                  </div>
+                </button>
+              );
+            })
+          )}
 
           <button
             type="button"
