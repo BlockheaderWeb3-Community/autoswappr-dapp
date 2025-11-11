@@ -70,6 +70,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            set -e  # Exit on any error
             cd /home/ec2-user
             
             echo "=== Starting Frontend Deployment ==="
