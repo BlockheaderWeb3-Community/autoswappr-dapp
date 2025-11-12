@@ -4,13 +4,21 @@ import { useRouter } from "next/navigation";
 import { useAccount } from "@starknet-react/core";
 import { STRK_TOKEN, USDT_TOKEN } from "../utils/data";
 import { swappr_contract_address } from "../utils/addresses";
-import { ERC20_ABI } from "../abis/erc20-abi";
+import { STRK_TOKEN_ABI } from "../abis/strk-abi";
 import { createSubscription, useContractWriteUtility } from "../utils/helper";
 
-export function useSubscription(swapAmount: string) {
+interface UseSubscriptionOptions {
+  onSuccess?: () => void;
+}
+
+export function useSubscription(
+  swapAmount: string,
+  options?: UseSubscriptionOptions
+) {
   const { address } = useAccount();
   const router = useRouter();
   const [isPermissionModalOpen, setIsPermissionModalOpen] = useState(false);
+  const onSuccess = options?.onSuccess;
 
   const { writeAsync, waitData } = useContractWriteUtility(
     "approve",
@@ -20,8 +28,8 @@ export function useSubscription(swapAmount: string) {
         ? BigInt(swapAmount) * BigInt(10 ** STRK_TOKEN.decimals)
         : BigInt(0),
     ],
-    ERC20_ABI,
-    STRK_TOKEN.contractAddress,
+    STRK_TOKEN_ABI,
+    STRK_TOKEN.contractAddress
   );
 
   useEffect(() => {
@@ -36,14 +44,18 @@ export function useSubscription(swapAmount: string) {
           swap_amount: Number(swapAmount),
         });
         setIsPermissionModalOpen(false);
-        router.push("/overview");
+        if (onSuccess) {
+          onSuccess();
+        } else {
+          router.push("/overview");
+        }
       } catch (error) {
         console.error("Subscription error:", error);
       }
     };
 
     subscribe();
-  }, [waitData, address, router, swapAmount]);
+  }, [waitData, address, router, swapAmount, onSuccess]);
 
   const handleSubscribe = useCallback(async () => {
     try {

@@ -9,6 +9,7 @@ export default {
   theme: {
     fontFamily: {
       sans: ["Open Sans", "sans-serif"],
+      creato: ["var(--font-creato-display)", "sans-serif"],
     },
     extend: {
       colors: {

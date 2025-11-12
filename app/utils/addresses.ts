@@ -1,5 +1,5 @@
 export const swappr_contract_address =
-  "0x5276163003e6c6932268675f6c714efbe48cd6d03752159128e1af832af6929";
+  "0x05582ad635c43b4c14dbfa53cbde0df32266164a0d1b36e5b510e5b34aeb364b";
 
 export const strk_token_contract_address =
   "0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d";
